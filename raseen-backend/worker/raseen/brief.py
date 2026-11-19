@@ -79,7 +79,7 @@ def write_brief(topic: str, stories: list[Story], max_stories: int = 5) -> dict:
     ev = evidence_list(stories)
     if not stories:
         return {"title": f"موجز رصد: {topic}", "claims": [], "evidence": [], "model": "none"}
-    key = os.getenv("GROQ_API_KEY")
+    key = (os.getenv("GROQ_API_KEY") or "").strip()
     result = None
     if key:
         lines = []

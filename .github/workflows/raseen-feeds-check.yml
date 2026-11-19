@@ -1,0 +1,13 @@
+name: رسين · فحص روابط المصادر
+on: workflow_dispatch
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: raseen-backend/worker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt && python -m raseen.probe_feeds
