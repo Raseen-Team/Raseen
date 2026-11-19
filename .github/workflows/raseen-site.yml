@@ -1,0 +1,44 @@
+name: رسين · نشر المنصة
+# Builds the platform (raseen-app) and publishes it on GitHub Pages.
+# One-time setup by the repo owner: Settings → Pages → Source: GitHub Actions.
+on:
+  push:
+    branches: [raseen-frontend]
+    paths: ["raseen-app/**", ".github/workflows/raseen-site.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: raseen-site
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: raseen-app
+    env:
+      VITE_SUPABASE_URL: https://lbyzdnahnprbluelbvjq.supabase.co
+      VITE_SUPABASE_ANON_KEY: sb_publishable_vf91Md9-Ls1YVfxdNZKXrA_fFdeAw3k
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile || bun install
+      - run: bunx vite build -c .preview/vite.config.ts
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: raseen-app/.preview/dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
