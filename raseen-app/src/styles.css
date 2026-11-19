@@ -1,0 +1,515 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * رسين — Raseen Design System
+ * Media Intelligence platform. Light beige canvas + deep ink primary.
+ * All colors in oklch. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --font-sans: "Noto Kufi Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Noto Kufi Arabic", ui-sans-serif, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 10px);
+  --radius-3xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-neutral: var(--neutral);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --shadow-xs: 0 1px 2px 0 oklch(0.2 0.02 200 / 5%);
+  --shadow-sm: 0 1px 2px 0 oklch(0.2 0.02 200 / 6%), 0 2px 6px -2px oklch(0.2 0.02 200 / 6%);
+  --shadow-md: 0 2px 4px -1px oklch(0.2 0.02 200 / 7%), 0 8px 24px -8px oklch(0.2 0.02 200 / 14%);
+  --shadow-lg: 0 4px 8px -2px oklch(0.2 0.02 200 / 8%), 0 20px 48px -14px oklch(0.2 0.02 200 / 20%);
+  --shadow-panel: 0 1px 0 0 var(--border), 0 8px 24px -18px oklch(0.2 0.02 200 / 30%);
+
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+
+:root {
+  --radius: 0.75rem;
+
+  /* Raseen identity (team deck): navy #0B2432, teal #168B92 / #3CC8CF, mustard #D5AD25, paper #F5F7F4 */
+  --background: #F5F7F4;
+  --foreground: #0B2432;
+
+  --surface: #FBFCFA;
+  --surface-2: #EDF1EE;
+
+  --card: #FFFFFF;
+  --card-foreground: #0B2432;
+  --popover: #FFFFFF;
+  --popover-foreground: #0B2432;
+
+  --primary: #0B2432;
+  --primary-foreground: #FFFFFF;
+  --primary-dark: #071A25;
+  --primary-light: #168B92;
+
+  --secondary: #EDF1EE;
+  --secondary-foreground: #0B2432;
+
+  --muted: #EDF1EE;
+  --muted-foreground: #5B6B74;
+
+  --accent: #E6F2F1;
+  --accent-foreground: #0B2432;
+
+  --gold: #D5AD25;
+  --gold-foreground: #0B2432;
+
+  --destructive: #D8584A;
+  --destructive-foreground: #FFFFFF;
+  --success: #168B92;
+  --success-foreground: #FFFFFF;
+  --warning: #D5AD25;
+  --warning-foreground: #0B2432;
+  --info: #168B92;
+  --info-foreground: #FFFFFF;
+
+  --positive: #168B92;
+  --negative: #D8584A;
+  --neutral: #8A979E;
+
+  --border: #DFE5E2;
+  --border-strong: #C9D2CE;
+  --input: #DFE5E2;
+  --ring: #168B92;
+
+  --chart-1: #168B92;
+  --chart-2: #3CC8CF;
+  --chart-3: #D5AD25;
+  --chart-4: #D8584A;
+  --chart-5: #0B2432;
+
+  --sidebar: #0B2432;
+  --sidebar-foreground: #E8EEF0;
+  --sidebar-primary: #D5AD25;
+  --sidebar-primary-foreground: #0B2432;
+  --sidebar-accent: #12374A;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgba(255,255,255,.1);
+  --sidebar-ring: #D5AD25;
+
+  --navy: #0B2432;
+  --teal-2: #3CC8CF;
+}
+
+.dark {
+  --background: oklch(0.19 0.017 212);
+  --foreground: oklch(0.945 0.008 85);
+
+  --surface: oklch(0.225 0.019 212);
+  --surface-2: oklch(0.26 0.02 212);
+
+  --card: oklch(0.235 0.019 212);
+  --card-foreground: oklch(0.945 0.008 85);
+  --popover: oklch(0.245 0.019 212);
+  --popover-foreground: oklch(0.945 0.008 85);
+
+  --primary: oklch(0.9 0.012 85);
+  --primary-foreground: oklch(0.21 0.02 212);
+  --primary-dark: oklch(0.76 0.015 85);
+  --primary-light: oklch(0.97 0.008 85);
+
+  --secondary: oklch(0.29 0.02 212);
+  --secondary-foreground: oklch(0.945 0.008 85);
+
+  --muted: oklch(0.29 0.02 212);
+  --muted-foreground: oklch(0.72 0.013 85);
+
+  --accent: oklch(0.315 0.022 212);
+  --accent-foreground: oklch(0.96 0.008 85);
+
+  --gold: oklch(0.76 0.1 78);
+  --gold-foreground: oklch(0.2 0.03 78);
+
+  --destructive: oklch(0.63 0.17 26);
+  --destructive-foreground: oklch(0.98 0.005 85);
+  --success: oklch(0.66 0.12 158);
+  --success-foreground: oklch(0.17 0.02 158);
+  --warning: oklch(0.78 0.13 72);
+  --warning-foreground: oklch(0.2 0.03 72);
+  --info: oklch(0.66 0.11 235);
+  --info-foreground: oklch(0.16 0.02 235);
+
+  --positive: oklch(0.7 0.13 158);
+  --negative: oklch(0.66 0.17 26);
+  --neutral: oklch(0.7 0.02 240);
+
+  --border: oklch(0.33 0.02 212);
+  --border-strong: oklch(0.42 0.022 212);
+  --input: oklch(0.33 0.02 212);
+  --ring: oklch(0.7 0.02 212);
+
+  --chart-1: oklch(0.72 0.075 205);
+  --chart-2: oklch(0.72 0.12 158);
+  --chart-3: oklch(0.78 0.1 78);
+  --chart-4: oklch(0.66 0.17 26);
+  --chart-5: oklch(0.7 0.1 265);
+
+  --sidebar: oklch(0.155 0.015 212);
+  --sidebar-foreground: oklch(0.93 0.008 85);
+  --sidebar-primary: oklch(0.78 0.1 78);
+  --sidebar-primary-foreground: oklch(0.17 0.02 78);
+  --sidebar-accent: oklch(0.255 0.02 212);
+  --sidebar-accent-foreground: oklch(0.97 0.008 85);
+  --sidebar-border: oklch(0.29 0.02 212);
+  --sidebar-ring: oklch(0.78 0.1 78);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv01";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Panel surface used across the app */
+@utility panel {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xs);
+  transition:
+    box-shadow 0.28s var(--ease-out-soft),
+    border-color 0.28s var(--ease-out-soft),
+    transform 0.28s var(--ease-out-soft);
+}
+
+/* Raised card surface for feature panels */
+@utility panel-raised {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Interactive card: subtle lift + border warm-up on hover */
+@utility panel-interactive {
+  cursor: pointer;
+  transition:
+    box-shadow 0.28s var(--ease-out-soft),
+    border-color 0.28s var(--ease-out-soft),
+    transform 0.28s var(--ease-out-soft);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-border-strong);
+  }
+}
+
+@utility panel-muted {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+/* Faint top sheen used on hero/insight panels */
+@utility panel-sheen {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--color-gold) 45%, transparent),
+      transparent
+    );
+    z-index: 1;
+  }
+}
+
+/* Numeric values, LTR inside RTL layout */
+@utility num {
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  display: inline-block;
+  unicode-bidi: isolate;
+  letter-spacing: -0.01em;
+}
+
+@utility text-hero {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* Small uppercase-ish label above titles */
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  color: var(--color-muted-foreground);
+}
+
+/* Enterprise data table */
+@utility data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+
+  & thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--color-surface-2);
+    color: var(--color-muted-foreground);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-align: start;
+    padding: 0.625rem 0.875rem;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+  }
+
+  & tbody td {
+    padding: 0.8125rem 0.875rem;
+    border-bottom: 1px solid color-mix(in oklab, var(--color-border) 65%, transparent);
+    vertical-align: middle;
+  }
+
+  & tbody tr {
+    transition: background-color 0.18s var(--ease-out-soft);
+  }
+
+  & tbody tr:hover {
+    background-color: color-mix(in oklab, var(--color-surface-2) 70%, transparent);
+  }
+
+  & tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+/* Filter chip / segmented control item */
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  padding: 0.3125rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-muted-foreground);
+  transition:
+    background-color 0.2s var(--ease-out-soft),
+    color 0.2s var(--ease-out-soft),
+    border-color 0.2s var(--ease-out-soft);
+
+  &:hover {
+    color: var(--color-foreground);
+    border-color: var(--color-border-strong);
+    background-color: var(--color-surface-2);
+  }
+}
+
+@utility chip-active {
+  border-color: color-mix(in oklab, var(--color-primary-light) 45%, transparent);
+  background-color: color-mix(in oklab, var(--color-primary-light) 12%, transparent);
+  color: var(--color-foreground);
+}
+
+/* Subtle row/link hover used in lists */
+@utility row-hover {
+  transition:
+    background-color 0.2s var(--ease-out-soft),
+    border-color 0.2s var(--ease-out-soft);
+
+  &:hover {
+    background-color: color-mix(in oklab, var(--color-surface-2) 75%, transparent);
+    border-color: var(--color-border-strong);
+  }
+}
+
+/* Shimmering skeleton */
+@utility skeleton-bar {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-surface-2);
+  border-radius: var(--radius-md);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--color-card) 85%, transparent),
+      transparent
+    );
+    animation: raseen-shimmer 1.6s var(--ease-out-soft) infinite;
+  }
+}
+
+@keyframes raseen-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes raseen-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-rise {
+  animation: raseen-rise 0.4s var(--ease-out-soft) both;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-strong);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in oklab, var(--color-muted-foreground) 60%, transparent);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+
+/* ===== Raseen shell: top nav over a navy band ===== */
+.rs-band{position:absolute;inset:0 0 auto 0;height:340px;background:var(--navy);overflow:hidden;z-index:0;pointer-events:none}
+.rs-band canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.rs-band:after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:rgba(60,200,207,.25)}
+.rs-nav a.on{color:#fff}
+.rs-nav a.on:after{content:"";position:absolute;inset-inline:12px;bottom:-1px;height:2px;border-radius:2px;background:var(--gold)}
+.rs-head h1{color:#fff}
+.rs-head .rs-desc{color:rgba(255,255,255,.72)}
+.rs-head .eyebrow{color:var(--teal-2)}
+.rs-head .rs-ico{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:var(--teal-2)}
+@media (max-width:640px){.rs-band{height:300px}}
