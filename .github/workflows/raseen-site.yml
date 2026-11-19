@@ -34,7 +34,10 @@ jobs:
         working-directory: .
         run: |
           mkdir -p site
-          cp -r raseen-frontend/index.html raseen-frontend/assets site/ 2>/dev/null || cp raseen-frontend/index.html site/
+          cp -r raseen-frontend/assets site/
+          # the page is written as a fragment (as Claude artifacts expect); a real site needs a full document,
+          # otherwise the browser falls into quirks mode and smooth scrolling stops working
+          { printf '<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n'; cat raseen-frontend/index.html; printf '\n</html>\n'; } > site/index.html
           cp -r raseen-app/.preview/dist site/app
       - uses: actions/upload-pages-artifact@v3
         with:
