@@ -88,3 +88,19 @@ def test_ai_claims_without_evidence_are_dropped():
     ev = [{"n": 1}, {"n": 2}]
     out = _validate([{"text": "ok [1]", "evidence": [1]}, {"text": "no proof", "evidence": []}, {"text": "bad", "evidence": [9]}], ev)
     assert out == [{"text": "ok", "evidence": [1], "story": None}]
+
+
+def test_e5_groups_the_same_way():
+    """Runs on GitHub, where the real embedding model is installed."""
+    import pytest
+    try:
+        from raseen.stories import E5Embedder
+        emb = E5Embedder()
+    except Exception:  # noqa: BLE001
+        pytest.skip("multilingual-e5-small not available here")
+    ss = build_stories(articles(), emb)
+    fees = next(s for s in ss if "رسوم" in s.title)
+    flu = next(s for s in ss if "الإنفلونزا" in s.title)
+    assert {"https://blog.example/fees", "https://sabq.example/1", "https://okaz.example/a", "https://riyadh.example/x"} <= {a.url for a in fees.articles}
+    assert {"https://moh.example/flu", "https://sabq.example/2"} <= {a.url for a in flu.articles}
+    assert fees.first.url == "https://blog.example/fees"
