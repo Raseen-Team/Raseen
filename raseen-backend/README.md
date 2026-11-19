@@ -22,7 +22,7 @@ Raseen monitors one topic from text sources, every hour:
 
 ## Setup
 
-1. In Supabase, open **SQL Editor** and run `001_init.sql`, then `seed.sql`.
+1. In Supabase, open **SQL Editor** and run `001_init.sql`, `002_grants.sql`, then `seed.sql`.
 2. In GitHub, go to **Settings → Secrets and variables → Actions**:
    - Variable `SUPABASE_URL`
    - Secret `SUPABASE_SERVICE_KEY`: the secret key (service_role or sb_secret_…)
