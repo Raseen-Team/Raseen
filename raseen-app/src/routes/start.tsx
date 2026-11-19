@@ -8,7 +8,7 @@ import { AppShell } from "@/components/raseen/shell";
  * The flow lives in /public/flow/index.html (vanilla JS + GSAP) and runs here in embed mode.
  * Links inside it to other pages ask this page to navigate (postMessage {raseenNav}).
  */
-const views = ["setup", "scan", "stories", "story", "brief", "briefs"] as const;
+const views = ["setup", "scan"] as const;
 
 export const Route = createFileRoute("/start")({
   validateSearch: (s: Record<string, unknown>): { view?: string } => {

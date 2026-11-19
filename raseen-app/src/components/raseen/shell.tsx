@@ -8,6 +8,7 @@ import {
   FileText,
   Gauge,
   LayoutDashboard,
+  Layers,
   Link2,
 
   LogOut,
@@ -50,6 +51,8 @@ export const navItems = [
   { to: "/", label: "الرئيسية", icon: LayoutDashboard },
   { to: "/start", label: "ابدأ رصدًا", icon: Search },
   { to: "/monitoring", label: "الرصد الإعلامي", icon: Radar },
+  { to: "/stories", label: "القصص", icon: Layers },
+  { to: "/brief", label: "الموجز", icon: FileText },
   { to: "/analysis", label: "التحليل الإعلامي", icon: ChartNoAxesCombined },
   { to: "/verification", label: "التحقق", icon: ShieldCheck },
   { to: "/metrics", label: "المؤشرات", icon: Gauge },
@@ -212,7 +215,7 @@ function NotificationsPopover() {
 
 
 /* Main links shown in the top bar; the rest sit under «المزيد». */
-const primaryNav = ["/", "/monitoring", "/analysis", "/verification", "/reports"] as const;
+const primaryNav = ["/", "/monitoring", "/stories", "/analysis", "/verification", "/reports"] as const;
 const hiddenInMore = ["/start"];
 
 function isActive(pathname: string, to: string) {

@@ -1080,8 +1080,9 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
   if(!/[?&]embed/.test(location.search))return;
   document.documentElement.classList.add('embed');
   if(!location.hash||location.hash==='#login')history.replaceState(null,'','#setup');
-  var flow={setup:1,scan:1,stories:1,story:1,brief:1,briefs:1};
-  var out={home:'/',analysis:'/analysis',reports:'/reports',metrics:'/metrics',prediction:'/prediction',social:'/social-accounts',roles:'/roles',settings:'/settings',alerts:'/',sources:'/settings/data-sources',login:'/login'};
+  var flow={setup:1,scan:1};
+  var live={stories:'/stories',story:'/stories',brief:'/brief',briefs:'/brief'};
+  var out={stories:'/stories',story:'/stories',brief:'/brief',briefs:'/brief',home:'/',analysis:'/analysis',reports:'/reports',metrics:'/metrics',prediction:'/prediction',social:'/social-accounts',roles:'/roles',settings:'/settings',alerts:'/',sources:'/settings/data-sources',login:'/login'};
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
     var k=a.getAttribute('href').slice(1);
@@ -1089,7 +1090,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
     e.preventDefault();e.stopPropagation();
     parent.postMessage({raseenNav:out[k]},'*');
   },true);
-  function tell(){parent.postMessage({raseenView:(location.hash||'#setup').slice(1)},'*')}
+  function tell(){var h=(location.hash||'#setup').slice(1);if(live[h]){parent.postMessage({raseenNav:live[h]},'*');return}parent.postMessage({raseenView:h},'*')}
   addEventListener('hashchange',tell);tell();
 })();
 </script>

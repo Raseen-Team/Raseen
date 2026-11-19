@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BriefRouteImport } from './routes/brief'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MonitoringRouteImport } from './routes/monitoring'
@@ -34,6 +35,8 @@ import { Route as ReportsHistoryRouteImport } from './routes/reports.history'
 import { Route as ReportsNewRouteImport } from './routes/reports.new'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SettingsDataSourcesRouteImport } from './routes/settings.data-sources'
+import { Route as StoriesIndexRouteImport } from './routes/stories.index'
+import { Route as StoriesStoryIdRouteImport } from './routes/stories.$storyId'
 import { Route as VerificationIndexRouteImport } from './routes/verification.index'
 import { Route as VerificationProcessingRouteImport } from './routes/verification.processing'
 import { Route as VerificationResultRouteImport } from './routes/verification.result'
@@ -41,6 +44,11 @@ import { Route as VerificationResultRouteImport } from './routes/verification.re
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BriefRoute = BriefRouteImport.update({
+  id: '/brief',
+  path: '/brief',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -163,6 +171,16 @@ const SettingsDataSourcesRoute = SettingsDataSourcesRouteImport.update({
   path: '/settings/data-sources',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StoriesIndexRoute = StoriesIndexRouteImport.update({
+  id: '/stories/',
+  path: '/stories/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoriesStoryIdRoute = StoriesStoryIdRouteImport.update({
+  id: '/stories/$storyId',
+  path: '/stories/$storyId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VerificationIndexRoute = VerificationIndexRouteImport.update({
   id: '/verification/',
   path: '/verification/',
@@ -181,6 +199,7 @@ const VerificationResultRoute = VerificationResultRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/brief': typeof BriefRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/monitoring': typeof MonitoringRoute
@@ -200,6 +219,7 @@ export interface FileRoutesByFullPath {
   '/reports/history': typeof ReportsHistoryRoute
   '/reports/new': typeof ReportsNewRoute
   '/settings/data-sources': typeof SettingsDataSourcesRoute
+  '/stories/$storyId': typeof StoriesStoryIdRoute
   '/verification/processing': typeof VerificationProcessingRoute
   '/verification/result': typeof VerificationResultRoute
   '/analysis/': typeof AnalysisIndexRoute
@@ -207,10 +227,12 @@ export interface FileRoutesByFullPath {
   '/prediction/': typeof PredictionIndexRoute
   '/reports/': typeof ReportsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/stories/': typeof StoriesIndexRoute
   '/verification/': typeof VerificationIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/brief': typeof BriefRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/monitoring': typeof MonitoringRoute
@@ -230,6 +252,7 @@ export interface FileRoutesByTo {
   '/reports/history': typeof ReportsHistoryRoute
   '/reports/new': typeof ReportsNewRoute
   '/settings/data-sources': typeof SettingsDataSourcesRoute
+  '/stories/$storyId': typeof StoriesStoryIdRoute
   '/verification/processing': typeof VerificationProcessingRoute
   '/verification/result': typeof VerificationResultRoute
   '/analysis': typeof AnalysisIndexRoute
@@ -237,11 +260,13 @@ export interface FileRoutesByTo {
   '/prediction': typeof PredictionIndexRoute
   '/reports': typeof ReportsIndexRoute
   '/settings': typeof SettingsIndexRoute
+  '/stories': typeof StoriesIndexRoute
   '/verification': typeof VerificationIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/brief': typeof BriefRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/monitoring': typeof MonitoringRoute
@@ -261,6 +286,7 @@ export interface FileRoutesById {
   '/reports/history': typeof ReportsHistoryRoute
   '/reports/new': typeof ReportsNewRoute
   '/settings/data-sources': typeof SettingsDataSourcesRoute
+  '/stories/$storyId': typeof StoriesStoryIdRoute
   '/verification/processing': typeof VerificationProcessingRoute
   '/verification/result': typeof VerificationResultRoute
   '/analysis/': typeof AnalysisIndexRoute
@@ -268,12 +294,14 @@ export interface FileRoutesById {
   '/prediction/': typeof PredictionIndexRoute
   '/reports/': typeof ReportsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/stories/': typeof StoriesIndexRoute
   '/verification/': typeof VerificationIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/brief'
     | '/forgot-password'
     | '/login'
     | '/monitoring'
@@ -293,6 +321,7 @@ export interface FileRouteTypes {
     | '/reports/history'
     | '/reports/new'
     | '/settings/data-sources'
+    | '/stories/$storyId'
     | '/verification/processing'
     | '/verification/result'
     | '/analysis/'
@@ -300,10 +329,12 @@ export interface FileRouteTypes {
     | '/prediction/'
     | '/reports/'
     | '/settings/'
+    | '/stories/'
     | '/verification/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/brief'
     | '/forgot-password'
     | '/login'
     | '/monitoring'
@@ -323,6 +354,7 @@ export interface FileRouteTypes {
     | '/reports/history'
     | '/reports/new'
     | '/settings/data-sources'
+    | '/stories/$storyId'
     | '/verification/processing'
     | '/verification/result'
     | '/analysis'
@@ -330,10 +362,12 @@ export interface FileRouteTypes {
     | '/prediction'
     | '/reports'
     | '/settings'
+    | '/stories'
     | '/verification'
   id:
     | '__root__'
     | '/'
+    | '/brief'
     | '/forgot-password'
     | '/login'
     | '/monitoring'
@@ -353,6 +387,7 @@ export interface FileRouteTypes {
     | '/reports/history'
     | '/reports/new'
     | '/settings/data-sources'
+    | '/stories/$storyId'
     | '/verification/processing'
     | '/verification/result'
     | '/analysis/'
@@ -360,11 +395,13 @@ export interface FileRouteTypes {
     | '/prediction/'
     | '/reports/'
     | '/settings/'
+    | '/stories/'
     | '/verification/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BriefRoute: typeof BriefRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   MonitoringRoute: typeof MonitoringRoute
@@ -384,6 +421,7 @@ export interface RootRouteChildren {
   ReportsHistoryRoute: typeof ReportsHistoryRoute
   ReportsNewRoute: typeof ReportsNewRoute
   SettingsDataSourcesRoute: typeof SettingsDataSourcesRoute
+  StoriesStoryIdRoute: typeof StoriesStoryIdRoute
   VerificationProcessingRoute: typeof VerificationProcessingRoute
   VerificationResultRoute: typeof VerificationResultRoute
   AnalysisIndexRoute: typeof AnalysisIndexRoute
@@ -391,6 +429,7 @@ export interface RootRouteChildren {
   PredictionIndexRoute: typeof PredictionIndexRoute
   ReportsIndexRoute: typeof ReportsIndexRoute
   SettingsIndexRoute: typeof SettingsIndexRoute
+  StoriesIndexRoute: typeof StoriesIndexRoute
   VerificationIndexRoute: typeof VerificationIndexRoute
 }
 
@@ -401,6 +440,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brief': {
+      id: '/brief'
+      path: '/brief'
+      fullPath: '/brief'
+      preLoaderRoute: typeof BriefRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -571,6 +617,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsDataSourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stories/': {
+      id: '/stories/'
+      path: '/stories'
+      fullPath: '/stories/'
+      preLoaderRoute: typeof StoriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stories/$storyId': {
+      id: '/stories/$storyId'
+      path: '/stories/$storyId'
+      fullPath: '/stories/$storyId'
+      preLoaderRoute: typeof StoriesStoryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/verification/': {
       id: '/verification/'
       path: '/verification'
@@ -597,6 +657,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BriefRoute: BriefRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   MonitoringRoute: MonitoringRoute,
@@ -616,6 +677,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReportsHistoryRoute: ReportsHistoryRoute,
   ReportsNewRoute: ReportsNewRoute,
   SettingsDataSourcesRoute: SettingsDataSourcesRoute,
+  StoriesStoryIdRoute: StoriesStoryIdRoute,
   VerificationProcessingRoute: VerificationProcessingRoute,
   VerificationResultRoute: VerificationResultRoute,
   AnalysisIndexRoute: AnalysisIndexRoute,
@@ -623,6 +685,7 @@ const rootRouteChildren: RootRouteChildren = {
   PredictionIndexRoute: PredictionIndexRoute,
   ReportsIndexRoute: ReportsIndexRoute,
   SettingsIndexRoute: SettingsIndexRoute,
+  StoriesIndexRoute: StoriesIndexRoute,
   VerificationIndexRoute: VerificationIndexRoute,
 }
 export const routeTree = rootRouteImport
