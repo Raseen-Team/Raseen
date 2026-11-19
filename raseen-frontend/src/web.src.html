@@ -727,7 +727,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
   // the platform lives behind "تسجيل الدخول": it opens over the site and logout returns here
   (function(){
     var layer=$('#appLayer'), fr=$('#appFrame'), loaded=false;
-    function open(e){if(e)e.preventDefault();
+    function open(e){if(e)e.preventDefault(); if(window.RASEEN_APP){location.href=window.RASEEN_APP;return;}
       if(!loaded){fr.srcdoc=$('#appSrc').textContent.replace(/<\\\/script>/g,'<\/script>');loaded=true;}
       layer.classList.add('on');requestAnimationFrame(function(){layer.classList.add('vis')});layer.setAttribute('aria-hidden','false');
       document.documentElement.style.overflow='hidden'; if(window.__lenis) window.__lenis.stop();

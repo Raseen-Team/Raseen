@@ -4,7 +4,7 @@ name: رسين · نشر المنصة
 on:
   push:
     branches: [raseen-frontend]
-    paths: ["raseen-app/**", ".github/workflows/raseen-site.yml"]
+    paths: ["raseen-app/**", "raseen-frontend/**", ".github/workflows/raseen-site.yml"]
   workflow_dispatch:
 
 permissions:
@@ -30,9 +30,16 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile || bun install
       - run: bunx vite build -c .preview/vite.config.ts
+      - name: Website at the root, platform under /app
+        working-directory: .
+        run: |
+          mkdir -p site
+          cp -r raseen-frontend/index.html raseen-frontend/assets site/ 2>/dev/null || cp raseen-frontend/index.html site/
+          sed -i '0,/<\/head>/s//<script>window.RASEEN_APP=".\/app\/"<\/script><\/head>/' site/index.html
+          cp -r raseen-app/.preview/dist site/app
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: raseen-app/.preview/dist
+          path: site
   deploy:
     needs: build
     runs-on: ubuntu-latest
