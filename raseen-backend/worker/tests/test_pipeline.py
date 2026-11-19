@@ -98,7 +98,15 @@ def test_e5_groups_the_same_way():
         emb = E5Embedder()
     except Exception:  # noqa: BLE001
         pytest.skip("multilingual-e5-small not available here")
-    ss = build_stories(articles(), emb)
+    arts = articles()
+    S = emb.encode([a.text for a in arts])
+    sim = S @ S.T
+    print("\nE5 similarity:")
+    for i, a in enumerate(arts):
+        print(a.url.split("//")[1][:22].ljust(22), " ".join(f"{sim[i, j]:.2f}" for j in range(len(arts))))
+    ss = build_stories(arts, emb)
+    for s in ss:
+        print(s.status, [a.url for a in s.articles])
     fees = next(s for s in ss if "رسوم" in s.title)
     flu = next(s for s in ss if "الإنفلونزا" in s.title)
     assert {"https://blog.example/fees", "https://sabq.example/1", "https://okaz.example/a", "https://riyadh.example/x"} <= {a.url for a in fees.articles}
