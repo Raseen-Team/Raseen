@@ -48,6 +48,9 @@ def parse_feed(raw: bytes | str, source: dict | None = None) -> list[Article]:
     for e in feed.entries:
         url = e.get("link") or e.get("id")
         title = strip_html(e.get("title", ""))
+        publisher = (e.get("source") or {}).get("title", "")  # Google News adds " - publisher" to titles
+        if publisher and title.endswith(f" - {publisher}"):
+            title = title[: -len(publisher) - 3].strip()
         if not url or not title:
             continue
         out.append(Article(

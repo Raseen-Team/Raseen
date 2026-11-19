@@ -10,6 +10,7 @@ import httpx
 from .brief import write_brief
 from .db import DB
 from .ingest import UA, Article, fetch_source, for_topic
+from .sources import sync_sources
 from .stories import build_stories, default_embedder
 
 WINDOW_DAYS = int(os.getenv("RASEEN_WINDOW_DAYS", "7"))
@@ -76,7 +77,9 @@ def main() -> None:
     run = db.insert("runs", {"stats": {}})[0]
     stats: dict = {"sources": {}, "topics": {}}
     topics = db.select("topics", active="eq.true")
-    sources = db.select("sources", active="eq.true")
+    sync_sources(db)
+    # specific feeds first, the general aggregator last, so a shared link is credited to its real publisher
+    sources = sorted(db.select("sources", active="eq.true"), key=lambda s: s.get("kind") == "aggregator")
     src_by_id = {s["id"]: s for s in sources}
 
     fetched: list[Article] = []
@@ -94,7 +97,8 @@ def main() -> None:
     print("embedder:", emb.name)
     since = (now() - dt.timedelta(days=WINDOW_DAYS)).isoformat()
     for t in topics:
-        mine = for_topic(fetched, t)
+        seen: set[str] = set()
+        mine = [a for a in for_topic(fetched, t) if not (a.url in seen or seen.add(a.url))]
         db.insert("articles", [{
             "topic_id": t["id"], "source_id": a.source_id, "url": a.url, "title": a.title, "summary": a.summary,
             "published_at": a.published_at.isoformat() if a.published_at else None, "content_hash": a.hash,

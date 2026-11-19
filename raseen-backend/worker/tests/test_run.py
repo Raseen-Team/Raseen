@@ -72,6 +72,7 @@ def setup(monkeypatch):
     by_feed = {f"https://{k}.example/rss": v for k, v in FEEDS.items()}
     monkeypatch.setattr(run, "fetch_source", lambda c, s: (parse_feed(by_feed[s["feed_url"]][1], s), "ok"))
     monkeypatch.setattr(run, "WINDOW_DAYS", 100000)
+    monkeypatch.setattr(run, "sync_sources", lambda db: None)
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
     return db
 
