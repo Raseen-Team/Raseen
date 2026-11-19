@@ -334,6 +334,8 @@ input:focus{border-color:var(--teal);background:#fff}
 .back-site{font-size:14px;color:var(--teal);font-weight:600;align-self:flex-start}
 .back-site:not(.in){display:none}
 
+.is-live .hint{display:none}
+
 /* toast + help */
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--navy);color:#fff;border-radius:12px;padding:12px 18px;font-size:14px;display:flex;gap:10px;align-items:center;z-index:80;transition:transform .5s var(--ease);box-shadow:0 20px 40px -10px rgba(0,0,0,.4)}
 .toast{opacity:0}.toast.on{transform:translate(-50%,0);opacity:1}
@@ -1073,8 +1075,8 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
   if(!/[?&]embed/.test(location.search))return;
   document.documentElement.classList.add('embed');
   if(!location.hash||location.hash==='#login')history.replaceState(null,'','#setup');
-  var flow={setup:1,scan:1};
-  var live={stories:'/stories',story:'/stories',brief:'/brief',briefs:'/brief'};
+  var flow={setup:1,scan:1,stories:1,story:1,brief:1};
+  var live={};
   var out={stories:'/stories',story:'/stories',brief:'/brief',briefs:'/brief',home:'/',analysis:'/analysis',reports:'/reports',metrics:'/metrics',prediction:'/prediction',social:'/social-accounts',roles:'/roles',settings:'/settings',alerts:'/',sources:'/settings/data-sources',login:'/login'};
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
@@ -1121,7 +1123,7 @@ $('#q').addEventListener('input',function(){var v=this.value.trim(); if(location
 $$('.seg').forEach(function(g){g.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;$$('button',g).forEach(function(x){x.classList.toggle('on',x===b)})})});
 $('#setupF').addEventListener('submit',function(e){e.preventDefault();
   var name=$('#topicIn').value.trim()||'نخلة للاتصالات'; $('#pTopic').textContent=name; $('#tName').textContent=name;
-  var pr=$('#proc'), lis=$$('#proc li'), vals=['156','5 قصص','5 مرشّحين','جاهز']; pr.classList.add('on');
+  var pr=$('#proc'), lis=$$('#proc li'), LV=window.RASEEN_LIVE, vals=LV&&LV.on?[String(LV.stories.reduce(function(n,s){return n+s.article_count},0)),LV.stories.length+' قصة',LV.stories.length+' مرشّحًا','جاهز']:['156','5 قصص','5 مرشّحين','جاهز']; pr.classList.add('on');
   lis.forEach(function(l){l.className='';l.querySelector('b').textContent=''});
   lis.forEach(function(l,i){setTimeout(function(){l.className='run'},i*800);setTimeout(function(){l.className='done';l.querySelector('b').textContent=vals[i]},i*800+700)});
   setTimeout(function(){pr.classList.remove('on');location.hash='#stories'},lis.length*800+500);
@@ -1249,6 +1251,7 @@ var KB={
   deck:'تغطية واسعة وإيجابية، بدون ادعاءات منتشرة',
   cols:[['العروض تتصدر النقاش','أكثر من نصف التغطية عن عروض المتاجر','80 مصدرًا · اليوم',1],['الفعاليات في 13 مدينة','جداول رسمية من الجهات المنظمة','12 مصدرًا رسميًا',2],['هوية الحملة تنتشر','الشعار الرسمي في أغلب المنشورات','45 منشورًا',3]],first:'<b>ما فيه ادعاء يحتاج تتبع.</b> رسين بينبهك أول ما يظهر واحد'}
 };
+window.RASEEN_KB_ADD=function(n,o){KB[n]=o};
 function guess(t){var h=0;for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))%9973;
  return {tag:'موضوع عام',alias:[t,t.replace(/^ال/,''),'#'+t.replace(/\s+/g,'_')].filter(function(v,i,a){return v&&a.indexOf(v)===i}).slice(1),rel:['البيانات الرسمية','ردود الفعل','التصريحات'],src:[['أخبار',30+h%120],['منصة X',10+h%60],['رسمية',1+h%5],['مدونات',h%20]],claim:h%3===0?'ادعاء متداول':'',
   deck:h%3===0?'ادعاء واحد بدأ ينتشر ويستحق المتابعة':'التغطية هادئة وما فيه ادعاءات منتشرة',
@@ -1315,9 +1318,10 @@ function rs(){var r=cv.parentNode.getBoundingClientRect();dpr=Math.min(2,window.
 window.addEventListener('resize',rs);
 function seed(t){var h=0;for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))>>>0;return function(){h=(h*1664525+1013904223)>>>0;return h/4294967296}}
 function buildRadar(t){blips=[];cN=cS=cC=0;upd();$('#feed').innerHTML='';rk=kb(t);if(!rk)return;var R=seed(t),i,n=46;
+ var LV=window.RASEEN_LIVE,LH=LV&&LV.on&&t.trim()===LV.topic&&window.RASEEN_HEADS&&RASEEN_HEADS.length?RASEEN_HEADS:null;if(LH){SECT[1]='صحف إلكترونية';SECT[3]='قوقل نيوز';n=Math.min(46,LH.length);}
  var heads=KB[t.trim()]===KB['نخلة للاتصالات']?HEAD.n:['خبر جديد عن '+t,'تحديث رسمي حول '+t,'نقاش على المنصات عن '+t,'تقرير يتناول '+t,'رأي: ماذا يعني '+t];
- for(i=0;i<n;i++){var sec=Math.floor(R()*4),a=-Math.PI/2+sec*Math.PI/2+.12+R()*(Math.PI/2-.24);
-  var claim=rk.claim&&i%13===3;blips.push({a:(a+Math.PI*4)%(Math.PI*2),d:.12+R()*.84,sec:sec,claim:claim,lit:0,seen:false,head:claim?'«رفع الأسعار 40%» يُعاد نشره بدون مصدر':heads[i%heads.length],t:(7+Math.floor(R()*7))+':'+String(Math.floor(R()*60)).padStart(2,'0')});}}
+ for(i=0;i<n;i++){var sec=LH?LH[i].sec:Math.floor(R()*4),a=-Math.PI/2+sec*Math.PI/2+.12+R()*(Math.PI/2-.24);
+  var claim=LH?LH[i].claim:rk.claim&&i%13===3;blips.push({a:(a+Math.PI*4)%(Math.PI*2),d:.12+R()*.84,sec:sec,claim:claim,lit:0,seen:false,head:LH?LH[i].head:claim?'«رفع الأسعار 40%» يُعاد نشره بدون مصدر':heads[i%heads.length],t:LH?LH[i].t:(7+Math.floor(R()*7))+':'+String(Math.floor(R()*60)).padStart(2,'0')});}}
 function upd(){$('#cN').textContent=cN;$('#cS').textContent=cS;$('#cC').textContent=cC;}
 var lastHead='';function pushFeed(b){if(b.head===lastHead)return;lastHead=b.head;var ul=$('#feed'),li=document.createElement('li');if(b.claim)li.className='c';
  li.innerHTML='<i></i><div>'+b.head+'<small>'+SECT[b.sec]+' · '+b.t+(b.claim?' · يحتاج تحقق':'')+'</small></div>';ul.insertBefore(li,ul.firstChild);
@@ -1349,8 +1353,8 @@ $('#rF').addEventListener('submit',function(e){e.preventDefault();if(!rk){$('#rI
 $('#toStories').addEventListener('click',function(){var t=$('#rIn').value.trim()||oIn.value.trim()||'نخلة للاتصالات';$('#topicIn').value=t;$('#setupF').requestSubmit();});
 var demoed=false;
 function onRoute(){var h=location.hash;
- if(h==='#setup'){if(!demoed&&!oIn.value){demoed=true;setTimeout(function(){typeInto(oIn,'نخلة للاتصالات')},700);}}
- if(h==='#scan'){rs();if(!rk){var t=oIn.value.trim()||'نخلة للاتصالات';$('#rIn').value=t;buildRadar(t);}}}
+ if(h==='#setup'){if(!demoed&&!oIn.value){demoed=true;(window.RASEEN_READY||Promise.resolve()).then(function(){setTimeout(function(){if(!oIn.value)typeInto(oIn,(window.RASEEN_LIVE&&RASEEN_LIVE.on&&RASEEN_LIVE.topic)||'نخلة للاتصالات')},500)});}}
+ if(h==='#scan'){rs();if(!rk)(window.RASEEN_READY||Promise.resolve()).then(function(){if(rk)return;var t=oIn.value.trim()||(window.RASEEN_LIVE&&RASEEN_LIVE.on&&RASEEN_LIVE.topic)||'نخلة للاتصالات';$('#rIn').value=t;buildRadar(t);});}}
 window.addEventListener('hashchange',function(){setTimeout(onRoute,30)});setTimeout(onRoute,60);
 })();
 </script>
@@ -1430,5 +1434,171 @@ function onR(){var h=location.hash;if(!G)return;
 window.addEventListener('hashchange',function(){setTimeout(onR,40)});setTimeout(onR,80);
 })();
 </script>
+<script>
+/* raseen-live: the stories, story and brief screens read Raseen's real monitoring data from Supabase.
+   If the database can't be reached (for example inside a page that blocks outside requests),
+   the screens keep the demo they were designed with. */
+(function(){
+var DB='https://lbyzdnahnprbluelbvjq.supabase.co/rest/v1/', KEY='sb_publishable_vf91Md9-Ls1YVfxdNZKXrA_fFdeAw3k';
+var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function get(p){return fetch(DB+p,{headers:{apikey:KEY}}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function hm(iso){return iso?new Date(iso).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Riyadh'}):'—'}
+function day(iso){return iso?new Date(iso).toLocaleDateString('ar-SA-u-nu-latn',{weekday:'long',day:'numeric',month:'long',timeZone:'Asia/Riyadh'}):''}
+function when(iso){if(!iso)return '—';var d=(Date.now()-new Date(iso))/864e5;return d<1?hm(iso):day(iso)+' '+hm(iso)}
+var ST={verified:{k:'ok',c:'g',t:'موثّق'},review:{k:'rev',c:'y',t:'قيد المراجعة'},unsupported:{k:'claim',c:'r',t:'ادعاء غير مدعوم'}};
+var ROLE={first:'المصدر الأول',republish:'إعادة نشر',update:'تحديث جديد'};
+function count(n,one,two,few,many){n=+n;return n===1?one:n===2?two:(n%100>=3&&n%100<=10)?n+' '+few:n+' '+many}
 
+var L=window.RASEEN_LIVE={on:false,cur:null};
+var ready=window.RASEEN_READY=Promise.all([
+  get('topics?active=eq.true&order=created_at&limit=1'),
+  get('sources?select=id,name,kind,is_official'),
+]).then(function(r){
+  var t=r[0][0];if(!t)throw new Error('no topic');
+  L.topic=t.name;L.topicId=t.id;L.src={};r[1].forEach(function(s){L.src[s.id]=s});
+  return Promise.all([
+    get('stories?topic_id=eq.'+t.id+'&order=last_seen.desc.nullslast&limit=300'),
+    get('articles?topic_id=eq.'+t.id+'&select=id,title,published_at,source_id&order=published_at.desc.nullslast&limit=60'),
+    get('briefs?topic_id=eq.'+t.id+'&order=created_at.desc&limit=1'),
+  ]);
+}).then(function(r){
+  var since=Date.now()-7*864e5;
+  L.all=r[0];
+  L.stories=r[0].filter(function(s){return s.last_seen&&new Date(s.last_seen)>=since})
+    .sort(function(a,b){return (b.article_count-a.article_count)||(new Date(b.last_seen)-new Date(a.last_seen))}).slice(0,40);
+  L.articles=r[1];L.brief=r[2][0]||null;L.on=true;
+  return get('story_articles?story_id=in.('+L.stories.map(function(s){return s.id}).join(',')+')&select=story_id,role,article:articles(published_at,source_id,title)');
+}).then(function(links){
+  L.links={};links.forEach(function(l){(L.links[l.story_id]=L.links[l.story_id]||[]).push(l)});
+  addTopic();renderList();renderBrief();
+  document.documentElement.classList.add('is-live');
+  return L;
+}).catch(function(e){L.on=false;console.info('Raseen: demo data ('+e.message+')');});
 
+/* the orbit and radar learn the real topic */
+function addTopic(){
+  if(!window.RASEEN_KB_ADD)return;
+  var bySec={news:0,official:0,aggregator:0},claims=L.stories.filter(function(s){return s.status==='unsupported'});
+  L.articles.forEach(function(a){var s=L.src[a.source_id]||{};bySec[s.is_official?'official':s.kind==='aggregator'?'aggregator':'news']++});
+  var top=L.stories.slice(0,3), f=top[0];
+  window.RASEEN_KB_ADD(L.topic,{tag:'جهة · حكومية',alias:[L.topic.replace(/^وزارة /,''),'#'+L.topic.replace(/\s+/g,'_'),'MOH'],
+    rel:['المستشفيات','اللقاحات','الخدمات الصحية'],
+    src:[['أخبار',bySec.news],['قوقل نيوز',bySec.aggregator],['رسمية',bySec.official]],
+    claim:claims[0]?short(claims[0].title):'',
+    deck:claims.length?count(claims.length,'ادعاء واحد','ادعاءان','ادعاءات','ادعاءً')+' بدون مصدر رسمي، والباقي تغطية عادية':'التغطية هادئة وما فيه ادعاءات منتشرة',
+    cols:top.map(function(s,i){return [s.title,count(s.article_count,'خبر واحد','خبران','أخبار','خبرًا')+' من '+count(s.source_count,'مصدر واحد','مصدرين','مصادر','مصدرًا'),ST[s.status].t+' · '+hm(s.first_seen),i+1]}),
+    first:f?'<b>المصدر الأول المرشح:</b> '+esc(srcOf(f))+' الساعة '+hm(f.first_seen):''});
+  var ct={};claims.forEach(function(s){(L.links[s.id]||[]).forEach(function(l){ct[l.article.title]=1})});
+  window.RASEEN_HEADS=L.articles.map(function(a){var s=L.src[a.source_id]||{};
+    return {head:a.title,t:hm(a.published_at),sec:s.is_official?2:s.kind==='aggregator'?3:/^صحيفة/.test(s.name)?1:0,claim:!!ct[a.title]}});
+}
+function short(t){if(t.length<=28)return t;var c=t.slice(0,28);return c.slice(0,c.lastIndexOf(' '))+'…'}
+function srcOf(s){var l=(L.links[s.id]||[]).filter(function(x){return x.role==='first'})[0];return l&&L.src[l.article.source_id]?L.src[l.article.source_id].name:'مصدر'}
+
+/* ---------- stories list */
+function spark(s){var n=12,end=Date.now(),span=7*864e5,b=new Array(n).fill(0);
+  (L.links[s.id]||[]).forEach(function(l){var t=l.article.published_at?new Date(l.article.published_at):null;if(!t)return;var i=Math.floor((t-(end-span))/(span/n));if(i>=0&&i<n)b[i]++});
+  var m=Math.max.apply(null,b)||1;return b.map(function(v,i){return '<i class="'+(i>=n-4?'h':'')+'" style="height:'+Math.max(10,v/m*100)+'%"></i>'}).join('')}
+function renderList(){
+  var list=$('#list');if(!list)return;
+  $$('.row:not(.hd)',list).forEach(function(r){r.remove()});
+  L.stories.forEach(function(s){var st=ST[s.status]||ST.review;
+    var a=document.createElement('a');a.className='row '+st.k;a.dataset.k=st.k;a.href='#story';
+    a.addEventListener('click',function(){openStory(s.id)});
+    var why=s.status==='review'&&s.first_confidence<.5?'لم يُحسم المصدر الأول · ثقة '+Math.round(s.first_confidence*100)+'%':'المصدر المرشّح: '+srcOf(s)+' '+when(s.first_seen);
+    a.innerHTML='<span class="t"><b>'+esc(s.title)+'</b><small>'+esc(why)+'</small></span><span class="spark c-spark">'+spark(s)+'</span>'+
+      '<span class="n num c-n">'+s.article_count+'</span><span class="n num c-src">'+s.source_count+'</span>'+
+      '<span class="c-st"><span class="chip '+st.c+'">'+st.t+'</span></span><svg class="chev"><use href="#i-chev"/></svg>';
+    list.appendChild(a)});
+  var arts=L.stories.reduce(function(n,s){return n+s.article_count},0), rev=L.stories.filter(function(s){return s.status==='review'}).length,
+      srcs={};L.stories.forEach(function(s){(L.links[s.id]||[]).forEach(function(l){srcs[l.article.source_id]=1})});
+  var k=$$('#v-stories .kpi');
+  var vals=[[arts,'من '+count(Object.keys(srcs).length,'مصدر واحد','مصدرين','مصادر','مصدرًا')+' خلال 7 أيام'],[L.stories.length,'بدل '+arts+' خبرًا متفرقًا'],[rev,'قصة لم يُحسم أمرها'],[L.brief?1:0,L.brief?'بانتظار الاعتماد':'يُكتب مع أول تشغيل']];
+  k.forEach(function(c,i){var b=$('.cu',c);if(!b||!vals[i])return;b.dataset.v=vals[i][0];b.textContent=vals[i][0];$('small',c).textContent=vals[i][1]});
+  var lbl=$('#v-stories .kpi span');if(lbl)lbl.textContent='أخبار رُصدت هذا الأسبوع';
+  var tp=$('#v-stories .topic');if(tp)tp.innerHTML='موضوع الرصد: <b id="tName">'+esc(L.topic)+'</b> · آخر 7 أيام · '+count(Object.keys(L.src).length,'مصدر','مصدران','مصادر','مصدرًا')+' نصية · يتحدث كل ساعة<a href="#setup">تغيير</a>';
+  var tip=$('#tip span');if(tip)tip.innerHTML='<b>بيانات حقيقية:</b> رسين جمع '+arts+' خبرًا عن '+esc(L.topic)+' في '+L.stories.length+' قصة. افتح أي قصة لتشوف المصدر الأول المرشّح وأدلته.';
+  var sh=$('#list .row.hd .c-spark');if(sh)sh.textContent='الانتشار آخر 7 أيام';
+  $$('#v-stories .ph p').forEach(function(p){p.textContent='الأخبار المكررة مجمّعة في قصص، والأكبر أولًا'});
+}
+
+/* ---------- one story */
+function openStory(id){L.cur=id;var s=L.all.filter(function(x){return x.id===id})[0];if(!s)return;
+  get('story_articles?story_id=eq.'+id+'&select=role,similarity,article:articles(id,url,title,summary,published_at,source_id)').then(function(rows){
+    rows.sort(function(a,b){return (a.article.published_at||'').localeCompare(b.article.published_at||'')});renderStory(s,rows)}).catch(function(){});
+}
+function renderStory(s,rows){
+  var v=$('#v-story'),st=ST[s.status]||ST.review,first=rows.filter(function(r){return r.role==='first'})[0]||rows[0];
+  var rep=rows.filter(function(r){return r.role==='republish'}).length,upd=rows.filter(function(r){return r.role==='update'}).length;
+  var fs=first?L.src[first.article.source_id]||{}:{};
+  $('.crumb span:last-child',v).textContent=L.topic;
+  $('.ph h1',v).textContent=s.title;
+  $('.ph p',v).innerHTML='<span class="num">'+s.article_count+'</span> '+(s.article_count===1?'خبر':'خبرًا')+' من <span class="num">'+s.source_count+'</span> '+(s.source_count===1?'مصدر':'مصادر')+'، جمعها رسين في قصة واحدة: '+rep+' إعادة نشر و'+upd+' تحديث جديد';
+  var vd=$('.verdict',v),off=rows.filter(function(r){return (L.src[r.article.source_id]||{}).is_official})[0];
+  $('.ic',vd).style.background=s.status==='verified'?'rgba(60,200,207,.18)':s.status==='review'?'rgba(213,173,37,.18)':'';
+  $('.ic',vd).style.color=s.status==='verified'?'#3CC8CF':s.status==='review'?'#D5AD25':'';
+  $('.ic use',vd).setAttribute('href',s.status==='verified'?'#i-ok':'#i-warn');
+  $('h3',vd).textContent='تقييم رسين: '+(s.status==='verified'?'الخبر موثّق':s.status==='review'?'يحتاج مراجعة المختص':'الادعاء غير مدعوم');
+  $('p',vd).innerHTML=(s.status==='verified'&&off?'نشرته جهة رسمية: '+esc(L.src[off.article.source_id].name)+' الساعة <span class="num">'+hm(off.article.published_at)+'</span>.':
+    s.status==='review'?'المصدر الأول المرشّح '+esc(fs.name||'')+' بثقة '+Math.round(s.first_confidence*100)+'%، ورسين يتركها للمختص يحسمها.':
+    'انتشر بدون مصدر رسمي يؤكده. أول ظهور كان في '+esc(fs.name||'')+'.');
+  var rv=$('#rev');if(rv&&s.reviewed_at)rv.innerHTML='<span class="chip g" style="background:rgba(60,200,207,.15);color:#3CC8CF">اعتمده المختص: '+esc(s.reviewed_by||'')+'</span>';
+  if(first){var a=first.article;
+    $('.src-card',v).innerHTML='<span class="av"'+(fs.is_official?' style="background:var(--teal)"':'')+'>'+esc((fs.name||'؟').replace(/^(صحيفة|جريدة|وكالة) /,'').charAt(0))+'</span><div><b>'+esc(fs.name||'مصدر')+'</b><small><span class="num">'+hm(a.published_at)+'</span> · '+day(a.published_at)+(fs.is_official?' · جهة رسمية':'')+'</small><q><a href="'+esc(a.url)+'" target="_blank" rel="noopener" style="color:inherit">'+esc(a.title)+'</a></q></div>';
+    $('.why',v).innerHTML=(s.first_reasons||[]).slice(0,4).map(function(r){return '<div>'+esc(r.label)+'<b class="num">'+esc(r.value)+'</b></div>'}).join('')+'<div>ثقة رسين<b class="num">'+Math.round(s.first_confidence*100)+'%</b></div>';}
+  $('#tl').innerHTML=rows.slice(0,8).map(function(r,i){var sr=L.src[r.article.source_id]||{},cls=r.role==='update'?(sr.is_official?'g':'y'):'';
+    return '<li class="'+cls+'"><time class="num">'+hm(r.article.published_at)+'</time><span class="pt"></span><div><b>'+(i===0?'ظهر الخبر لأول مرة':esc(sr.name||''))+(r.role!=='first'?' <span class="tag'+(r.role==='update'?' new':'')+'">'+ROLE[r.role]+'</span>':'')+'</b><p>'+esc(r.article.title)+'</p></div></li>'}).join('');
+  $('#v-story .tl').previousElementSibling.querySelector('small').textContent='من أول نشر إلى آخر تحديث';
+  $('.arts',v).innerHTML=rows.map(function(r){var sr=L.src[r.article.source_id]||{};
+    return '<div class="art"><b><a href="'+esc(r.article.url)+'" target="_blank" rel="noopener" style="color:inherit">'+esc(r.article.title)+'</a>'+(r.role!=='first'?' <span class="tag'+(r.role==='update'?' new':'')+'">'+ROLE[r.role]+'</span>':'')+'</b><small>'+esc(sr.name||'')+' · '+when(r.article.published_at)+'</small><span class="sim"><b class="num">'+(r.role==='first'?'100':Math.round((r.similarity||0)*100))+'%</b>'+(r.role==='first'?'الأصل المرشّح':'تشابه')+'</span></div>'}).join('');
+  $$('.card-h small',v).forEach(function(x){if(/خبرًا/.test(x.textContent))x.innerHTML='<span class="num">'+s.article_count+'</span> '+(s.article_count===1?'خبر':'خبرًا')});
+  var by={};rows.forEach(function(r){var n=(L.src[r.article.source_id]||{}).name||'غير معروف';by[n]=(by[n]||0)+1});
+  var bars=Object.keys(by).sort(function(a,b){return by[b]-by[a]}),mx=by[bars[0]]||1;
+  $('.side-c .bars',v).innerHTML=bars.slice(0,6).map(function(n){var o=Object.keys(L.src).some(function(k){return L.src[k].name===n&&L.src[k].is_official});
+    return '<div class="bar'+(o?'':' r')+'"><span>'+esc(n)+'</span><u><i style="--w:'+Math.round(by[n]/mx*100)+'%"></i></u><b class="num">'+by[n]+'</b></div>'}).join('');
+  var spanH=s.first_seen&&s.last_seen?(new Date(s.last_seen)-new Date(s.first_seen))/36e5:0;
+  $('.facts',v).innerHTML='<div><span>الجهة المعنية</span><b>'+esc(L.topic)+'</b></div><div><span>أول ظهور</span><b>'+day(s.first_seen)+' '+hm(s.first_seen)+'</b></div><div><span>مدة الانتشار</span><b class="num">'+(spanH<1?Math.round(spanH*60)+'m':spanH<48?Math.round(spanH)+'h':Math.round(spanH/24)+' أيام')+'</b></div><div><span>الحالة</span><span class="chip '+st.c+'" id="stChip">'+st.t+(s.reviewed_at?' · معتمد':' · بانتظار المختص')+'</span></div>';
+  chart(rows);
+  window.dispatchEvent(new Event('raseen-story'));
+}
+function chart(rows){var el=$('#chart');if(!el)return;
+  var ts=rows.map(function(r){return r.article.published_at?+new Date(r.article.published_at):null}).filter(Boolean).sort();
+  if(!ts.length){el.innerHTML='';return}
+  var n=13,a=ts[0],z=Math.max(ts[ts.length-1],a+36e5),step=(z-a)/(n-1),rep=new Array(n).fill(0),up=new Array(n).fill(0);
+  rows.forEach(function(r){if(!r.article.published_at)return;var i=Math.round((new Date(r.article.published_at)-a)/step);(r.role==='update'?up:rep)[i]++});
+  var cum=function(x){var c=0;return x.map(function(v){return c+=v})};rep=cum(rep);up=cum(up);
+  var W=640,H=220,l=36,r=8,t=14,b=30,mx=Math.max(2,rep[n-1],up[n-1]);
+  function X(i){return W-r-(i/(n-1))*(W-l-r)}function Y(v){return t+(1-v/mx)*(H-t-b)}
+  function path(q){var d='';q.forEach(function(v,i){var x=X(i),y=Y(v);if(!i)d='M'+x+' '+y;else{var px=X(i-1),py=Y(q[i-1]),cx=(px+x)/2;d+=' C'+cx+' '+py+' '+cx+' '+y+' '+x+' '+y}});return d}
+  var s='';[0,Math.round(mx/2),mx].forEach(function(v){s+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="#E9EEEC"/><text x="'+(l-8)+'" y="'+(Y(v)+4)+'" font-size="11" fill="#7B909A" text-anchor="end">'+v+'</text>'});
+  [0,3,6,9,12].forEach(function(i){var d=new Date(a+i*step);s+='<text x="'+X(i)+'" y="'+(H-8)+'" font-size="11" fill="#7B909A" text-anchor="middle">'+((z-a)>864e5?d.toLocaleDateString('en-GB',{day:'numeric',month:'numeric',timeZone:'Asia/Riyadh'})+' ':'')+hm(d.toISOString())+'</text>'});
+  s+='<path id="pc" d="'+path(rep)+'" fill="none" stroke="#D8584A" stroke-width="2.5" stroke-linecap="round"/><path id="po" d="'+path(up)+'" fill="none" stroke="#168B92" stroke-width="2.5" stroke-linecap="round"/>';
+  el.innerHTML=s;var lg=el.closest('.card').querySelector('.legend');if(lg)lg.innerHTML='<span><i></i>الخبر الأول وإعادة نشره</span><span class="g"><i></i>التحديثات الجديدة</span>';
+  var h3=el.closest('.card').querySelector('h3');if(h3)h3.textContent='مؤشر حجم التغطية (تراكمي)';
+}
+
+/* ---------- brief */
+function renderBrief(){var b=L.brief,v=$('#v-brief');if(!b||!v)return;
+  $('.doc-h h2',v).textContent=b.title;
+  var ev=b.evidence||[],srcN={};ev.forEach(function(e){srcN[e.source]=1});
+  $('.doc-h .meta',v).innerHTML='<span>'+day(b.created_at)+'</span><span>أعدّه رسين الساعة <span class="num">'+hm(b.created_at)+'</span>'+(b.model&&b.model!=='extractive'?' بالذكاء الاصطناعي':'')+'</span><span id="bState">'+(b.status==='approved'?'معتمد':'بانتظار اعتماد المختص')+'</span><span><span class="num">'+ev.length+'</span> دليلًا · <span class="num">'+Object.keys(srcN).length+'</span> مصادر</span>';
+  var cl=b.claims||[],refs=function(c){return (c.evidence||[]).map(function(n){return ' <span class="ref" data-r="'+n+'">'+n+'</span>'}).join('')};
+  var secs=$$('.doc-b section',v);
+  if(secs[0])secs[0].innerHTML='<h3>الخلاصة</h3><p class="sum">'+(cl[0]?esc(cl[0].text)+refs(cl[0]):'')+'</p>';
+  if(secs[1])secs[1].innerHTML='<h3>ما نعرفه</h3><ol>'+cl.slice(1).map(function(c){return '<li>'+esc(c.text)+refs(c)+'</li>'}).join('')+'</ol>';
+  if(secs[2]){var un=L.stories.filter(function(s){return s.status==='unsupported'}).length,rv=L.stories.filter(function(s){return s.status==='review'}).length;
+    secs[2].innerHTML='<h3>التوصية للفريق</h3><div class="reco"><div><b>'+(un?'لا تنشر '+count(un,'الادعاء','الادعاءين','ادعاءات','ادعاءً')+' غير المدعوم'+(un>2?'ة':''):'ما فيه ادعاء منتشر')+'</b>'+(un?'ما فيه مصدر رسمي يؤكده':'التغطية من مصادر معروفة')+'</div><div>'+(rv?'<b>راجع '+count(rv,'قصة','قصتين','قصص','قصة')+'</b>رسين ما حسم مصدرها الأول':'<b>ما فيه قصص معلقة</b>كل القصص لها مصدر أول واضح')+'</div><div><b>اعتمد الموجز</b>قبل إرساله للفريق</div></div>'}
+  if(secs[3])secs[3].innerHTML='<h3>الأدلة</h3><ul class="refs" id="refs">'+ev.map(function(e){return '<li id="r'+e.n+'"><span class="ref">'+e.n+'</span><a href="'+esc(e.url)+'" target="_blank" rel="noopener" style="color:inherit">'+esc(e.title)+'</a>، '+esc(e.source)+(e.official?' (رسمي)':'')+'، '+day(e.published_at)+' '+hm(e.published_at)+'</li>'}).join('')+'</ul>';
+}
+
+/* specialist review goes to the database */
+document.addEventListener('click',function(e){var x=e.target.closest('#rev button');if(!x||!L.on||!L.cur)return;
+  fetch(DB+'rpc/review_story',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({p_story:L.cur,p_status:x.dataset.a==='ok'?(L.all.filter(function(s){return s.id===L.cur})[0]||{}).status:'review',p_by:'فريق التحرير'})}).catch(function(){});
+},true);
+/* opening #story directly shows the biggest story */
+addEventListener('hashchange',function(){if(location.hash==='#story'&&L.on&&!L.cur&&L.stories[0])openStory(L.stories[0].id)});
+ready.then(function(){if(location.hash==='#story'&&L.on&&L.stories[0])openStory(L.stories[0].id)});
+})();
+</script>
