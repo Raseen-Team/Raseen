@@ -9,7 +9,10 @@ import httpx
 class DB:
     def __init__(self, url: str | None = None, key: str | None = None):
         url = (url or os.environ["SUPABASE_URL"]).rstrip("/")
-        key = key or os.environ["SUPABASE_SERVICE_KEY"]
+        key = (key or os.environ["SUPABASE_SERVICE_KEY"]).strip()
+        kind = "secret" if key.startswith("sb_secret_") else "publishable (wrong key)" if key.startswith("sb_publishable_") \
+            else "legacy JWT" if key.startswith("eyJ") else "unknown format"
+        print(f"Supabase key: {kind}, {len(key)} chars")
         headers = {"apikey": key, "Content-Type": "application/json"}
         if not key.startswith("sb_"):  # legacy JWT keys also go in Authorization; new sb_secret_ keys go only in apikey
             headers["Authorization"] = f"Bearer {key}"
@@ -31,6 +34,8 @@ class DB:
             prefer.append("resolution=ignore-duplicates" if ignore else "resolution=merge-duplicates")
             params["on_conflict"] = upsert_on
         r = self.c.post(f"/{table}", params=params, json=rows, headers={"Prefer": ",".join(prefer)})
+        if r.status_code >= 400:
+            print("Supabase said:", r.text[:300])
         r.raise_for_status()
         return r.json()
 
