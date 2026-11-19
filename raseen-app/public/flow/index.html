@@ -647,7 +647,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
   <div class="lg-form">
     <form id="lgForm">
       <h1>تسجيل الدخول</h1>
-      <p>نموذج أولي للتجربة. اضغط «دخول» مباشرة.</p>
+      <p>نموذج أولي للتجربة. اضغط «دخول» للمتابعة.</p>
       <label>البريد الإلكتروني<input type="email" value="team@raseen.app" dir="ltr" style="text-align:right"></label>
       <label>كلمة المرور<input type="password" value="demo-demo"></label>
       <button class="btn y big" type="submit">دخول</button>
@@ -698,7 +698,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
     <section class="view ox" id="v-setup">
   <div class="lead">
     <h1>موضوعك في قلب المدار</h1>
-    <p>تكتب موضوعك في الدائرة البيضاء، ورسين يرسم حوله ثلاث دوائر: الأسماء اللي بيبحث فيها، ومواضيع قريبة يقترحها، والمصادر اللي بيجمع منها</p>
+    <p>اكتب موضوعك في الدائرة البيضاء، وسيرسم رسين حوله ثلاث دوائر: الأسماء التي سيبحث بها، والمواضيع المرتبطة التي يقترحها، والمصادر التي سيجمع منها</p>
     <div class="steps" id="steps"><span class="on"><b>1</b>اكتب الموضوع</span><span><b>2</b>راجع الدوائر الثلاث</span><span><b>3</b>ابدأ الرصد</span></div>
   </div>
   <div class="s1grid">
@@ -717,12 +717,12 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
     </div>
   </div>
   <aside class="exp" id="exp">
-    <h3><svg class="star"><use href="#i-star"/></svg>اللي رسمه رسين حول موضوعك</h3>
-    <div class="empty" id="expEmpty">اكتب موضوع في الدائرة وبيظهر الشرح هنا</div>
-    <div class="ex" data-r="0"><div class="h"><b>1</b>الأسماء اللي بيبحث فيها<em id="e1"></em></div><p>رسين يعرف إن الموضوع يُكتب بأكثر من طريقة. اضغط أي اسم لتشيله</p></div>
-    <div class="ex" data-r="1"><div class="h"><b>2</b>مواضيع قريبة يقترحها<em id="e2"></em></div><p>مواضيع مرتبطة بموضوعك. اضغط أي واحد لتضيفه للرصد</p></div>
-    <div class="ex" data-r="2"><div class="h"><b>3</b>المصادر اللي بيجمع منها<em id="e3"></em></div><p>الرقم جنب كل مصدر هو عدد الأخبار في آخر 24 ساعة. اضغط مصدر لتوقفه</p></div>
-    <div class="ex cl" id="exC"><div class="h"><b>!</b>ادعاء ينتشر الحين<em id="e4"></em></div><p>النقطة الحمراء ادعاء بدون مصدر رسمي. بعد ما تبدأ، رسين يتتبع أول من نشره</p></div>
+    <h3><svg class="star"><use href="#i-star"/></svg>ما رسمه رسين حول موضوعك</h3>
+    <div class="empty" id="expEmpty">اكتب موضوعًا في الدائرة ليظهر الشرح هنا</div>
+    <div class="ex" data-r="0"><div class="h"><b>1</b>الأسماء التي سيبحث بها<em id="e1"></em></div><p>يدرك رسين أن الموضوع قد يُكتب بأكثر من صيغة. اضغط على أي اسم لحذفه</p></div>
+    <div class="ex" data-r="1"><div class="h"><b>2</b>مواضيع مرتبطة يقترحها<em id="e2"></em></div><p>مواضيع مرتبطة بموضوعك. اضغط على أي منها لإضافته إلى الرصد</p></div>
+    <div class="ex" data-r="2"><div class="h"><b>3</b>المصادر التي سيجمع منها<em id="e3"></em></div><p>الرقم بجانب كل مصدر هو عدد أخباره المرصودة. اضغط على أي مصدر لإيقافه</p></div>
+    <div class="ex cl" id="exC"><div class="h"><b>!</b>ادعاء منتشر حاليًا<em id="e4"></em></div><p>النقطة الحمراء ادعاء بلا مصدر رسمي، وبعد بدء الرصد يتتبع رسين أول من نشره</p></div>
   </aside>
   </div>
   <div class="ctl">
@@ -733,8 +733,8 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
     <!-- scan: radar after start -->
     <section class="view ox" id="v-scan">
   <div class="lead">
-    <h1>رسين يمسح الساحة الحين</h1>
-    <p>كل نقطة خبر حقيقي التقطه رسين عن موضوعك، والأحمر ادعاء يحتاج تحقق</p>
+    <h1>رسين يرصد المشهد الآن</h1>
+    <p>كل نقطة خبر رصده رسين عن موضوعك، واللون الأحمر لادعاء يحتاج إلى تحقق</p>
   </div>
   <form class="qbar" id="rF">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -744,11 +744,11 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
   <div class="radarWrap">
     <div class="radar"><canvas id="rc"></canvas></div>
     <div class="feed">
-      <h3><svg class="star"><use href="#i-star"/></svg>ما التقطه رسين الحين</h3>
+      <h3><svg class="star"><use href="#i-star"/></svg>أحدث ما رصده رسين</h3>
       <div class="cnt"><div><b class="num" id="cN">0</b>خبر</div><div><b class="num" id="cS">0</b>قصص محتملة</div><div class="r"><b class="num" id="cC">0</b>ادعاء</div></div>
       <ul id="feed"></ul>
       <div class="rctl"><span>مدى المسح</span><div class="oseg" id="rPer"><button aria-pressed="true">اليوم</button><button aria-pressed="false">أسبوع</button><button aria-pressed="false">شهر</button></div></div>
-      <button class="go next" id="toStories" type="button">رسين جمعها في قصص، اعرضها</button>
+      <button class="go next" id="toStories" type="button">اعرض القصص التي جمعها رسين</button>
     </div>
   </div>
     </section>
@@ -759,7 +759,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
       <div class="ph"><div><h1>القصص</h1><p>الأخبار المكررة مجمّعة في قصص، ومرتّبة حسب سرعة الانتشار</p></div>
         <div class="tabs" id="filt"><button class="on" data-f="all">الكل</button><button data-f="claim">ادعاءات</button><button data-f="rev">قيد المراجعة</button><button data-f="ok">مؤكدة</button></div></div>
       <div class="topic">موضوع الرصد: <b id="tName">نخلة للاتصالات</b> · اليوم · 4 أنواع مصادر نصية<a href="#setup">تغيير</a></div>
-      <div class="tip" id="tip"><span><b>جولة سريعة:</b> رسين جمع 156 خبرًا عن الموضوع في 5 قصص. افتح القصة الأولى لتشوف كيف يرشّح المصدر الأول ويربطه بالأدلة.</span><button id="tipX">إخفاء</button></div>
+      <div class="tip" id="tip"><span><b>جولة سريعة:</b> رسين جمع 156 خبرًا عن الموضوع في 5 قصص. افتح القصة الأولى للاطلاع على طريقة ترشيح المصدر الأول وربطه بالأدلة.</span><button id="tipX">إخفاء</button></div>
       <div class="kpis">
         <div class="card kpi"><span>أخبار رُصدت اليوم</span><b class="num cu" data-v="156">0</b><small>من 48 مصدرًا نصيًا</small></div>
         <div class="card kpi"><span>قصص بعد التجميع</span><b class="num cu" data-v="5">0</b><small>بدل 156 خبرًا متفرقًا</small></div>
@@ -834,7 +834,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
       </div>
       <div class="ai" style="grid-template-columns:1fr">
         <div><h3><svg><use href="#i-spark"/></svg>التحليل المقترح التالي</h3><p>تحليل خطاب 72 ساعة عن جودة الخدمة: من يقود النقاش، وما الكلمات الأكثر تكرارًا، وهل انتقل للصحف الكبرى</p>
-          <div style="margin-top:14px"><button class="btn y" style="height:38px" onclick="toast('رسين بدأ التحليل، وبينبهك أول ما يجهز')">ابدأ التحليل</button></div></div>
+          <div style="margin-top:14px"><button class="btn y" style="height:38px" onclick="toast('بدأ رسين التحليل، وسيُنبّهك فور اكتماله')">ابدأ التحليل</button></div></div>
       </div>
     </section>
 
@@ -847,7 +847,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 
     <!-- prediction -->
     <section class="view page" id="v-prediction">
-      <div class="ph"><div><h1>التنبؤ</h1><p>ما يتوقعه رسين في الأيام القادمة، والإشارات اللي بنى عليها</p></div></div>
+      <div class="ph"><div><h1>التنبؤ</h1><p>توقعات رسين للأيام القادمة، والمؤشرات التي بُنيت عليها</p></div></div>
       <div class="note"><svg><use href="#i-spark"/></svg>التنبؤات تقديرات من نماذج رسين، تعتمد على اتجاه التغطية والنبرة وسرعة الانتشار. يراجعها المختص قبل أي قرار</div>
       <div class="g2e" id="predG"></div>
     </section>
@@ -876,7 +876,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 
     <!-- social accounts -->
     <section class="view page" id="v-social">
-      <div class="ph"><div><h1>حسابات التواصل</h1><p>المنصات المربوطة، والحسابات اللي يرصدها رسين</p></div></div>
+      <div class="ph"><div><h1>حسابات التواصل</h1><p>المنصات المرتبطة، والحسابات التي يرصدها رسين</p></div></div>
       <div class="g4">
         <div class="card sc"><div class="h"><span class="lg">X</span><div><b>منصة X</b><small>الواجهة الرسمية X API</small></div></div><span class="chip g">مربوطة</span><div class="meta"><span>الحد الشهري</span><b class="num">10,000 منشور</b></div></div>
         <div class="card sc"><div class="h"><span class="lg">IG</span><div><b>إنستغرام</b><small>التعليقات عبر Apify</small></div></div><span class="chip g">مربوطة</span><div class="meta"><span>الحد الشهري</span><b class="num">10,000 تعليق</b></div></div>
@@ -893,7 +893,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 
     <!-- roles -->
     <section class="view page" id="v-roles">
-      <div class="ph"><div><h1>الأدوار والصلاحيات</h1><p>من يقدر يرصد، ومن يعتمد التحقق والموجزات</p></div>
+      <div class="ph"><div><h1>الأدوار والصلاحيات</h1><p>صلاحيات الرصد واعتماد التحقق والموجزات</p></div>
         <button class="btn y" onclick="toast('في النموذج الأولي، الدعوة توضيحية')">دعوة عضو</button></div>
       <div class="card scroll-x" style="margin-bottom:16px"><div class="card-h"><h3>أعضاء الفريق</h3><small>4 أعضاء</small></div>
         <table class="tbl"><thead><tr><th>العضو</th><th>الدور</th><th>آخر نشاط</th></tr></thead><tbody>
@@ -950,9 +950,9 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 
           <div class="card"><div class="card-h"><h3>كيف انتشر الخبر</h3><small>من أول تغريدة إلى البيان الرسمي</small></div>
             <ol class="tl" id="tl">
-              <li><time class="num">07:42</time><span class="pt"></span><div><b>ظهر الادعاء لأول مرة</b><p>تغريدة من حساب مجهول بلا مصدر <span class="ref" data-r="1">1</span></p></div></li>
-              <li><time class="num">07:58</time><span class="pt"></span><div><b>أعاد 14 حسابًا نشر النص نفسه <span class="tag">إعادة نشر</span></b><p>نفس الصياغة تقريبًا، بدون معلومة جديدة <span class="ref" data-r="2">2</span></p></div></li>
-              <li class="y"><time class="num">08:15</time><span class="pt"></span><div><b>نقله موقع إخباري عن «مصادر» <span class="tag">إعادة نشر</span></b><p>بدون اسم مصدر أو وثيقة. رسين نبّه الفريق هنا <span class="ref" data-r="3">3</span></p></div></li>
+              <li><time class="num">07:42</time><span class="pt"></span><div><b>ظهر الادعاء لأول مرة</b><p>تغريدة من حساب مجهول دون مصدر <span class="ref" data-r="1">1</span></p></div></li>
+              <li><time class="num">07:58</time><span class="pt"></span><div><b>أعاد 14 حسابًا نشر النص نفسه <span class="tag">إعادة نشر</span></b><p>الصياغة نفسها تقريبًا، دون معلومة جديدة <span class="ref" data-r="2">2</span></p></div></li>
+              <li class="y"><time class="num">08:15</time><span class="pt"></span><div><b>نقله موقع إخباري عن «مصادر» <span class="tag">إعادة نشر</span></b><p>دون ذكر مصدر أو وثيقة، وهنا نبّه رسين الفريق <span class="ref" data-r="3">3</span></p></div></li>
               <li class="g"><time class="num">09:12</time><span class="pt"></span><div><b>بيان رسمي من نخلة ينفي <span class="tag new">تحديث جديد</span></b><p>«لا تغيير على أسعار الباقات الحالية» <span class="ref" data-r="4">4</span></p></div></li>
             </ol></div>
 
@@ -962,7 +962,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
           <div class="card"><div class="card-h"><h3>الأخبار المجمّعة في هذه القصة</h3><small><span class="num">87</span> خبرًا</small></div>
             <div class="arts">
               <div class="art"><b>«نخلة سترفع أسعار الباقات 40% الشهر القادم»</b><small>حساب على X · 07:42</small><span class="sim"><b class="num">100%</b>الأصل المرشّح</span></div>
-              <div class="art"><b>عاجل: زيادة 40% على باقات نخلة الشهر الجاي <span class="tag">إعادة نشر</span></b><small>حساب على X · 07:58</small><span class="sim"><b class="num">96%</b>تشابه</span></div>
+              <div class="art"><b>عاجل: زيادة 40% على باقات نخلة الشهر المقبل <span class="tag">إعادة نشر</span></b><small>حساب على X · 07:58</small><span class="sim"><b class="num">96%</b>تشابه</span></div>
               <div class="art"><b>مصادر: زيادة مرتقبة في أسعار باقات نخلة <span class="tag">إعادة نشر</span></b><small>موقع إخباري · 08:15</small><span class="sim"><b class="num">88%</b>تشابه</span></div>
               <div class="art"><b>نخلة: لا تغيير على أسعار الباقات الحالية <span class="tag new">تحديث جديد</span></b><small>بيان رسمي · 09:12</small><span class="sim"><b class="num">41%</b>تشابه</span></div>
               <a class="more" href="#stories" onclick="toast('في النسخة الكاملة تظهر كل الأخبار الـ 87');return false">عرض كل الأخبار</a>
@@ -1138,9 +1138,9 @@ $('#setupF').addEventListener('submit',function(e){e.preventDefault();
 $('#rev').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
   if(b.dataset.a==='ok'){$('#rev').innerHTML='<span class="chip g" style="background:rgba(60,200,207,.15);color:#3CC8CF">اعتمده المختص: فريق التحرير، 09:24</span>';$('#stChip').textContent='غير مدعوم · معتمد';toast('تم اعتماد التقييم')}
   else{toast('بقيت القصة قيد المراجعة');$('#stChip').className='chip y';$('#stChip').textContent='قيد المراجعة'}});
-$('#approveB').addEventListener('click',function(){this.outerHTML='<span class="chip g">معتمد</span>';$('#bState').textContent='اعتمده فريق التحرير 09:24';toast('تم اعتماد الموجز، وصار جاهزًا للإرسال')});
+$('#approveB').addEventListener('click',function(){this.outerHTML='<span class="chip g">معتمد</span>';$('#bState').textContent='اعتمده فريق التحرير 09:24';toast('تم اعتماد الموجز، وأصبح جاهزًا للإرسال')});
 $('#tipX').addEventListener('click',function(){$('#tip').remove()});
-$('#follow').addEventListener('click',function(){this.innerHTML='<svg><use href="#i-ok"/></svg>تتابعها';toast('بتوصلك تنبيهات عن أي تحديث جديد في هذه القصة')});
+$('#follow').addEventListener('click',function(){this.innerHTML='<svg><use href="#i-ok"/></svg>تتابعها';toast('ستصلك تنبيهات بأي تحديث جديد في هذه القصة')});
 
 /* ---- chart */
 (function(){
@@ -1256,14 +1256,14 @@ var KB={
   first:'<b>المصدر الأول المرشح:</b> حساب ‎@saudi_deals على منصة X الساعة 07:42، ونُسخ النص حرفيًا في 9 حسابات خلال ساعة'},
  'حملة اليوم الوطني':{tag:'حملة · موسمية',alias:['اليوم الوطني','#اليوم_الوطني','Saudi National Day'],rel:['العروض','الفعاليات','هوية الحملة'],src:[['أخبار',220],['منصة X',160],['رسمية',12],['مدونات',20]],claim:'',
   deck:'تغطية واسعة وإيجابية، بدون ادعاءات منتشرة',
-  cols:[['العروض تتصدر النقاش','أكثر من نصف التغطية عن عروض المتاجر','80 مصدرًا · اليوم',1],['الفعاليات في 13 مدينة','جداول رسمية من الجهات المنظمة','12 مصدرًا رسميًا',2],['هوية الحملة تنتشر','الشعار الرسمي في أغلب المنشورات','45 منشورًا',3]],first:'<b>ما فيه ادعاء يحتاج تتبع.</b> رسين بينبهك أول ما يظهر واحد'}
+  cols:[['العروض تتصدر النقاش','أكثر من نصف التغطية عن عروض المتاجر','80 مصدرًا · اليوم',1],['الفعاليات في 13 مدينة','جداول رسمية من الجهات المنظمة','12 مصدرًا رسميًا',2],['هوية الحملة تنتشر','الشعار الرسمي في أغلب المنشورات','45 منشورًا',3]],first:'<b>لا يوجد ادعاء يحتاج إلى تتبع.</b> سيُنبّهك رسين فور ظهور أي ادعاء'}
 };
 window.RASEEN_KB_ADD=function(n,o){KB[n]=o};
 function guess(t){var h=0;for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))%9973;
  return {tag:'موضوع عام',alias:[t,t.replace(/^ال/,''),'#'+t.replace(/\s+/g,'_')].filter(function(v,i,a){return v&&a.indexOf(v)===i}).slice(1),rel:['البيانات الرسمية','ردود الفعل','التصريحات'],src:[['أخبار',30+h%120],['منصة X',10+h%60],['رسمية',1+h%5],['مدونات',h%20]],claim:h%3===0?'ادعاء متداول':'',
-  deck:h%3===0?'ادعاء واحد بدأ ينتشر ويستحق المتابعة':'التغطية هادئة وما فيه ادعاءات منتشرة',
+  deck:h%3===0?'ادعاء واحد بدأ ينتشر ويستحق المتابعة':'التغطية مستقرة ولا توجد ادعاءات منتشرة',
   cols:[['أبرز ما نُشر عن '+t,'رسين جمع الأخبار المتشابهة في قصة واحدة',(8+h%30)+' مصدرًا',1],['الموقف الرسمي','آخر ما صدر من الجهات المعنية',(1+h%5)+' مصادر رسمية',2],['ردود الفعل','كيف يتفاعل الجمهور على المنصات',(10+h%50)+' منشورًا',3]],
-  first:h%3===0?'<b>المصدر الأول المرشح:</b> حساب على منصة X، ورسين يجمع الأدلة الحين':'<b>ما فيه ادعاء يحتاج تتبع.</b> رسين بينبهك أول ما يظهر واحد'};}
+  first:h%3===0?'<b>المصدر الأول المرشح:</b> حساب على منصة X، ويجمع رسين الأدلة حاليًا':'<b>لا يوجد ادعاء يحتاج إلى تتبع.</b> سيُنبّهك رسين فور ظهور أي ادعاء'};}
 function kb(t){t=(t||'').trim();if(!t)return null;if(KB[t])return KB[t];for(var k in KB){if(k.indexOf(t)===0&&t.length>=3)return KB[k];}return guess(t);}
 function typeInto(inp,text,cb){inp.value='';var i=0;(function n(){if(i<=text.length){inp.value=text.slice(0,i);inp.dispatchEvent(new Event('input'));i++;setTimeout(n,85+Math.random()*60);}else if(cb)cb();})();}
 function seg(el,cb){$$('button',el).forEach(function(b,i){b.addEventListener('click',function(){$$('button',el).forEach(function(x){x.setAttribute('aria-pressed',x===b)});cb&&cb(i,b);});});}
@@ -1315,7 +1315,7 @@ seg($('#oPer'));
 $('#oGo').addEventListener('click',function(){var k=kb(oIn.value);if(!k){oIn.focus();G&&G.fromTo('#core',{x:-6},{x:0,duration:.4,ease:'elastic.out(1,.3)',clearProps:'x'});return;}
  var on=nodes.filter(function(n){return !n.g.classList.contains('off')}).length;
  G.to(window,{duration:0});var o={c:0};G.to(o,{c:1,duration:1,ease:'power3.in',onUpdate:function(){collapse=o.c}});
- G.fromTo('#core',{scale:1},{scale:1.08,duration:.25,delay:1,yoyo:true,repeat:1,ease:'power2.out',onComplete:function(){$$('#steps span').forEach(function(x){x.className='ok'});var t=oIn.value.trim();setTimeout(function(){$('#rIn').value=t;buildRadar(t);location.hash='#scan';window.toast&&toast('بدأ رصد «'+t+'»، ورسين يمسح الساحة الحين');collapse=0;},500);}});});
+ G.fromTo('#core',{scale:1},{scale:1.08,duration:.25,delay:1,yoyo:true,repeat:1,ease:'power2.out',onComplete:function(){$$('#steps span').forEach(function(x){x.className='ok'});var t=oIn.value.trim();setTimeout(function(){$('#rIn').value=t;buildRadar(t);location.hash='#scan';window.toast&&toast('بدأ رصد «'+t+'»، ورسين يرصد المشهد الآن');collapse=0;},500);}});});
 
 /* ---------- 2 · RADAR ---------- */
 var cv=$('#rc'),cx=cv.getContext('2d'),W=0,dpr=1,sweep=-Math.PI/2,blips=[],rk=null,range=0,rangeT=0,cN=0,cS=0,cC=0;
@@ -1396,7 +1396,7 @@ var SIG=[['«40% زيادة» عنوان يتداوله حساب مجهول','ح
 $('#sigT').innerHTML=SIG.map(function(r){var c=r[2]==='سلبي'?'r':(r[2]==='إيجابي'?'g':'');return '<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td><span class="chip '+c+'"'+(c?'':' style="background:var(--paper-2);color:var(--ink-2)"')+'>'+r[2]+'</span></td><td class="num">'+r[3]+'K</td><td class="num">'+r[4]+'</td></tr>'}).join('');
 var P=[{n:'أزمة قادمة',t:'نقاش انقطاع الخدمة يتحول لأزمة',p:72,hz:'خلال 48 ساعة',why:['السلبية ارتفعت 5 نقاط في يومين','حساب بـ 1.2 مليون متابع أعاد نشر التغطية السلبية'],a:'جهّز بيانًا عن جودة الخدمة وجدول الإصلاح',c:'#B8412F'},
  {n:'ترند قادم',t:'نقاش حوكمة الذكاء الاصطناعي يصعد',p:64,hz:'خلال 5 أيام',why:['«معايير الحوكمة» دخل أكثر 10 مواضيع','التغطية زادت 27% في أسبوع'],a:'تابع الموضوع وحضّر رأي الجهة',c:'#D5AD25'},
- {n:'قضايا صاعدة',t:'جودة الخدمة الرقمية تصير قضية رأي عام',p:58,hz:'خلال أسبوعين',why:['61% من الإشارات السلبية عنها','انتقلت من X إلى صحيفتين'],a:'أطلق تحليل خطاب 72 ساعة',c:'#D5AD25'},
+ {n:'قضايا صاعدة',t:'جودة الخدمة الرقمية تتحول إلى قضية رأي عام',p:58,hz:'خلال أسبوعين',why:['61% من الإشارات السلبية عنها','انتقلت من X إلى صحيفتين'],a:'أطلق تحليل خطاب 72 ساعة',c:'#D5AD25'},
  {n:'تحول الرأي العام',t:'تحسّن تدريجي في النبرة تجاه التوسع',p:61,hz:'خلال 30 يومًا',why:['النبرة الإيجابية عن التوسع 62%','المصادر الاقتصادية داعمة'],a:'استمر في نشر أخبار التوسع الموثقة',c:'#168B92'}];
 function gauge(p,c){var r=34,L=Math.PI*r;return '<svg class="gauge" viewBox="0 0 84 50"><path d="M8 44a34 34 0 0 1 68 0" fill="none" stroke="#E9EEEC" stroke-width="8" stroke-linecap="round"/><path d="M8 44a34 34 0 0 1 68 0" fill="none" stroke="'+c+'" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+(L*p/100).toFixed(1)+' '+L.toFixed(1)+'"/><text x="42" y="42" text-anchor="middle" font-size="15" font-weight="700" fill="#0B2432" font-family="Noto Kufi Arabic,sans-serif">'+p+'%</text></svg>'}
 $('#homeP').innerHTML=P.map(function(x){return '<a class="card pc" href="#prediction"><div class="ptop">'+gauge(x.p,x.c)+'<div><span class="hz">'+x.n+' · '+x.hz+'</span><h3>'+x.t+'</h3></div></div></a>'}).join('');
@@ -1431,7 +1431,7 @@ var mo=$('#more');if(mo){$('button',mo).addEventListener('click',function(e){e.s
 $$('.opts').forEach(function(g){g.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;$$('button',g).forEach(function(x){x.classList.toggle('on',x===b)})})});
 $$('.sw').forEach(function(b){b.addEventListener('click',function(){if(b.disabled)return;b.setAttribute('aria-checked',b.getAttribute('aria-checked')!=='true')})});
 $$('.dl').forEach(function(b){b.addEventListener('click',function(){toast('تم تجهيز الملف بصيغة '+b.dataset.f+' (توضيحي في النموذج الأولي)')})});
-$('#mkRep').addEventListener('click',function(){var t=$$('#v-reports .opts')[0].querySelector('.on').textContent,f=$$('#v-reports .opts')[2].querySelector('.on').textContent;toast('رسين يجهّز «'+t+'» بصيغة '+f+'، وبيرسله للمختص للاعتماد')});
+$('#mkRep').addEventListener('click',function(){var t=$$('#v-reports .opts')[0].querySelector('.on').textContent,f=$$('#v-reports .opts')[2].querySelector('.on').textContent;toast('رسين يجهّز «'+t+'» بصيغة '+f+'، وسيُرسل إلى المختص لاعتماده')});
 $('#hForm').addEventListener('submit',function(e){e.preventDefault();var v=$('#hIn').value.trim();if(!v)return;if(v.charAt(0)!=='@')v='@'+v;var sp=document.createElement('span');sp.textContent=v;$('#handles').appendChild(sp);$('#hIn').value='';G&&G.from(sp,{scale:.6,opacity:0,duration:.4,ease:'back.out(2)'});toast('رسين بدأ يرصد '+v)});
 /* animate on route */
 function onR(){var h=location.hash;if(!G)return;
@@ -1493,7 +1493,7 @@ function addTopic(){
     rel:['المستشفيات','اللقاحات','الخدمات الصحية'],
     src:[['أخبار',bySec.news],['قوقل نيوز',bySec.aggregator],['رسمية',bySec.official]],
     claim:claims[0]?short(claims[0].title):'',
-    deck:claims.length?count(claims.length,'ادعاء واحد','ادعاءان','ادعاءات','ادعاءً')+' بدون مصدر رسمي، والباقي تغطية عادية':'التغطية هادئة وما فيه ادعاءات منتشرة',
+    deck:claims.length?count(claims.length,'ادعاء واحد','ادعاءان','ادعاءات','ادعاءً')+' بلا مصدر رسمي، وبقية التغطية اعتيادية':'التغطية مستقرة ولا توجد ادعاءات منتشرة',
     cols:top.map(function(s,i){return [s.title,count(s.article_count,'خبر واحد','خبران','أخبار','خبرًا')+' من '+count(s.source_count,'مصدر واحد','مصدرين','مصادر','مصدرًا'),ST[s.status].t+' · '+hm(s.first_seen),i+1]}),
     first:f?'<b>المصدر الأول المرشح:</b> '+esc(srcOf(f))+' الساعة '+hm(f.first_seen):''});
   var ct={};claims.forEach(function(s){(L.links[s.id]||[]).forEach(function(l){ct[l.article.title]=1})});
@@ -1525,7 +1525,7 @@ function renderList(){
   k.forEach(function(c,i){var b=$('.cu',c);if(!b||!vals[i])return;b.dataset.v=vals[i][0];b.textContent=vals[i][0];$('small',c).textContent=vals[i][1]});
   var lbl=$('#v-stories .kpi span');if(lbl)lbl.textContent='أخبار رُصدت هذا الأسبوع';
   var tp=$('#v-stories .topic');if(tp)tp.innerHTML='موضوع الرصد: <b id="tName">'+esc(L.topic)+'</b> · آخر 7 أيام · '+count(Object.keys(L.src).length,'مصدر','مصدران','مصادر','مصدرًا')+' نصية · يتحدث كل ساعة<a href="#setup">تغيير</a>';
-  var tip=$('#tip span');if(tip)tip.innerHTML='<b>بيانات حقيقية:</b> رسين جمع '+arts+' خبرًا عن '+esc(L.topic)+' في '+L.stories.length+' قصة. افتح أي قصة لتشوف المصدر الأول المرشّح وأدلته.';
+  var tip=$('#tip span');if(tip)tip.innerHTML='<b>بيانات حقيقية:</b> رسين جمع '+arts+' خبرًا عن '+esc(L.topic)+' في '+L.stories.length+' قصة. افتح أي قصة للاطلاع على المصدر الأول المرشّح وأدلته.';
   var sh=$('#list .row.hd .c-spark');if(sh)sh.textContent='الانتشار آخر 7 أيام';
   $$('#v-stories .ph p').forEach(function(p){p.textContent='الأخبار المكررة مجمّعة في قصص، والأكبر أولًا'});
 }
@@ -1548,8 +1548,8 @@ function renderStory(s,rows){
   $('.ic use',vd).setAttribute('href',s.status==='verified'?'#i-ok':'#i-warn');
   $('h3',vd).textContent='تقييم رسين: '+(s.status==='verified'?'الخبر موثّق':s.status==='review'?'يحتاج مراجعة المختص':'الادعاء غير مدعوم');
   $('p',vd).innerHTML=(s.status==='verified'&&off?'نشرته جهة رسمية: '+esc(L.src[off.article.source_id].name)+' الساعة <span class="num">'+hm(off.article.published_at)+'</span>.':
-    s.status==='review'?'المصدر الأول المرشّح '+esc(fs.name||'')+' بثقة '+Math.round(s.first_confidence*100)+'%، ورسين يتركها للمختص يحسمها.':
-    'انتشر بدون مصدر رسمي يؤكده. أول ظهور كان في '+esc(fs.name||'')+'.');
+    s.status==='review'?'المصدر الأول المرشّح '+esc(fs.name||'')+' بثقة '+Math.round(s.first_confidence*100)+'%، ويُترك الحسم للمختص.':
+    'انتشر دون مصدر رسمي يؤكده، وكان أول ظهور له في '+esc(fs.name||'')+'.');
   var rv=$('#rev');if(rv&&s.reviewed_at)rv.innerHTML='<span class="chip g" style="background:rgba(60,200,207,.15);color:#3CC8CF">اعتمده المختص: '+esc(s.reviewed_by||'')+'</span>';
   if(first){var a=first.article;
     $('.src-card',v).innerHTML='<span class="av"'+(fs.is_official?' style="background:var(--teal)"':'')+'>'+esc((fs.name||'؟').replace(/^(صحيفة|جريدة|وكالة) /,'').charAt(0))+'</span><div><b>'+esc(fs.name||'مصدر')+'</b><small><span class="num">'+hm(a.published_at)+'</span> · '+day(a.published_at)+(fs.is_official?' · جهة رسمية':'')+'</small><q><a href="'+esc(a.url)+'" target="_blank" rel="noopener" style="color:inherit">'+esc(a.title)+'</a></q></div>';
@@ -1595,7 +1595,7 @@ function renderBrief(){var b=L.brief,v=$('#v-brief');if(!b||!v)return;
   if(secs[0])secs[0].innerHTML='<h3>الخلاصة</h3><p class="sum">'+(cl[0]?esc(cl[0].text)+refs(cl[0]):'')+'</p>';
   if(secs[1])secs[1].innerHTML='<h3>ما نعرفه</h3><ol>'+cl.slice(1).map(function(c){return '<li>'+esc(c.text)+refs(c)+'</li>'}).join('')+'</ol>';
   if(secs[2]){var un=L.stories.filter(function(s){return s.status==='unsupported'}).length,rv=L.stories.filter(function(s){return s.status==='review'}).length;
-    secs[2].innerHTML='<h3>التوصية للفريق</h3><div class="reco"><div><b>'+(un?'لا تنشر '+count(un,'الادعاء','الادعاءين','ادعاءات','ادعاءً')+' غير المدعوم'+(un>2?'ة':''):'ما فيه ادعاء منتشر')+'</b>'+(un?'ما فيه مصدر رسمي يؤكده':'التغطية من مصادر معروفة')+'</div><div>'+(rv?'<b>راجع '+count(rv,'قصة','قصتين','قصص','قصة')+'</b>رسين ما حسم مصدرها الأول':'<b>ما فيه قصص معلقة</b>كل القصص لها مصدر أول واضح')+'</div><div><b>اعتمد الموجز</b>قبل إرساله للفريق</div></div>'}
+    secs[2].innerHTML='<h3>التوصية للفريق</h3><div class="reco"><div><b>'+(un?'لا تنشر '+count(un,'الادعاء','الادعاءين','ادعاءات','ادعاءً')+' غير المدعوم'+(un>2?'ة':''):'لا يوجد ادعاء منتشر')+'</b>'+(un?'لا يوجد مصدر رسمي يؤكده':'التغطية من مصادر معروفة')+'</div><div>'+(rv?'<b>راجع '+count(rv,'قصة','قصتين','قصص','قصة')+'</b>لم يحسم رسين مصدرها الأول':'<b>لا توجد قصص معلقة</b>لكل قصة مصدر أول واضح')+'</div><div><b>اعتمد الموجز</b>قبل إرساله للفريق</div></div>'}
   if(secs[3])secs[3].innerHTML='<h3>الأدلة</h3><ul class="refs" id="refs">'+ev.map(function(e){return '<li id="r'+e.n+'"><span class="ref">'+e.n+'</span><a href="'+esc(e.url)+'" target="_blank" rel="noopener" style="color:inherit">'+esc(e.title)+'</a>، '+esc(e.source)+(e.official?' (رسمي)':'')+'، '+day(e.published_at)+' '+hm(e.published_at)+'</li>'}).join('')+'</ul>';
 }
 
