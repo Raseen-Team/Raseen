@@ -13,15 +13,13 @@ concurrency:
 
 jobs:
   run:
-    # hourly runs start once Supabase is set up; a manual run always works (tests only, until then)
-    if: github.event_name == 'workflow_dispatch' || vars.SUPABASE_URL != ''
     runs-on: ubuntu-latest
     timeout-minutes: 20
     defaults:
       run:
         working-directory: raseen-backend/worker
     env:
-      SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+      SUPABASE_URL: ${{ vars.SUPABASE_URL || 'https://lbyzdnahnprbluelbvjq.supabase.co' }}
       SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
       HF_HOME: ~/.cache/huggingface
@@ -49,8 +47,8 @@ jobs:
       - name: Tests
         run: |
           pip install pytest
-          python -m pytest -q -rs -s tests
+          python -m pytest -q -rs tests
 
       - name: Run Raseen
-        if: env.SUPABASE_URL != ''
+        if: env.SUPABASE_SERVICE_KEY != ''
         run: python -m raseen.run

@@ -15,6 +15,7 @@ from .text import attribution_mentions, denies, normalize, numbers
 class Embedder:
     name = "base"
     same_story = 0.5      # similarity needed to join a story
+    denial_story = 0.35   # an official denial joins the claim it answers at this lower similarity
     republish = 0.8       # similarity above which an article only repeats the first one
 
     def encode(self, texts: list[str]) -> np.ndarray:  # rows are L2-normalized
@@ -24,7 +25,10 @@ class Embedder:
 class E5Embedder(Embedder):
     """intfloat/multilingual-e5-small, as in the team's tech plan."""
     name = "multilingual-e5-small"
-    same_story = 0.86
+    # e5 scores everything on one topic high (0.84-0.88 across different stories in tests),
+    # so a story needs 0.91+; same-story articles score 0.94-1.0
+    same_story = 0.91
+    denial_story = 0.9
     republish = 0.95
 
     def __init__(self):
@@ -39,6 +43,7 @@ class TfidfEmbedder(Embedder):
     """Character n-grams on normalized Arabic. Works offline, used for tests and as a fallback."""
     name = "tfidf-char"
     same_story = 0.42
+    denial_story = 0.29
     republish = 0.75
 
     def encode(self, texts):
@@ -89,7 +94,7 @@ def cluster(articles: list[Article], emb: Embedder) -> tuple[list[list[int]], np
     for i in order:
         # an official denial belongs with the claim it answers, even when worded differently
         a = articles[i]
-        best, best_s = None, emb.same_story * (0.7 if a.is_official and denies(a.text) else 1.0)
+        best, best_s = None, emb.denial_story if a.is_official and denies(a.text) else emb.same_story
         for g in groups:
             s = float(np.mean([sim[i, j] for j in g]))
             if s >= best_s:
