@@ -533,6 +533,94 @@ a.card.kpi:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(11
   .pro .sside nav a.on{background:rgba(255,255,255,.07)}
 }
 
+
+/* ==== Bento + Liquid Glass (Nov 20, Ahlam picked B and C from the Design Style Library, Guanmo @guanmo_ai)
+   Bento: one idea per tile, size is hierarchy, one gap (16) and one corner system (24 outer / 16 inner).
+   Liquid Glass: glass only on controls that float over content (side menu, top bar, tabs, phone bar); content tiles stay solid. */
+.pro{--gap:16px;--r:24px;--ri:16px;--tile:#FFFFFF;--pg:#EDF1F0;
+  --glass-l:rgba(255,255,255,.62);--glass-d:rgba(11,36,50,.93);
+  --rim:inset 1px 1px 0 rgba(255,255,255,.7),inset -1px -1px 0 rgba(255,255,255,.18);
+  --rim-d:inset 1px 1px 0 rgba(255,255,255,.22),inset -1px -1px 0 rgba(255,255,255,.05);
+  --lift:0 10px 32px rgba(11,36,50,.14)}
+.pro body,.pro .main{background:var(--pg)}
+.pro .card{border-radius:var(--r);box-shadow:none;background:var(--tile)}
+.pro .card-h{border-bottom:0;padding:20px 24px 4px}
+.pro .tbl th{background:transparent;border-bottom:1px solid var(--line2,#EEF2F1)}
+.pro .g2,.pro .g2e,.pro .g4{gap:var(--gap);margin-bottom:var(--gap)}
+.pro .btn{border-radius:999px}
+.pro .chip{border-radius:999px}
+
+/* tiles: number rows become bento, the first tile is the hero */
+.pro .kpis,.pro .kpis.strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap);background:transparent;box-shadow:none;overflow:visible;border-radius:0;margin-bottom:var(--gap)}
+.pro .kpis>.card,.pro .kpis>.card:nth-child(n){border:0;border-radius:var(--r);background:var(--tile);padding:20px 22px;min-height:132px;display:flex;flex-direction:column;box-shadow:none}
+.pro .kpis>.card:first-child{grid-column:span 2;background:linear-gradient(160deg,#168B92,#12797F);color:#fff}
+.pro .kpis>.card:first-child span,.pro .kpis>.card:first-child small{color:rgba(255,255,255,.82)}
+.pro .kpis>.card:first-child b{color:#fff;font-size:52px;line-height:1.1;margin-top:auto;padding-top:8px}
+.pro .kpis>.card:first-child .d{background:rgba(255,255,255,.18);color:#fff}
+.pro .kpis>.card b{font-family:"Readex Pro",var(--f);font-weight:600;letter-spacing:-.02em;font-size:34px;margin-top:auto;padding-top:8px}
+.pro .kpis>.card b.t{font-family:var(--f);font-size:19px;letter-spacing:0}
+.pro .kpis>.card small{margin-top:2px}
+.pro .kpis>.card.alert{background:#FBEAE7}
+.pro .kpis>.card.alert span:before{display:none}
+.pro .kpis>.card.dark{background:#FBF3D9}.pro .kpis>.card.dark b{color:#8A6A06}
+.pro .kpis>a.card:hover{background:#F8FAF9}
+.pro .kpis>a.card:first-child:hover{background:linear-gradient(160deg,#17949B,#12797F)}
+.pro .kpis>a.card.alert:hover{background:#F8E1DD}
+.pro #allM,.pro #homeM{gap:var(--gap);background:transparent;box-shadow:none;overflow:visible;border-radius:0}
+.pro #allM>.card,.pro #homeM>.card,.pro #allM>.card:nth-child(n),.pro #homeM>.card:nth-child(n){border:0;border-radius:var(--r);background:var(--tile)}
+.pro #allM>a.card:hover,.pro #homeM>a.card:hover{background:#F8FAF9}
+
+/* the reading box: a navy tile, the one dark object on the page */
+.pro .ai{background:var(--navy);color:#fff;border:0;border-radius:var(--r);padding:24px 28px;gap:24px}
+.pro .ai h3{font-family:"Readex Pro",var(--f);font-size:13px;font-weight:500;color:var(--mustard)}
+.pro .ai p{color:#fff;font-family:"Readex Pro",var(--f);font-size:20px;font-weight:500;line-height:1.6}
+.pro .ai li{color:rgba(255,255,255,.78)}
+.pro .ai li:before{background:var(--teal-2,#3CC8CF);width:6px;height:6px}
+.pro .ai .aw{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border-radius:var(--ri);padding:16px 18px}
+.pro .ai .aw b{color:#fff}
+.pro .ai .conf{color:rgba(255,255,255,.55)}
+.pro .ai .conf a{color:var(--teal-2,#3CC8CF)!important}
+.pro .card.next{background:var(--navy);color:#fff}
+.pro .card.next .k{color:var(--mustard)}.pro .card.next p{color:rgba(255,255,255,.75)}
+
+/* glass controls */
+.pro .tabs,.pro .page > .ph .tabs,.pro .opts{background:var(--glass-l);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);box-shadow:var(--rim),0 2px 10px rgba(11,36,50,.06);border-radius:999px;padding:4px}
+.pro .tabs button,.pro .page > .ph .tabs button,.pro .opts button{border-radius:999px;color:var(--ink-2)}
+.pro .tabs button.on,.pro .page > .ph .tabs button.on,.pro .opts button.on{background:var(--navy);color:#fff;box-shadow:none}
+@media (min-width:1001px){
+  .pro .sside{inset-block:12px;inset-inline-start:12px;width:232px;border-radius:28px;border:0;background:var(--glass-d);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:var(--rim-d),var(--lift)}
+  .pro .sbrand2{border-bottom:0;height:64px}
+  .pro .sside nav a{border-radius:999px;height:34px}
+  .pro .sside nav b.sg{padding:12px 12px 4px}
+  .pro .sbrand2{height:56px}
+  .pro .sside nav a.on{background:rgba(255,255,255,.92);color:var(--navy)}
+  .pro .sside nav a.on:before{display:none}
+  .pro .sside nav a.on .si{color:var(--navy)}
+  .pro .sside nav a.on .cnt{color:#fff}
+  .pro .main{margin-inline-start:256px}
+  .pro .snav,.pro .snav.solid{inset-block-start:12px;inset-inline-start:256px;inset-inline-end:12px;border-radius:22px;background:var(--glass-l);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:var(--rim),0 6px 24px rgba(11,36,50,.08)}
+  .pro .swrap{height:60px}
+  .pro .search input{background:rgba(255,255,255,.7);border-color:transparent}
+  .pro .page{padding-top:100px}
+}
+@media (max-width:1000px){
+  .pro .bbar{inset:auto 12px calc(12px + env(safe-area-inset-bottom,0px)) 12px;border-radius:24px;border:0;padding:6px;background:var(--glass-d);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:var(--rim-d),var(--lift)}
+  .pro .bbar a.on{background:rgba(255,255,255,.92);color:var(--navy)}
+  .pro .bbar a.on svg{color:var(--navy)}
+  .pro .bbar a.on:before{display:none}
+  .pro .main{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  .pro .kpis,.pro .kpis.strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pro .kpis>.card:first-child{grid-column:span 2}
+  .pro .kpis>.card:nth-child(4):last-child{grid-column:span 2}
+}
+@media (max-width:640px){
+  .pro{--gap:12px;--r:20px}
+  .pro .kpis>.card,.pro .kpis>.card:nth-child(n){min-height:0;padding:16px}
+  .pro .kpis>.card:first-child b{font-size:40px}
+  .pro .kpis>.card b{font-size:26px}
+  .pro .ai{padding:20px}.pro .ai p{font-size:17px}
+}
+
 /* toast + help */
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--navy);color:#fff;border-radius:12px;padding:12px 18px;font-size:14px;display:flex;gap:10px;align-items:center;z-index:80;transition:transform .5s var(--ease);box-shadow:0 20px 40px -10px rgba(0,0,0,.4)}
 .toast{opacity:0}.toast.on{transform:translate(-50%,0);opacity:1}
