@@ -1952,6 +1952,16 @@ var inSite=window.parent!==window;
 if(inSite){$$('.back-site').forEach(function(x){x.classList.add('in')});$('#logout').setAttribute('data-exit','');$('.sbrand').setAttribute('data-exit','');}
 document.addEventListener('click',function(e){var x=e.target.closest('[data-exit]');if(!x||!inSite)return;e.preventDefault();location.hash='#login';parent.postMessage('raseen-exit','*')});
 
+/* ---- in-page links: inside the website the platform runs in an iframe (srcdoc), where a plain
+   "#name" link resolves against the website's address and would load the website into the frame.
+   Every in-page link therefore just changes the hash. */
+document.addEventListener('click',function(e){
+  if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey)return;
+  var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.target)return;
+  var h=a.getAttribute('href');if(h.length<2)return;
+  e.preventDefault();if(location.hash!==h)location.hash=h;else window.dispatchEvent(new HashChangeEvent('hashchange'));
+});
+
 /* ---- routing */
 var login=$('#login'), app=$('#app');
 $('#lgForm').addEventListener('submit',function(e){e.preventDefault();location.hash='#home'});
