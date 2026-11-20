@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
 <style>
 /* Raseen platform prototype. Same identity as the website: navy sidebar, paper workspace, teal = verified, red = unsupported claim, mustard = in review / primary action. */
 :root{
@@ -336,6 +336,97 @@ input:focus{border-color:var(--teal);background:#fff}
 
 .is-live .hint{display:none}
 
+
+/* ---- polish (Nov 20): menu icons, phone bottom bar, loading state, calmer cards */
+.sside nav a .si{width:18px;height:18px;flex:none;opacity:.6;transition:opacity .2s,color .2s}
+.sside nav a:hover .si{opacity:.9}
+.sside nav a.on .si{opacity:1;color:var(--mustard)}
+.bbar{display:none}
+@media (max-width:1000px){
+  .bbar{display:flex;position:fixed;inset:auto 0 0 0;z-index:55;background:var(--navy);border-top:1px solid var(--line-d);padding:6px max(8px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px))}
+  .bbar a,.bbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border:0;background:none;color:rgba(255,255,255,.62);font:inherit;font-size:11px;position:relative;border-radius:10px;cursor:pointer}
+  .bbar svg{width:22px;height:22px}
+  .bbar a.on{color:#fff}
+  .bbar a.on svg{color:var(--mustard)}
+  .bbar a.on:before{content:"";position:absolute;top:-7px;left:30%;right:30%;height:3px;border-radius:0 0 3px 3px;background:var(--mustard)}
+  .bbar .cnt{position:absolute;top:2px;inset-inline-end:calc(50% - 22px);min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--claim);color:#fff;font-size:10px;font-weight:600;display:grid;place-items:center}
+  .main{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  .toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+.embed .bbar{display:none!important}
+/* while the live data loads, the live pages wait instead of flashing the demo */
+.is-loading :is(#v-home,#v-stories,#v-story,#v-brief,#v-alerts,#v-briefs,#v-sources)>:not(.ph),
+.is-loading :is(#v-home,#v-stories,#v-story,#v-brief,#v-alerts,#v-briefs,#v-sources) .ph>*{visibility:hidden}
+.loadpill{display:none}
+.is-loading .loadpill{display:flex;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:45;align-items:center;gap:10px;background:#fff;color:var(--ink-2);border-radius:14px;padding:14px 20px;font-size:14px;box-shadow:0 20px 50px -20px rgba(11,36,50,.4)}
+.loadpill i{width:16px;height:16px;border-radius:50%;border:2px solid var(--teal-bg);border-top-color:var(--teal);animation:lp 1s linear infinite}
+@keyframes lp{to{transform:rotate(360deg)}}
+/* cards that lead somewhere look like it */
+a.card.kpi{transition:box-shadow .2s,transform .2s}
+a.card.kpi:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(11,36,50,.35)}
+.kpi.alert{box-shadow:inset 0 0 0 1px #F3C9C2}
+@media (max-width:640px){
+  .kpi small{display:none}
+  .kpi{padding:12px 14px}.kpi span{font-size:12.5px}
+  #v-stories .tip{display:none}
+  .row{grid-template-columns:minmax(0,1fr);gap:8px;padding:16px 12px}
+  .row .c-st{grid-row:auto;grid-column:1;justify-self:start}
+  .row .t b{font-size:15px;line-height:1.6}
+}
+
+
+/* ==== professional look (Nov 20): flat surfaces, no glow, one quiet type family for reading.
+   Everything is scoped to html.pro so it can be switched off in one place. */
+.pro{--f:"IBM Plex Sans Arabic","Noto Kufi Arabic",system-ui,sans-serif;--line:#E1E7E5}
+.pro body{background:#F6F8F7}
+.pro .band{display:none}
+.pro .page > .ph h1{color:var(--ink);font-weight:600;letter-spacing:0}
+.pro .ph h1{font-size:26px}
+.pro .page > .ph p,.pro .page > .ph .crumb{color:var(--ink-2)}
+.pro .page > .ph .crumb a:hover{color:var(--teal)}
+.pro .page > .ph .btn.o,.pro .doc-actions .btn.o{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.pro .page > .ph .tabs{background:#EAEFED}
+.pro .page > .ph .tabs button{color:var(--ink-2)}
+.pro .page > .ph{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.pro .card{border-radius:10px;box-shadow:none;border:1px solid var(--line)}
+.pro a.card.kpi:hover{transform:none;box-shadow:none;border-color:#C9D4D1}
+.pro .kpi b{font-weight:600}
+.pro .kpi.alert{box-shadow:none;border-color:#F0C4BD}
+.pro .kpi.alert b{color:var(--claim-ink)}
+.pro .btn{border-radius:8px}
+.pro .tabs{border-radius:8px}.pro .tabs button{border-radius:6px}
+.pro .chip{border-radius:6px}
+/* the day's reading: a plain bordered section, not a glowing AI card */
+.pro .ai{background:#fff;color:var(--ink);border:1px solid var(--line);border-inline-start:3px solid var(--mustard);border-radius:10px}
+.pro .ai h3{font-size:16px}
+.pro .ai h3 svg{display:none}
+.pro .ai p{color:var(--ink-2)}
+.pro .ai li:before{background:var(--ink-3);width:5px;height:5px}
+.pro .ai .aw{background:#F3F6F5;color:var(--ink-2);border-radius:8px}
+.pro .ai .aw b{color:var(--ink)}
+.pro .ai .conf{color:var(--ink-3)}
+.pro .ai .conf a{color:var(--teal)!important}
+.pro .ai:before,.pro .ai:after{display:none}
+.pro .verdict{border-radius:10px}
+.pro .doc{border-radius:10px}
+/* top bar: solid and quiet on wide screens */
+@media (min-width:1001px){
+  .pro .snav,.pro .snav.solid{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 0 var(--line)}
+  .pro .swrap{height:64px}
+  .pro .livep{color:var(--ink-2)}
+  .pro .slogin{color:var(--ink-2)}
+  .pro .search input{background:#F3F6F5;border-color:var(--line);color:var(--ink)}
+  .pro .search input::placeholder{color:var(--ink-3)}
+  .pro .search svg{color:var(--ink-3)}
+  .pro .page{padding-top:96px}
+  .pro .sside{background:#0B2432}
+  .pro .sbrand2{height:64px}
+}
+@media (max-width:1000px){
+  .pro .snav,.pro .snav.solid{background:var(--navy);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .pro .page{padding-top:88px}
+}
+
 /* toast + help */
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--navy);color:#fff;border-radius:12px;padding:12px 18px;font-size:14px;display:flex;gap:10px;align-items:center;z-index:80;transition:transform .5s var(--ease);box-shadow:0 20px 40px -10px rgba(0,0,0,.4)}
 .toast{opacity:0}.toast.on{transform:translate(-50%,0);opacity:1}
@@ -639,6 +730,15 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
   <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></symbol>
   <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></symbol>
   <symbol id="i-src" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.4"/><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="10" opacity=".5"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-radar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 12 18 6"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16a8 8 0 1 1 15 0"/><path d="m12 13 3.5-4"/><circle cx="12" cy="13" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17 9.5 11l3.5 3.5L20 7"/><path d="M15 7h5v5"/></symbol>
+  <symbol id="i-at" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"/><path d="M15.5 12v1.5a2.5 2.5 0 0 0 5 0V12a8.5 8.5 0 1 0-3.4 6.8"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 19 6v5.5c0 4.3-3 7.6-7 9-4-1.4-7-4.7-7-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 15v-3M12 15V9M15 15v-5"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="18.5" cy="12" r="1.2" fill="currentColor"/></symbol>
   <symbol id="i-set" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 2.7-1.1V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1.3z"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></symbol>
@@ -709,27 +809,35 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
   <aside class="sside" id="sside" aria-label="أقسام المنصة">
     <a class="sbrand2" href="#home" aria-label="رسين"><img src="{{LOGO}}" alt="رسين"></a>
     <nav>
-      <a href="#home" data-v="home">الرئيسية</a>
-      <a href="#setup" data-v="setup">الرصد</a>
-      <a href="#stories" data-v="stories">القصص والتحقق</a>
-      <a href="#analysis" data-v="analysis">التحليل</a>
-      <a href="#reports" data-v="reports">التقارير</a>
+      <a href="#home" data-v="home"><svg class="si"><use href="#i-home"/></svg>الرئيسية</a>
+      <a href="#setup" data-v="setup"><svg class="si"><use href="#i-radar"/></svg>الرصد</a>
+      <a href="#stories" data-v="stories"><svg class="si"><use href="#i-st"/></svg>القصص والتحقق</a>
+      <a href="#analysis" data-v="analysis"><svg class="si"><use href="#i-chart"/></svg>التحليل</a>
+      <a href="#reports" data-v="reports"><svg class="si"><use href="#i-report"/></svg>التقارير</a>
       <b>المتابعة</b>
-      <a href="#metrics" data-v="metrics">المؤشرات</a>
-      <a href="#prediction" data-v="prediction">التنبؤ</a>
-      <a href="#alerts" data-v="alerts">التنبيهات<span class="cnt num">2</span></a>
-      <a href="#briefs" data-v="briefs">الموجزات</a>
-      <a href="#sources" data-v="sources">المصادر</a>
+      <a href="#metrics" data-v="metrics"><svg class="si"><use href="#i-gauge"/></svg>المؤشرات</a>
+      <a href="#prediction" data-v="prediction"><svg class="si"><use href="#i-trend"/></svg>التنبؤ</a>
+      <a href="#alerts" data-v="alerts"><svg class="si"><use href="#i-bell"/></svg>التنبيهات<span class="cnt num">2</span></a>
+      <a href="#briefs" data-v="briefs"><svg class="si"><use href="#i-doc"/></svg>الموجزات</a>
+      <a href="#sources" data-v="sources"><svg class="si"><use href="#i-src"/></svg>المصادر</a>
       <b>الإدارة</b>
-      <a href="#social" data-v="social">حسابات التواصل</a>
-      <a href="#roles" data-v="roles">الأدوار والصلاحيات</a>
-      <a href="#settings" data-v="settings">الإعدادات</a>
+      <a href="#social" data-v="social"><svg class="si"><use href="#i-at"/></svg>حسابات التواصل</a>
+      <a href="#roles" data-v="roles"><svg class="si"><use href="#i-shield"/></svg>الأدوار والصلاحيات</a>
+      <a href="#settings" data-v="settings"><svg class="si"><use href="#i-set"/></svg>الإعدادات</a>
     </nav>
   </aside>
+  <nav class="bbar" id="bbar" aria-label="الأقسام الرئيسية">
+    <a href="#home" data-v="home"><svg><use href="#i-home"/></svg>الرئيسية</a>
+    <a href="#setup" data-v="setup"><svg><use href="#i-radar"/></svg>الرصد</a>
+    <a href="#stories" data-v="stories"><svg><use href="#i-st"/></svg>القصص</a>
+    <a href="#alerts" data-v="alerts"><svg><use href="#i-bell"/></svg>التنبيهات<span class="cnt num">2</span></a>
+    <button type="button" id="bbMore"><svg><use href="#i-more"/></svg>المزيد</button>
+  </nav>
   <nav class="sheet" id="sheet"><a href="#home">الرئيسية</a><a href="#setup">الرصد</a><a href="#stories">القصص والتحقق</a><a href="#analysis">التحليل</a><a href="#reports">التقارير</a><a href="#metrics">المؤشرات</a><a href="#prediction">التنبؤ</a><a href="#alerts">التنبيهات</a><a href="#briefs">الموجزات</a><a href="#sources">المصادر</a><a href="#social">حسابات التواصل</a><a href="#roles">الأدوار والصلاحيات</a><a href="#settings">الإعدادات</a><a href="#login">تسجيل الخروج</a></nav>
 
 
   <div class="main">
+  <div class="loadpill" role="status"><i></i>جارٍ تحميل آخر الرصد…</div>
     <div class="band" aria-hidden="true"><canvas id="bg"></canvas></div>
 
     <!-- setup: topic orbit -->
@@ -1237,6 +1345,7 @@ var o=[{el:$('#o1'),r:210,s:.35,a:0},{el:$('#o2'),r:140,s:-.5,a:2},{el:$('#o3'),
 /* ---- nav: solid on scroll, mobile sheet */
 var snav=$('#snav'); function navBg(){snav.classList.toggle('solid',scrollY>20)} addEventListener('scroll',navBg,{passive:true}); navBg();
 $('#menuB').addEventListener('click',function(){var o=$('#sheet').classList.toggle('open');this.setAttribute('aria-expanded',o)});
+$('#bbMore').addEventListener('click',function(){var o=$('#sheet').classList.toggle('open');$('#menuB').setAttribute('aria-expanded',o)});
 $$('#sheet a').forEach(function(a){a.addEventListener('click',function(){$('#sheet').classList.remove('open')})});
 
 /* ---- inside the website: logo, logout and back link return to the site */
@@ -1273,7 +1382,7 @@ function route(){
   }
   app.style.display='block';
   $$('.view').forEach(function(v){v.classList.toggle('on',v.id==='v-'+h)});
-  $$('#nav a,#sside a[data-v]').forEach(function(a){a.classList.toggle('on',a.dataset.v===map[h])});
+  $$('#nav a,#sside a[data-v],#bbar a[data-v]').forEach(function(a){a.classList.toggle('on',a.dataset.v===map[h])});
   var mo=$('#more'); if(mo){mo.classList.toggle('on',!!$('.mm a.on',mo));mo.classList.remove('open');}
   window.scrollTo(0,0);
   var v=$('#v-'+h);
@@ -1507,6 +1616,9 @@ var ROLE={first:'المصدر الأول',republish:'إعادة نشر',update:'
 function count(n,one,two,few,many){n=+n;return n===1?one:n===2?two:(n%100>=3&&n%100<=10)?n+' '+few:n+' '+many}
 
 var L=window.RASEEN_LIVE={on:false,cur:null};
+var root=document.documentElement;root.classList.add('is-loading');root.classList.add('pro');
+function loaded(){root.classList.remove('is-loading')}
+setTimeout(loaded,8000);
 var ready=window.RASEEN_READY=Promise.all([
   get('topics?active=eq.true&order=created_at&limit=1'),
   get('sources?select=id,name,kind,is_official,active,last_fetch,last_status'),
@@ -1530,9 +1642,9 @@ var ready=window.RASEEN_READY=Promise.all([
   L.links={};links.forEach(function(l){(L.links[l.story_id]=L.links[l.story_id]||[]).push(l)});
   addTopic();renderList();renderBrief();
   [renderHome,renderAlerts,renderBriefs,renderSources,demoNotes].forEach(function(f){try{f()}catch(e){console.info('Raseen live:',e.message)}});
-  document.documentElement.classList.add('is-live');
+  document.documentElement.classList.add('is-live');loaded();
   return L;
-}).catch(function(e){L.on=false;console.info('Raseen: demo data ('+e.message+')');});
+}).catch(function(e){L.on=false;loaded();console.info('Raseen: demo data ('+e.message+')');});
 
 /* the orbit and radar learn the real topic */
 function addTopic(){
@@ -1708,7 +1820,7 @@ function renderHome(){var v=$('#v-home');if(!v)return;
 function renderAlerts(){var v=$('#v-alerts');if(!v)return;var box=$('.card',v);box.innerHTML='';
   var xs=alertsFor(12);if(!xs.length){box.innerHTML='<p style="padding:16px;margin:0;color:var(--ink-2)">لا توجد تنبيهات هذا الأسبوع.</p>';return}
   xs.forEach(function(x){box.appendChild(storyLink(x.s,x.c,x.ic,x.t,x.sub,when(x.at)))});
-  var n=xs.filter(function(x){return x.c!=='g'}).length;$$('#sside .cnt,#nav .cnt').forEach(function(c){c.textContent=n;c.style.display=n?'':'none'});
+  var n=xs.filter(function(x){return x.c!=='g'}).length;$$('#sside .cnt,#nav .cnt,#bbar .cnt').forEach(function(c){c.textContent=n;c.style.display=n?'':'none'});
 }
 
 /* ---------- briefs list */
