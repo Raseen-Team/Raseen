@@ -599,7 +599,23 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 @media (max-width:640px){.g4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.bar{grid-template-columns:96px minmax(0,1fr) 56px}.tbl.wide{min-width:640px}.scroll-x{overflow-x:auto}}
 
 /* raseen-embed: hosted inside the React app, which draws its own top bar */
-.embed #snav,.embed #sheet,.embed #login{display:none!important}
+.embed #snav,.embed #sheet,.embed #login,.embed #sside{display:none!important}
+.sside{display:none}
+@media (min-width:1001px){
+  .sside{display:flex;flex-direction:column;position:fixed;inset-block:0;inset-inline-start:0;width:240px;z-index:51;background:var(--navy);border-inline-end:1px solid var(--line-d);overflow-y:auto}
+  .sbrand2{display:flex;align-items:center;height:72px;padding-inline:24px;border-bottom:1px solid var(--line-d);flex:none}
+  .sbrand2 img{height:36px;width:auto}
+  .sside nav{display:flex;flex-direction:column;gap:2px;padding:16px 12px 24px}
+  .sside nav b{font-size:12px;font-weight:500;color:rgba(255,255,255,.45);padding:20px 12px 6px}
+  .sside nav a{display:flex;align-items:center;gap:8px;height:40px;padding-inline:12px;border-radius:10px;font-size:14.5px;color:var(--on-2);position:relative;transition:background .2s,color .2s}
+  .sside nav a:hover{background:rgba(255,255,255,.05);color:#fff}
+  .sside nav a.on{background:rgba(255,255,255,.08);color:#fff;font-weight:500}
+  .sside nav a.on:before{content:"";position:absolute;inset-inline-start:-12px;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--mustard)}
+  .sside .cnt{margin-inline-start:auto;font-size:11px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--claim);color:#fff;display:grid;place-items:center;font-weight:600}
+  .snav{inset-inline-start:240px}
+  .snav .sbrand,.snav .slinks{display:none}
+  .main{margin-inline-start:240px}
+}
 .embed .ox .lead{padding-top:40px}
 .embed #v-scan .lead{padding-top:40px}
 .embed .band{height:290px}
@@ -681,6 +697,26 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
       <button class="menu-b" id="menuB" aria-label="القائمة" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div></header>
+  <aside class="sside" id="sside" aria-label="أقسام المنصة">
+    <a class="sbrand2" href="#home" aria-label="رسين"><img src="{{LOGO}}" alt="رسين"></a>
+    <nav>
+      <a href="#home" data-v="home">الرئيسية</a>
+      <a href="#setup" data-v="setup">الرصد</a>
+      <a href="#stories" data-v="stories">القصص والتحقق</a>
+      <a href="#analysis" data-v="analysis">التحليل</a>
+      <a href="#reports" data-v="reports">التقارير</a>
+      <b>المتابعة</b>
+      <a href="#metrics" data-v="metrics">المؤشرات</a>
+      <a href="#prediction" data-v="prediction">التنبؤ</a>
+      <a href="#alerts" data-v="alerts">التنبيهات<span class="cnt num">2</span></a>
+      <a href="#briefs" data-v="briefs">الموجزات</a>
+      <a href="#sources" data-v="sources">المصادر</a>
+      <b>الإدارة</b>
+      <a href="#social" data-v="social">حسابات التواصل</a>
+      <a href="#roles" data-v="roles">الأدوار والصلاحيات</a>
+      <a href="#settings" data-v="settings">الإعدادات</a>
+    </nav>
+  </aside>
   <nav class="sheet" id="sheet"><a href="#home">الرئيسية</a><a href="#setup">الرصد</a><a href="#stories">القصص والتحقق</a><a href="#analysis">التحليل</a><a href="#reports">التقارير</a><a href="#metrics">المؤشرات</a><a href="#prediction">التنبؤ</a><a href="#alerts">التنبيهات</a><a href="#briefs">الموجزات</a><a href="#sources">المصادر</a><a href="#social">حسابات التواصل</a><a href="#roles">الأدوار والصلاحيات</a><a href="#settings">الإعدادات</a><a href="#login">تسجيل الخروج</a></nav>
 
 
@@ -1218,7 +1254,7 @@ function route(){
   }
   app.style.display='block';
   $$('.view').forEach(function(v){v.classList.toggle('on',v.id==='v-'+h)});
-  $$('#nav a').forEach(function(a){a.classList.toggle('on',a.dataset.v===map[h])});
+  $$('#nav a,#sside a[data-v]').forEach(function(a){a.classList.toggle('on',a.dataset.v===map[h])});
   var mo=$('#more'); if(mo){mo.classList.toggle('on',!!$('.mm a.on',mo));mo.classList.remove('open');}
   window.scrollTo(0,0);
   var v=$('#v-'+h);
