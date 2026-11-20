@@ -1247,7 +1247,7 @@ a.mc:hover{box-shadow:0 0 0 1px var(--ink-3);transform:translateY(-2px)}
 .mc svg.sp{width:100%;height:34px;margin-top:6px}
 .mc p{margin:8px 0 0;font-size:12.5px;color:var(--ink-3);line-height:1.6}
 .pc{padding:20px;display:flex;flex-direction:column;gap:10px}
-.pc .ptop{display:flex;align-items:center;gap:14px}
+.pc .ptop{display:flex;align-items:center;gap:14px}.pc .ptop>div{min-width:0}
 .pc .gauge{width:84px;flex:none}
 .pc h3{margin:0;font-size:15.5px;font-weight:600;line-height:1.5}
 .pc .hz{font-size:12.5px;color:var(--ink-3)}
@@ -1286,7 +1286,16 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 .sw[aria-checked=true]{background:var(--teal)}
 .sw[aria-checked=true]:after{inset-inline-start:21px}
 .sw:disabled{opacity:.45;cursor:default}
-.fld{display:grid;gap:6px;font-size:13px;color:var(--ink-2)}
+.fld{display:grid;gap:6px;font-size:13px;color:var(--ink-2);min-width:0}
+.fld input,.fld select{width:100%;min-width:0}
+#hForm{flex-wrap:wrap}
+.ox .ctl{padding-inline:16px}
+/* live data: pages that still show the demo say so */
+.demo-note{display:flex;gap:10px;align-items:center;background:var(--mustard-bg);color:var(--mustard-ink);border-radius:12px;padding:10px 14px;font-size:13.5px;line-height:1.7;margin:0 0 16px;position:relative;z-index:1}
+.demo-note b{font-weight:600}
+.demo-tag{font-size:11.5px;font-weight:500;background:var(--mustard-bg);color:var(--mustard-ink);border-radius:20px;padding:2px 10px;margin-inline-start:10px;vertical-align:3px}
+.src-st{display:inline-flex;align-items:center;gap:6px;font-size:12.5px}
+.src-st:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .fld input,.fld select{height:42px;border-radius:10px;border:0;box-shadow:inset 0 0 0 1px var(--line);padding:0 12px;font:inherit;font-size:14px;color:var(--ink);background:#fff}
 .handles{display:flex;gap:8px;flex-wrap:wrap}
 .handles span{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:15px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line);font-size:13px;direction:ltr}
@@ -1303,7 +1312,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 .more .mm a:after{display:none}
 .more .mm hr{border:0;border-top:1px solid var(--line);margin:6px 4px}
 @media (max-width:1280px){.send .search{display:none}.slinks{gap:20px}}
-@media (max-width:1100px){.g2,.g2e{grid-template-columns:1fr}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.ai{grid-template-columns:1fr}}
+@media (max-width:1100px){.g2,.g2e{grid-template-columns:minmax(0,1fr)}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.ai{grid-template-columns:1fr}}
 @media (max-width:640px){.g4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.bar{grid-template-columns:96px minmax(0,1fr) 56px}.tbl.wide{min-width:640px}.scroll-x{overflow-x:auto}}
 
 /* raseen-embed: hosted inside the React app, which draws its own top bar */
@@ -2151,9 +2160,10 @@ function cov(k){var d=COV[k],a=d.v,n=a.length,W=640,H=230,l=8,r=40,t=18,b=34,mx=
  var s='';[0,.5,1].forEach(function(f){var v=Math.round(mx*f/1.15);s+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="#E9EEEC"/><text x="'+(W-r+6)+'" y="'+(Y(v)+4)+'" font-size="11" fill="#7B909A">'+v+'</text>'});
  d.l.forEach(function(L,j){var i=Math.round(j/(d.l.length-1)*(n-1));s+='<text x="'+X(i)+'" y="'+(H-10)+'" font-size="11" fill="#7B909A" text-anchor="middle">'+L+'</text>'});
  s+='<path d="'+line+'L'+X(n-1)+' '+Y(0)+'L'+X(0)+' '+Y(0)+'Z" fill="#168B92" fill-opacity=".08"/><path id="covL" d="'+line+'" fill="none" stroke="#168B92" stroke-width="2.5" stroke-linejoin="round"/>';
- var last=a[n-1];s+='<circle cx="'+X(n-1)+'" cy="'+Y(last)+'" r="4.5" fill="#D5AD25"/><text x="'+(X(n-1)+8)+'" y="'+(Y(last)-10)+'" font-size="12" font-weight="600" fill="#0B2432">'+last+' '+d.u+'</text>';
+ var last=a[n-1];s+='<circle cx="'+X(n-1)+'" cy="'+Y(last)+'" r="4.5" fill="#D5AD25"/><text x="'+(X(n-1)+8)+'" y="'+(Y(last)-10)+'" style="direction:ltr;unicode-bidi:plaintext" text-anchor="start" font-size="12" font-weight="600" fill="#0B2432">'+last+' '+d.u+'</text>';
  var el=$('#covC');el.innerHTML=s;if(G){var p=$('#covL'),L=p.getTotalLength();G.fromTo(p,{strokeDasharray:L,strokeDashoffset:L},{strokeDashoffset:0,duration:1.2,ease:'power2.out'})}}
 cov('d');
+window.RASEEN_SETCOV=function(c){COV=c;var b=$('#covT .on');cov(b?b.dataset.k:'d')};
 $('#covT').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;$$('#covT button').forEach(function(x){x.classList.toggle('on',x===b)});cov(b.dataset.k)});
 /* sentiment stacked bars */
 (function(){var D=[['الأربعاء',52,31,17],['الخميس',54,30,16],['الجمعة',51,33,16],['السبت',55,31,14],['الأحد',56,29,15],['الاثنين',57,26,17],['اليوم',58,23,19]];
@@ -2197,25 +2207,27 @@ function count(n,one,two,few,many){n=+n;return n===1?one:n===2?two:(n%100>=3&&n%
 var L=window.RASEEN_LIVE={on:false,cur:null};
 var ready=window.RASEEN_READY=Promise.all([
   get('topics?active=eq.true&order=created_at&limit=1'),
-  get('sources?select=id,name,kind,is_official'),
+  get('sources?select=id,name,kind,is_official,active,last_fetch,last_status'),
 ]).then(function(r){
   var t=r[0][0];if(!t)throw new Error('no topic');
   L.topic=t.name;L.topicId=t.id;L.src={};r[1].forEach(function(s){L.src[s.id]=s});
   return Promise.all([
     get('stories?topic_id=eq.'+t.id+'&order=last_seen.desc.nullslast&limit=300'),
     get('articles?topic_id=eq.'+t.id+'&select=id,title,published_at,source_id&order=published_at.desc.nullslast&limit=60'),
-    get('briefs?topic_id=eq.'+t.id+'&order=created_at.desc&limit=1'),
+    get('briefs?topic_id=eq.'+t.id+'&order=created_at.desc&limit=6'),
+    get('articles?topic_id=eq.'+t.id+'&select=published_at,fetched_at,source_id&published_at=gte.'+new Date(Date.now()-30*864e5).toISOString()+'&order=published_at.desc&limit=3000'),
   ]);
 }).then(function(r){
   var since=Date.now()-7*864e5;
   L.all=r[0];
   L.stories=r[0].filter(function(s){return s.last_seen&&new Date(s.last_seen)>=since})
     .sort(function(a,b){return (b.article_count-a.article_count)||(new Date(b.last_seen)-new Date(a.last_seen))}).slice(0,40);
-  L.articles=r[1];L.brief=r[2][0]||null;L.on=true;
+  L.articles=r[1];L.briefs=r[2];L.brief=r[2][0]||null;L.month=r[3];L.on=true;
   return get('story_articles?story_id=in.('+L.stories.map(function(s){return s.id}).join(',')+')&select=story_id,role,article:articles(published_at,source_id,title)');
 }).then(function(links){
   L.links={};links.forEach(function(l){(L.links[l.story_id]=L.links[l.story_id]||[]).push(l)});
   addTopic();renderList();renderBrief();
+  [renderHome,renderAlerts,renderBriefs,renderSources,demoNotes].forEach(function(f){try{f()}catch(e){console.info('Raseen live:',e.message)}});
   document.documentElement.classList.add('is-live');
   return L;
 }).catch(function(e){L.on=false;console.info('Raseen: demo data ('+e.message+')');});
@@ -2334,6 +2346,93 @@ function renderBrief(){var b=L.brief,v=$('#v-brief');if(!b||!v)return;
   if(secs[2]){var un=L.stories.filter(function(s){return s.status==='unsupported'}).length,rv=L.stories.filter(function(s){return s.status==='review'}).length;
     secs[2].innerHTML='<h3>التوصية للفريق</h3><div class="reco"><div><b>'+(un?'لا تنشر '+count(un,'الادعاء','الادعاءين','ادعاءات','ادعاءً')+' غير المدعوم'+(un>2?'ة':''):'لا يوجد ادعاء منتشر')+'</b>'+(un?'لا يوجد مصدر رسمي يؤكده':'التغطية من مصادر معروفة')+'</div><div>'+(rv?'<b>راجع '+count(rv,'قصة','قصتين','قصص','قصة')+'</b>لم يحسم رسين مصدرها الأول':'<b>لا توجد قصص معلقة</b>لكل قصة مصدر أول واضح')+'</div><div><b>اعتمد الموجز</b>قبل إرساله للفريق</div></div>'}
   if(secs[3])secs[3].innerHTML='<h3>الأدلة</h3><ul class="refs" id="refs">'+ev.map(function(e){return '<li id="r'+e.n+'"><span class="ref">'+e.n+'</span><a href="'+esc(e.url)+'" target="_blank" rel="noopener" style="color:inherit">'+esc(e.title)+'</a>، '+esc(e.source)+(e.official?' (رسمي)':'')+'، '+day(e.published_at)+' '+hm(e.published_at)+'</li>'}).join('')+'</ul>';
+}
+
+/* ---------- home: today's summary from the real monitoring data */
+function ago(iso){if(!iso)return '';var m=Math.round((Date.now()-new Date(iso))/6e4);return m<1?'الآن':m<60?'قبل '+count(m,'دقيقة','دقيقتين','دقائق','دقيقة'):m<1440?'قبل '+count(Math.round(m/60),'ساعة','ساعتين','ساعات','ساعة'):day(iso)}
+function inLast(iso,ms){return iso&&Date.now()-new Date(iso)<=ms}
+function storyLink(s,cls,ic,title,sub,right){var a=document.createElement('a');a.className='al '+cls;a.href='#story';
+  a.innerHTML='<span class="ic"><svg><use href="#'+ic+'"/></svg></span><div><b>'+esc(title)+'</b><small>'+esc(sub)+'</small></div><time class="num">'+esc(right)+'</time>';
+  a.addEventListener('click',function(){openStory(s.id)});return a}
+function alertsFor(max){var out=[];
+  L.stories.filter(function(s){return s.status==='unsupported'}).forEach(function(s){out.push({s:s,c:'r',ic:'i-warn',t:s.title,sub:'ادعاء غير مدعوم · '+count(s.article_count,'خبر واحد','خبران','أخبار','خبرًا')+' من '+count(s.source_count,'مصدر واحد','مصدرين','مصادر','مصدرًا')+' بدون مصدر رسمي يؤكده',at:s.last_seen})});
+  L.stories.filter(function(s){return s.status==='review'}).forEach(function(s){out.push({s:s,c:'y',ic:'i-eye',t:s.title,sub:'يحتاج مراجعة · لم يُحسم المصدر الأول · ثقة '+Math.round((s.first_confidence||0)*100)+'%',at:s.last_seen})});
+  L.stories.filter(function(s){return s.status==='verified'}).slice(0,3).forEach(function(s){out.push({s:s,c:'g',ic:'i-ok',t:s.title,sub:'موثّق · المصدر الأول: '+srcOf(s),at:s.last_seen})});
+  return out.slice(0,max)}
+function renderHome(){var v=$('#v-home');if(!v)return;
+  var d24=L.month.filter(function(a){return inLast(a.published_at,864e5)}).length;
+  var wk=L.stories.length,un=L.stories.filter(function(s){return s.status==='unsupported'}).length,rv=L.stories.filter(function(s){return s.status==='review'}).length;
+  var last=L.month.reduce(function(m,a){var t=a.fetched_at||a.published_at;return t>m?t:m},'');
+  $('.ph p',v).textContent=new Date().toLocaleDateString('ar-SA-u-nu-latn',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Asia/Riyadh'})+' · موضوع الرصد: '+L.topic+(last?' · آخر تحديث '+ago(last):'');
+  $('.kpis',v).innerHTML=
+    '<a class="card kpi" href="#stories"><span>أخبار آخر 24 ساعة</span><b class="num cu" data-v="'+d24+'">'+d24+'</b><small>من '+count(Object.keys(L.src).length,'مصدر واحد','مصدرين','مصادر','مصدرًا')+' تُجمع كل ساعة</small></a>'+
+    '<a class="card kpi" href="#stories"><span>قصص هذا الأسبوع</span><b class="num">'+wk+'</b><small>بدل '+L.stories.reduce(function(n,s){return n+s.article_count},0)+' خبرًا متفرقًا</small></a>'+
+    '<a class="card kpi'+(un?' alert':'')+'" href="#alerts"><span>ادعاءات غير مدعومة</span><b class="num">'+un+'</b><small>'+(un?'تنتشر بدون مصدر رسمي':'لا يوجد ادعاء منتشر')+'</small></a>'+
+    '<a class="card kpi" href="#stories"><span>بانتظار المختص</span><b class="num">'+rv+'</b><small>'+(rv?'قصص لم يُحسم مصدرها الأول':'لا توجد قصص معلقة')+'</small></a>';
+  var ai=$('.ai',v);if(ai){var b=L.brief,cl=b?b.claims||[]:[];
+    $('h3',ai).innerHTML='<svg><use href="#i-spark"/></svg>قراءة رسين لليوم';
+    $('p',ai).textContent=cl[0]?cl[0].text:'رسين جمع '+wk+' قصة عن '+L.topic+' هذا الأسبوع.';
+    $('ul',ai).innerHTML=cl.slice(1,4).map(function(c){return '<li>'+esc(c.text)+'</li>'}).join('')||L.stories.slice(0,3).map(function(s){return '<li>'+esc(s.title)+'</li>'}).join('');
+    var cf=$('.conf',ai);if(cf)cf.innerHTML=b?'من الموجز الأخير · '+ago(b.created_at)+' · <a href="#brief" style="color:var(--mustard);font-weight:600">افتح الموجز</a>':'';
+    var aw=$('.aw',ai),top=L.stories.filter(function(s){return s.status==='unsupported'})[0];
+    if(aw)aw.innerHTML='<b>ليش يهمك؟</b>'+(top?'«'+esc(short(top.title))+'» ينتشر بدون مصدر رسمي. راجع مصدره الأول قبل أي رد.':rv?'فيه '+count(rv,'قصة','قصتان','قصص','قصة')+' تحتاج قرار المختص قبل اعتماد الموجز.':'التغطية مستقرة. اعتمد الموجز وأرسله للفريق.')+'<br><br><a class="btn y" href="'+(top||rv?'#stories':'#brief')+'">'+(top||rv?'افتح القصص':'افتح الموجز')+'</a>';}
+  // coverage: per hour for a day, per day for a week and a month (time flows right to left)
+  function bins(n,ms){var a=new Array(n).fill(0),end=Date.now();L.month.forEach(function(x){if(!x.published_at)return;var i=n-1-Math.floor((end-new Date(x.published_at))/ms);if(i>=0&&i<n)a[i]++});return a}
+  function dn(k){return new Date(Date.now()-k*864e5).toLocaleDateString('ar-SA',{weekday:'long',timeZone:'Asia/Riyadh'})}
+  if(window.RASEEN_SETCOV)RASEEN_SETCOV({d:{v:bins(24,36e5),l:['قبل 24 ساعة','قبل 18 ساعة','قبل 12 ساعة','قبل 6 ساعات','الآن'],u:'خبر في الساعة'},
+    w:{v:bins(7,864e5),l:[dn(6),dn(4),dn(2),'اليوم'],u:'خبر في اليوم'},m:{v:bins(30,864e5),l:['قبل 30 يومًا','قبل 20 يومًا','قبل 10 أيام','اليوم'],u:'خبر في اليوم'}});
+  // smart alerts card
+  var card=$('#covT')&&$('#covT').closest('.g2').children[1];
+  if(card){$$('.al',card).forEach(function(x){x.remove()});alertsFor(3).forEach(function(x){card.appendChild(storyLink(x.s,x.c,x.ic,x.t,x.sub,x.c==='r'?'خطر':x.c==='y'?'تحذير':'معلومة'))});
+    var h=$('h3',card);if(h)h.textContent='التنبيهات';}
+  // top stories and top sources
+  var tb=$('#topB');if(tb){var top=L.stories.slice(0,6),mx=(top[0]||{}).article_count||1;
+    tb.innerHTML=top.map(function(s){return '<div class="bar'+(s.status==='unsupported'?' r':'')+'"><span>'+esc(short(s.title))+'</span><u><i style="width:'+Math.round(s.article_count/mx*100)+'%"></i></u><b class="num">'+s.article_count+'</b></div>'}).join('');
+    var hh=tb.closest('.card').querySelector('.card-h');hh.innerHTML='<h3>أكبر القصص هذا الأسبوع</h3><small>عدد الأخبار</small>'}
+  var sb=$('#srcB');if(sb){var by={};L.month.forEach(function(a){if(inLast(a.published_at,7*864e5))by[a.source_id]=(by[a.source_id]||0)+1});
+    var ks=Object.keys(by).sort(function(a,b){return by[b]-by[a]}).slice(0,6),tot=ks.reduce(function(n,k){return n+by[k]},0)||1,m2=by[ks[0]]||1;
+    sb.innerHTML=ks.map(function(k){var s=L.src[k]||{};return '<div class="bar'+(s.is_official?'':' lo')+'"><span>'+esc(s.name||'مصدر')+'</span><u><i style="width:'+Math.round(by[k]/m2*100)+'%"></i></u><b class="num">'+by[k]+'<small>'+Math.round(by[k]/tot*100)+'%</small></b></div>'}).join('');
+    sb.closest('.card').querySelector('.card-h').innerHTML='<h3>أهم المصادر</h3><small>أخبار آخر 7 أيام · الحصة</small>'}
+  // latest signals = latest articles
+  var tbody=$('#sigT');if(tbody){var tbl=tbody.closest('table');$('thead',tbl).innerHTML='<tr><th>الخبر</th><th>المصدر</th><th>القصة</th><th>الوقت</th></tr>';
+    var stOf={};Object.keys(L.links).forEach(function(id){var s=L.all.filter(function(x){return x.id===id})[0];(L.links[id]||[]).forEach(function(l){stOf[l.article.title]=s})});
+    tbody.innerHTML=L.articles.slice(0,8).map(function(a){var s=stOf[a.title],st=s?ST[s.status]:null;return '<tr><td><b>'+esc(a.title)+'</b></td><td>'+esc((L.src[a.source_id]||{}).name||'')+'</td><td>'+(st?'<span class="chip '+st.c+'">'+st.t+'</span>':'—')+'</td><td class="num">'+when(a.published_at)+'</td></tr>'}).join('');
+    var th=tbl.closest('.card').querySelector('h3');if(th)th.textContent='أحدث الأخبار المرصودة'}
+  // the eight indicators and prediction are still demo figures: say so
+  $$('#v-home .sec-t h2').forEach(function(h){if(!$('.demo-tag',h))h.insertAdjacentHTML('beforeend','<span class="demo-tag">بيانات توضيحية</span>')});
+}
+
+/* ---------- alerts page */
+function renderAlerts(){var v=$('#v-alerts');if(!v)return;var box=$('.card',v);box.innerHTML='';
+  var xs=alertsFor(12);if(!xs.length){box.innerHTML='<p style="padding:16px;margin:0;color:var(--ink-2)">لا توجد تنبيهات هذا الأسبوع.</p>';return}
+  xs.forEach(function(x){box.appendChild(storyLink(x.s,x.c,x.ic,x.t,x.sub,when(x.at)))});
+  var n=xs.filter(function(x){return x.c!=='g'}).length;$$('#sside .cnt,#nav .cnt').forEach(function(c){c.textContent=n;c.style.display=n?'':'none'});
+}
+
+/* ---------- briefs list */
+function renderBriefs(){var v=$('#v-briefs');if(!v||!L.briefs||!L.briefs.length)return;
+  $('.bgrid',v).innerHTML=L.briefs.map(function(b,i){var ev=(b.evidence||[]).length;
+    return '<a class="card bc" href="#brief" data-b="'+i+'"><span class="chip '+(b.status==='approved'?'g':'y')+'">'+(b.status==='approved'?'معتمد':'بانتظار الاعتماد')+'</span><b>'+esc(b.title)+'</b><small>'+when(b.created_at)+' · '+count(ev,'دليل واحد','دليلان','أدلة','دليلًا')+'</small></a>'}).join('');
+  $$('.bc',v).forEach(function(a){a.addEventListener('click',function(){L.brief=L.briefs[+a.dataset.b];renderBrief()})});
+}
+
+/* ---------- sources: what Raseen collects from, and whether each feed works */
+function renderSources(){var v=$('#v-sources');if(!v)return;
+  var by={};L.month.forEach(function(a){if(inLast(a.published_at,7*864e5))by[a.source_id]=(by[a.source_id]||0)+1});
+  var ids=Object.keys(L.src).sort(function(a,b){return (by[b]||0)-(by[a]||0)});
+  var kind={news:'صحيفة / موقع إخباري',official:'جهة رسمية',aggregator:'مجمّع أخبار',blog:'مدونة',social:'منصة تواصل'};
+  $('.ph p',v).textContent='المصادر النصية التي يجمع منها رسين كل ساعة عن «'+L.topic+'». مصادر البث والفيديو في مراحل لاحقة';
+  $('.card',v).innerHTML='<div class="scroll-x"><table class="tbl"><thead><tr><th>المصدر</th><th>النوع</th><th>أخبار آخر 7 أيام</th><th>آخر جمع</th><th>الحالة</th></tr></thead><tbody>'+
+    ids.map(function(k){var s=L.src[k],ok=!s.last_status||/^ok|^200/i.test(s.last_status);
+      return '<tr><td><b>'+esc(s.name)+'</b></td><td>'+(kind[s.kind]||s.kind||'')+'</td><td class="num">'+(by[k]||0)+'</td><td class="num">'+(s.last_fetch?ago(s.last_fetch):'—')+'</td><td><span class="src-st" style="color:'+(s.active===false?'var(--ink-3)':ok?'var(--teal)':'var(--claim-ink)')+'">'+(s.active===false?'موقوف':ok?'يعمل':'تعذّر الجمع')+'</span></td></tr>'}).join('')+'</tbody></table></div>';
+}
+
+/* ---------- pages that still run on the demo company say so */
+function demoNotes(){
+  ['analysis','metrics','prediction','reports','social'].forEach(function(k){var v=$('#v-'+k);if(!v||$('.demo-note',v))return;var ph=$('.ph',v);
+    var n=document.createElement('div');n.className='demo-note';n.innerHTML='<span><b>بيانات توضيحية:</b> هذه الصفحة تعرض مثال «نخلة للاتصالات». الرصد الحقيقي عن «'+esc(L.topic)+'» في <a href="#home" style="color:inherit;text-decoration:underline">الرئيسية</a> و<a href="#stories" style="color:inherit;text-decoration:underline">القصص</a> و<a href="#brief" style="color:inherit;text-decoration:underline">الموجز</a>.</span>';
+    if(ph)ph.insertAdjacentElement('afterend',n);else v.insertBefore(n,v.firstChild)});
+  var h=$('#login .hint');if(h)h.textContent='الرئيسية والقصص والموجز تعمل على بيانات حقيقية عن «'+L.topic+'» تُجمع كل ساعة، وبقية الصفحات توضيحية.';
 }
 
 /* specialist review goes to the database */
