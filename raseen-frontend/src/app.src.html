@@ -581,7 +581,7 @@ a.card.kpi:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(11
 .pro .tabs button,.pro .page > .ph .tabs button,.pro .opts button{border-radius:999px;color:var(--ink-2)}
 .pro .tabs button.on,.pro .page > .ph .tabs button.on,.pro .opts button.on{background:var(--navy);color:#fff;box-shadow:none}
 @media (min-width:1001px){
-  .pro .sside{inset-block:12px;inset-inline-start:12px;width:232px;border-radius:28px;border:0;background:var(--glass-d);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:var(--rim-d),var(--lift)}
+  .pro .sside{inset-block:12px;inset-inline-start:12px;width:252px;border-radius:28px;border:0;background:var(--glass-d);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:var(--rim-d),var(--lift)}
   .pro .sbrand2{border-bottom:0;height:64px}
   .pro .sside nav a{border-radius:999px;height:34px}
   .pro .sside nav b.sg{padding:12px 12px 4px}
@@ -590,8 +590,8 @@ a.card.kpi:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(11
   .pro .sside nav a.on:before{display:none}
   .pro .sside nav a.on .si{color:var(--navy)}
   .pro .sside nav a.on .cnt{color:#fff}
-  .pro .main{margin-inline-start:256px}
-  .pro .snav,.pro .snav.solid{inset-block-start:12px;inset-inline-start:256px;inset-inline-end:12px;border-radius:22px;background:var(--glass-l);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:var(--rim),0 6px 24px rgba(11,36,50,.08)}
+  .pro .main{margin-inline-start:276px}
+  .pro .snav,.pro .snav.solid{inset-block-start:12px;inset-inline-start:276px;inset-inline-end:12px;border-radius:22px;background:var(--glass-l);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:var(--rim),0 6px 24px rgba(11,36,50,.08)}
   .pro .swrap{height:60px}
   .pro .search input{background:rgba(255,255,255,.7);border-color:transparent}
   .pro .page{padding-top:100px}
@@ -653,6 +653,25 @@ a.card.kpi:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(11
 .sside nav .sub a{margin-inline-start:14px}
 .sside nav .sub:not(:has(a)){display:none}
 @media (prefers-reduced-motion:reduce){.sside nav .sub,.sside nav button.sg .chv{transition:none}}
+
+
+/* sidebar fill (Nov 21): sections carry icons, roomier rows, admin + live status sit at the bottom */
+.sside nav button.sg{height:auto;min-height:44px;padding-block:8px;font-size:13.5px;line-height:1.45}
+.sside nav button.sg span{white-space:nowrap;overflow:visible}
+.sside nav button.sg{position:relative;padding-inline-end:24px}
+.sside nav button.sg .chv{position:absolute;inset-inline-end:8px;top:50%;margin-top:-7px}
+.sside nav button.sg .si{width:18px;height:18px;flex:none;opacity:.6}
+.sside nav button.sg:hover .si,.sside nav .grp.open>button.sg .si{opacity:.95}
+.sside nav .grp.cur>button.sg .si{color:var(--mustard);opacity:1}
+.sside nav .sub a{margin-inline-start:26px}
+.sside nav{flex:1}
+.sside nav .gadm{margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:8px}
+.sstat{display:flex;align-items:center;gap:10px;margin:8px 12px 14px;padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.06);color:#fff;text-decoration:none}
+.sstat i{width:8px;height:8px;border-radius:50%;background:#3CC8CF;box-shadow:0 0 0 4px rgba(60,200,207,.18);flex:none}
+.sstat b{display:block;font-size:13px;font-weight:500}
+.sstat small{display:block;font-size:11.5px;color:rgba(255,255,255,.55);margin-top:1px}
+.sstat:hover{background:rgba(255,255,255,.1)}
+@media (max-height:640px){.sstat{display:none}}
 
 /* toast + help */
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--navy);color:#fff;border-radius:12px;padding:12px 18px;font-size:14px;display:flex;gap:10px;align-items:center;z-index:80;transition:transform .5s var(--ease);box-shadow:0 20px 40px -10px rgba(0,0,0,.4)}
@@ -1038,34 +1057,35 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
     <a class="sbrand2" href="#home" aria-label="رسين"><img src="{{LOGO}}" alt="رسين"></a>
     <nav>
       <a href="#home" data-v="home"><svg class="si"><use href="#i-home"/></svg>الرئيسية</a>
-      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg1"><span>الرصد والفرز الذكي</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg1"><div class="in">
+      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg1"><svg class="si"><use href="#i-radar"/></svg><span>الرصد والفرز الذكي</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg1"><div class="in">
       <a href="#setup" data-v="setup"><svg class="si"><use href="#i-radar"/></svg>الرصد</a>
       <a href="#alerts" data-v="alerts"><svg class="si"><use href="#i-bell"/></svg>التنبيهات<span class="cnt num">2</span></a></div>
       </div></div>
-      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg2"><span>تتبّع المصادر والتحقّق</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg2"><div class="in">
+      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg2"><svg class="si"><use href="#i-st"/></svg><span>تتبّع المصادر والتحقّق</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg2"><div class="in">
       <a href="#stories" data-v="stories"><svg class="si"><use href="#i-st"/></svg>القصص والتحقق</a>
       <a href="#sources" data-v="sources"><svg class="si"><use href="#i-src"/></svg>المصادر</a></div>
       </div></div>
-      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg3"><span>التغطية والجمهور والسمعة</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg3"><div class="in">
+      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg3"><svg class="si"><use href="#i-chart"/></svg><span>التغطية والجمهور والسمعة</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg3"><div class="in">
       <a href="#analysis" data-v="analysis"><svg class="si"><use href="#i-chart"/></svg>التحليل</a>
       <a href="#social" data-v="social"><svg class="si"><use href="#i-at"/></svg>حسابات التواصل</a></div>
       </div></div>
-      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg4"><span>تحليل الحملات والمنافسين</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg4"><div class="in">
+      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg4"><svg class="si"><use href="#i-vs"/></svg><span>تحليل الحملات والمنافسين</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg4"><div class="in">
       <a href="#competitors" data-v="competitors"><svg class="si"><use href="#i-vs"/></svg>المنافسون والحملات</a></div>
       </div></div>
-      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg5"><span>مؤشرات الأداء والتقارير</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg5"><div class="in">
+      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg5"><svg class="si"><use href="#i-gauge"/></svg><span>مؤشرات الأداء والتقارير</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg5"><div class="in">
       <a href="#metrics" data-v="metrics"><svg class="si"><use href="#i-gauge"/></svg>المؤشرات</a>
       <a href="#reports" data-v="reports"><svg class="si"><use href="#i-report"/></svg>التقارير</a>
       <a href="#briefs" data-v="briefs"><svg class="si"><use href="#i-doc"/></svg>الموجزات</a></div>
       </div></div>
-      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg6"><span>الاستشراف ودعم القرار</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg6"><div class="in">
+      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg6"><svg class="si"><use href="#i-trend"/></svg><span>الاستشراف ودعم القرار</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg6"><div class="in">
       <a href="#prediction" data-v="prediction"><svg class="si"><use href="#i-trend"/></svg>التنبؤ</a></div>
       </div></div>
-      <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg7"><span>الإدارة</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg7"><div class="in">
+      <div class="grp gadm"><button type="button" class="sg" aria-expanded="false" aria-controls="sg7"><svg class="si"><use href="#i-set"/></svg><span>الإدارة</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg7"><div class="in">
       <a href="#roles" data-v="roles"><svg class="si"><use href="#i-shield"/></svg>الأدوار والصلاحيات</a>
       <a href="#settings" data-v="settings"><svg class="si"><use href="#i-set"/></svg>الإعدادات</a></div>
       </div></div>
     </nav>
+    <a class="sstat" href="#setup"><i></i><span><b>الرصد يعمل</b><small id="sstatT">الأخبار تُجمع كل ساعة</small></span></a>
   </aside>
   <nav class="bbar" id="bbar" aria-label="الأقسام الرئيسية">
     <a href="#home" data-v="home"><svg><use href="#i-home"/></svg>الرئيسية</a>
