@@ -2886,7 +2886,8 @@ function renderHome(){var v=$('#v-home');if(!v)return;
     $('ul',ai).innerHTML=cl.slice(1,4).map(function(c){return '<li>'+esc(c.text)+'</li>'}).join('')||L.stories.slice(0,3).map(function(s){return '<li>'+esc(s.title)+'</li>'}).join('');
     var cf=$('.conf',ai);if(cf)cf.innerHTML=b?'من الموجز الأخير · '+ago(b.created_at)+' · <a href="#brief" style="color:var(--mustard);font-weight:600">افتح الموجز</a>':'';
     var aw=$('.aw',ai),top=L.stories.filter(function(s){return s.status==='unsupported'})[0];
-    if(aw)aw.innerHTML='<b>ليش يهمك؟</b>'+(top?'«'+esc(short(top.title))+'» ينتشر بدون مصدر رسمي. راجع مصدره الأول قبل أي رد.':rv?'فيه '+count(rv,'قصة','قصتان','قصص','قصة')+' تحتاج قرار المختص قبل اعتماد الموجز.':'التغطية مستقرة. اعتمد الموجز وأرسله للفريق.')+'<br><br><a class="btn y" href="'+(top||rv?'#stories':'#brief')+'">'+(top||rv?'افتح القصص':'افتح الموجز')+'</a>';}
+    if(aw)aw.innerHTML='<b>ليش يهمك؟</b>'+(top?'«'+esc(short(top.title))+'» ينتشر بدون مصدر رسمي. راجع مصدره الأول قبل أي رد.':rv?'فيه '+count(rv,'قصة','قصتان','قصص','قصة')+' تحتاج قرار المختص قبل اعتماد الموجز.':'التغطية مستقرة. اعتمد الموجز وأرسله للفريق.')+'<br><br><a class="btn y" id="awGo" href="'+(top?'#story':rv?'#stories':'#brief')+'">'+(top?'افتح القصة وشوف مصدرها':rv?'افتح القصص':'افتح الموجز')+'</a>';
+      var go=$('#awGo',aw);if(go&&top)go.addEventListener('click',function(){openStory(top.id)});}
   // coverage: per hour for a day, per day for a week and a month (time flows right to left)
   function bins(n,ms){var a=new Array(n).fill(0),end=Date.now();L.month.forEach(function(x){if(!x.published_at)return;var i=n-1-Math.floor((end-new Date(x.published_at))/ms);if(i>=0&&i<n)a[i]++});return a}
   function dn(k){return new Date(Date.now()-k*864e5).toLocaleDateString('ar-SA',{weekday:'long',timeZone:'Asia/Riyadh'})}
