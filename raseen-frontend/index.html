@@ -465,6 +465,23 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 .montabs button.on{background:#fff;color:#0B2432;border-color:#fff}
 .montabs button:focus-visible{outline:2px solid #D5AD25;outline-offset:2px}
 @media (max-width:640px){.montabs button{font-size:12.5px;padding:7px 12px}}
+
+/* problem: survey figures as bubbles, size = share (Nov 21) */
+#problem .prob{grid-template-columns:minmax(0,1fr);gap:12px;align-items:start;text-align:center;justify-items:center}
+#problem .h2 em{font-style:normal;color:var(--teal)}
+#problem .rings{grid-column:auto;display:flex;justify-content:center;align-items:flex-end;gap:clamp(16px,4vw,56px);background:none;border-radius:0;padding:28px 0 8px;overflow:visible;width:100%}
+#problem .ring{padding:0;gap:14px;align-items:center;text-align:center;border:0;--p:0}
+#problem .ring+.ring{border:0}
+#problem .bub{--d:calc(var(--s) * (.35 + .65 * var(--p) / .692));width:var(--d);height:var(--d);border-radius:50%;display:grid;place-items:center;transition:width .2s linear,height .2s linear;box-shadow:inset 0 -10px 24px rgba(0,0,0,.12),0 18px 40px -18px rgba(11,36,50,.45)}
+#problem .r1 .bub{--s:min(260px,38vw);background:var(--teal)}
+#problem .r2 .bub{--s:min(260px,38vw);background:var(--navy)}
+#problem .r3 .bub{--s:min(260px,38vw);background:var(--mustard)}
+#problem .ring .num{justify-content:center;color:#fff;font-size:clamp(28px,4vw,52px)}
+#problem .ring .num i{color:rgba(255,255,255,.8);font-size:.5em}
+#problem .r3 .num,#problem .r3 .num i{color:var(--navy)}
+#problem .ring>span{font-size:16px;font-weight:600;color:var(--ink);max-width:22ch;line-height:1.5}
+#problem .src{text-align:center;margin-top:16px!important}
+@media (max-width:640px){#problem .rings{gap:8px}#problem .ring{flex:1;min-width:0}#problem .r1 .bub,#problem .r2 .bub,#problem .r3 .bub{--s:30vw}#problem .ring .num{font-size:22px}#problem .ring>span{font-size:12.5px}}
 </style>
 
 <div dir="rtl" lang="ar">
@@ -514,12 +531,12 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 
 <!-- problem -->
 <section class="band" id="problem"><div class="wrap prob">
-  <h2 class="h2 rv">فرق الإعلام تطّلع على الخبر نفسه عشرات المرات</h2>
-  <div><p class="lede rv" style="margin:0">يصل الخبر الواحد من عشرات المصادر والمنصات، فيقضي الفريق وقته في البحث عن أصله، وقد تنتشر الإشاعة قبل اكتشافها.</p></div>
+  <h2 class="h2 rv">خبر واحد، عشرات النسخ.<br><em>ومن قاله أول؟</em></h2>
+  <p class="lede rv" style="margin:0">هذا ما قاله الإعلاميون في استبيان رسين</p>
   <div class="rings rv">
-    <div class="ring"><b class="num"><span class="cnt" data-v="69.2">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>واجهوا صعوبة في العثور على المصدر الأول للخبر</span></div>
-    <div class="ring"><b class="num"><span class="cnt" data-v="53.8">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يتكرر عليهم الخبر نفسه عبر المصادر غالبًا أو دائمًا</span></div>
-    <div class="ring"><b class="num"><span class="cnt" data-v="61.5">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>تأخر لديهم اكتشاف تطور مهم</span></div>
+    <div class="ring r1"><div class="bub"><b class="num"><span class="cnt" data-v="69.2">0</span><i>%</i></b></div><span>يصعب عليهم معرفة المصدر الأول</span></div>
+    <div class="ring r2"><div class="bub"><b class="num"><span class="cnt" data-v="61.5">0</span><i>%</i></b></div><span>يتأخرون في اكتشاف تطور مهم</span></div>
+    <div class="ring r3"><div class="bub"><b class="num"><span class="cnt" data-v="53.8">0</span><i>%</i></b></div><span>يتكرر عليهم الخبر نفسه</span></div>
   </div>
   <p class="src rv" style="grid-column:1 / -1;margin:0">المصدر: استبيان رسين لممارسين من زوار المنتدى السعودي للإعلام، والنسب من الإجابات الصالحة لكل سؤال.</p>
 </div></section>
@@ -3167,7 +3184,7 @@ ready.then(function(){if(location.hash==='#story'&&L.on&&L.stories[0])openStory(
   $$('.faq details').forEach(function(d){d.addEventListener('toggle',function(){if(d.open)$$('.faq details').forEach(function(o){if(o!==d)o.open=false})})});
 
   // ---------- GSAP
-  function fillBar(b,x){var us=b.closest('.ring').querySelectorAll('.bar u');us.forEach(function(u,i){u.style.setProperty('--f',Math.max(0,Math.min(1,x/10-i)))})}
+  function fillBar(b,x){var rg=b.closest('.ring');rg.style.setProperty('--p',(x/100).toFixed(3));var us=rg.querySelectorAll('.bar u');us.forEach(function(u,i){u.style.setProperty('--f',Math.max(0,Math.min(1,x/10-i)))})}
   function countUp(b){var v=parseFloat(b.dataset.v),o={v:0};if(!window.gsap||reduce){b.textContent=v;fillBar(b,v);return;}
     gsap.to(o,{v:v,duration:1.8,ease:'power3.out',onUpdate:function(){b.textContent=o.v.toFixed(1);fillBar(b,o.v)}});}
   if(!window.gsap){$$('.cnt').forEach(countUp);$('#loader').remove();return;}
