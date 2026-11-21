@@ -501,27 +501,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 </section>
 
 <!-- product -->
-<section class="showcase" id="product">
-  <div class="wrap">
-    <div class="head c"><h2 class="h2 rv">واجهة المنصة</h2><p class="lede rv">كل ما يُنشر عن مواضيعك، مجمّع في قصص، مع حالة كل ادعاء.</p></div>
-    <div class="stage">
-      <div class="mon2" id="win">
-        <svg viewBox="0 0 1600 1400" role="img" aria-label="صورة من منصة رسين">
-          <defs><clipPath id="monClip"><path d="M110 58H1490A52 52 0 0 1 1542 110V1002H58V110A52 52 0 0 1 110 58Z"/></clipPath></defs>
-          <rect x="58" y="58" width="1484" height="944" fill="#0B2432"/>
-          <image id="monImg" href="assets/screens/home.jpg" x="58" y="58" width="1484" height="944" preserveAspectRatio="xMidYMin slice" clip-path="url(#monClip)"/>
-          <rect x="40" y="40" width="1520" height="1140" rx="72" fill="none" stroke="#EEF2F1" stroke-width="30"/>
-          <path d="M55 1020H1545" stroke="#EEF2F1" stroke-width="30"/>
-          <rect x="55" y="1035" width="1490" height="130" rx="10" fill="#EEF2F1" fill-opacity=".06"/>
-          <circle cx="800" cy="1100" r="26" fill="none" stroke="#EEF2F1" stroke-width="14"/><circle cx="800" cy="1100" r="7" fill="#D5AD25"/>
-          <path d="M690 1196 640 1338M910 1196 960 1338" stroke="#EEF2F1" stroke-width="30" stroke-linecap="round"/>
-          <path d="M500 1350H1100" stroke="#EEF2F1" stroke-width="30" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="montabs" role="group" aria-label="صفحات المنصة"><button type="button" data-s="home" class=on aria-pressed=true>ملخص اليوم</button><button type="button" data-s="setup" aria-pressed=false>بدء الرصد</button><button type="button" data-s="story" aria-pressed=false>القصة ومصدرها الأول</button><button type="button" data-s="analysis" aria-pressed=false>التحليل الإعلامي</button><button type="button" data-s="competitors" aria-pressed=false>المنافسون</button></div>
-    </div>
-  </div>
-</section>
+
 <div class="hero-fade"></div>
 
 <!-- sources -->
@@ -1012,7 +992,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
   if(!st){$$('.cnt').forEach(countUp);return;}
 
   // the product window flattens as you scroll into it
-  if(!reduce){gsap.to('#win',{rotateX:0,scale:1,ease:'none',scrollTrigger:{trigger:'.stage',start:'top 95%',end:'top 20%',scrub:.8}});
+  if(!reduce&&document.getElementById('win')){gsap.to('#win',{rotateX:0,scale:1,ease:'none',scrollTrigger:{trigger:'.stage',start:'top 95%',end:'top 20%',scrub:.8}});
 }
 
   // reveals: short rise and fade, grouped per section
