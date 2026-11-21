@@ -481,7 +481,6 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 #who .mi small{color:var(--on-3);font-size:12px}
 #who .mi.r{width:280px;background:transparent}#who .mi.r.now{box-shadow:inset 0 0 0 1.5px var(--mustard)}#who .mi.r.now small{color:var(--mustard)}
 @media (max-width:640px){#who .mi{width:270px}#who .mi.r{width:230px}}
-@media (prefers-reduced-motion:reduce){#who .mrow{animation:none}#who .mq{overflow-x:auto}}
 
 /* AI engine: orbit panel (Nov 21) */
 #ai .orb{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:center;background:var(--navy);border-radius:24px;padding:clamp(20px,4vw,48px);color:#fff}
@@ -856,8 +855,8 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
     function mark(){nodes.forEach(function(c,j){var on=j===cur;c.setAttribute('fill',on?'#D5AD25':'#0F2D3D');c.setAttribute('stroke',on?'#D5AD25':'#3CC8CF');c.setAttribute('r',on?20:14)});Ol.querySelectorAll('.oit').forEach(function(b,j){b.classList.toggle('on',j===cur)})}
     mark();
     new IntersectionObserver(function(e){vis=e[0].isIntersecting},{threshold:.3}).observe(O);
-    (function f(t){var rot=reduce?0:t/18000;nodes.forEach(function(c,i){var a=-Math.PI/2+i*Math.PI/3+rot,x=200+150*Math.cos(a),y=200+150*Math.sin(a);c.parentNode.setAttribute('transform','translate('+x.toFixed(1)+','+y.toFixed(1)+')');if(i===cur){link.setAttribute('x2',x.toFixed(1));link.setAttribute('y2',y.toFixed(1))}});requestAnimationFrame(f)})(0);
-    setInterval(function(){if(!vis||reduce)return;if(hold>0){hold--;return}cur=(cur+1)%6;mark()},2600);
+    (function f(t){var rot=t/18000;nodes.forEach(function(c,i){var a=-Math.PI/2+i*Math.PI/3+rot,x=200+150*Math.cos(a),y=200+150*Math.sin(a);c.parentNode.setAttribute('transform','translate('+x.toFixed(1)+','+y.toFixed(1)+')');if(i===cur){link.setAttribute('x2',x.toFixed(1));link.setAttribute('y2',y.toFixed(1))}});requestAnimationFrame(f)})(0);
+    setInterval(function(){if(!vis)return;if(hold>0){hold--;return}cur=(cur+1)%6;mark()},2600);
   })();
 
   // ---------- hero app: the live feed keeps receiving stories
