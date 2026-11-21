@@ -1335,9 +1335,11 @@ a.card.kpi:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(11
 .sside nav button.sg span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sside nav button.sg:hover{background:rgba(255,255,255,.05);color:#fff}
 .sside nav button.sg:focus-visible{outline:2px solid var(--mustard);outline-offset:-2px}
-.sside nav button.sg .chv{width:14px;height:14px;flex:none;opacity:.55;transition:transform .25s}
+.sside nav button.sg .chv{width:14px;height:14px;flex:none;opacity:0;transition:transform .25s,opacity .2s}
+.sside nav button.sg:hover .chv,.sside nav button.sg:focus-visible .chv{opacity:.7}
+@media (hover:none){.sside nav button.sg .chv{opacity:.55}}
 .sside nav button.sg[aria-expanded="true"]{color:#fff}
-.sside nav button.sg[aria-expanded="true"] .chv{transform:rotate(-90deg);opacity:.9}
+.sside nav button.sg[aria-expanded="true"] .chv{transform:rotate(-90deg)}
 .sside nav .grp.cur>button.sg{color:var(--mustard)}
 .sside nav .sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
 .sside nav .sub>.in{min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:2px}
