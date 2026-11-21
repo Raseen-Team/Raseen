@@ -473,6 +473,17 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 #who .ac p{color:var(--on-2)}
 #who .ac .ic{background:rgba(255,255,255,.06);color:var(--teal-2,#3CC8CF)}
 #who .rh{font-size:20px;font-weight:600;margin:56px 0 20px}
+
+/* AI engine: orbit panel (Nov 21) */
+#ai .orb{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:center;background:var(--navy);border-radius:24px;padding:clamp(20px,4vw,48px);color:#fff}
+#ai .orb svg{width:100%;max-width:440px;height:auto;display:block;margin:auto;font-family:inherit}
+#ai .olist{display:flex;flex-direction:column;gap:4px}
+#ai .oit{all:unset;cursor:pointer;padding:14px 18px;border-radius:14px;color:var(--on-2);transition:background .3s}
+#ai .oit b{display:block;color:#fff;font-size:17px;font-weight:600}
+#ai .oit p{margin:4px 0 0;font-size:14px;line-height:1.7;display:none}
+#ai .oit.on{background:var(--navy-2);box-shadow:inset 0 0 0 1px var(--line-d)}#ai .oit.on p{display:block}#ai .oit.on b{color:#3CC8CF}
+#ai .oit:focus-visible{outline:2px solid var(--mustard)}
+@media (max-width:760px){#ai .orb{grid-template-columns:1fr}}
 </style>
 
 <div dir="rtl" lang="ar">
@@ -620,14 +631,9 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 <!-- AI engine -->
 <section class="band" id="ai"><div class="wrap">
   <div class="head"><h2 class="h2 rv">محرك ذكاء اصطناعي مبني للمحتوى العربي</h2><p class="lede rv">ست طبقات تعمل معًا، من جمع الخبر إلى التوصية.</p></div>
-  <div class="bento">
-    <div class="b-big rv"><canvas id="aiC" aria-hidden="true"></canvas><div class="cap"><small>الطبقة التي تعمل الآن</small><b id="aiName">جمع البيانات الذكي</b></div></div>
-    <div class="layer on rv"><span class="n num">01</span><b>جمع البيانات الذكي</b><p>يسحب المحتوى من الأخبار والمنصات لحظة نشره.</p></div>
-    <div class="layer rv"><span class="n num">02</span><b>معالجة اللغة العربية</b><p>يفهم الفصحى واللهجات، لا الكلمات المفتاحية فقط.</p></div>
-    <div class="layer rv"><span class="n num">03</span><b>تصنيف المحتوى</b><p>يجمع الأخبار المتشابهة في قصة ويصنّفها حسب الموضوع.</p></div>
-    <div class="layer rv"><span class="n num">04</span><b>تحليل المشاعر</b><p>يقيس اتجاه الحديث: إيجابي أو سلبي أو محايد.</p></div>
-    <div class="layer rv"><span class="n num">05</span><b>اكتشاف الأنماط</b><p>يلاحظ الانتشار غير الطبيعي والحسابات المترابطة.</p></div>
-    <div class="layer rv"><span class="n num">06</span><b>التنبؤ والتوصيات</b><p>ينبّه بالقضايا الصاعدة ويقترح الخطوة التالية.</p></div>
+  <div class="orb rv">
+    <svg viewBox="0 0 400 400" id="orbS" aria-hidden="true"></svg>
+    <div class="olist" id="orbL"></div>
   </div>
 </div></section>
 
@@ -3055,53 +3061,26 @@ ready.then(function(){if(location.hash==='#story'&&L.on&&L.stories[0])openStory(
     requestAnimationFrame(frame);
   })();
 
-  // ---------- AI engine in Three.js: a core with six orbiting layers
-  if(document.getElementById('ai')){var aiLayer=0, layerEls=$$('.layer'), names=layerEls.map(function(l){return l.querySelector('b').textContent});
+  // ---------- AI engine: Raseen at the centre, six layers on one orbit (Orbit option, Nov 21; orbit motif from the team deck)
   (function(){
-    if(!window.THREE) return; var c=$('#aiC'), R;
-    try{R=new THREE.WebGLRenderer({canvas:c,antialias:true,alpha:true});}catch(e){return;}
-    R.setPixelRatio(Math.min(devicePixelRatio,2));
-    var S=new THREE.Scene(), cam=new THREE.PerspectiveCamera(40,1,.1,100); cam.position.set(0,.4,10.5); cam.lookAt(0,.4,0);
-    var core=new THREE.Mesh(new THREE.SphereGeometry(1.05,48,32),new THREE.MeshBasicMaterial({color:0x168B92})); S.add(core);
-    var coreRing=new THREE.Mesh(new THREE.TorusGeometry(1.14,.025,8,96),new THREE.MeshBasicMaterial({color:0x3CC8CF})); S.add(coreRing);
-    var rings=[], cols=[0x3CC8CF,0x3CC8CF,0x3CC8CF,0xD5AD25,0xD5AD25,0xD5AD25];
-    for(var i=0;i<6;i++){
-      var rad=1.6+i*.42, g=new THREE.Group();
-      var torus=new THREE.Mesh(new THREE.TorusGeometry(rad,.008,6,160),new THREE.MeshBasicMaterial({color:0x3CC8CF,transparent:true,opacity:.22})); g.add(torus);
-      var sat=new THREE.Mesh(new THREE.SphereGeometry(.11,20,16),new THREE.MeshBasicMaterial({color:cols[i]}));
-      var halo=new THREE.Mesh(new THREE.SphereGeometry(.22,20,16),new THREE.MeshBasicMaterial({color:cols[i],transparent:true,opacity:.18}));
-      sat.add(halo); g.add(sat);
-      var pg=new THREE.BufferGeometry(), arr=[]; for(var k=0;k<40;k++){var a=Math.random()*Math.PI*2;arr.push(Math.cos(a)*rad,Math.sin(a)*rad,(Math.random()-.5)*.05);}
-      pg.setAttribute('position',new THREE.Float32BufferAttribute(arr,3));
-      g.add(new THREE.Points(pg,new THREE.PointsMaterial({color:cols[i],size:.035,transparent:true,opacity:.6})));
-      g.rotation.x=.55+(i%2?.06:-.06)*i; g.rotation.y=(i-2.5)*.07;
-      S.add(g); rings.push({g:g,torus:torus,sat:sat,halo:halo,rad:rad,speed:.25-i*.025,phase:i*1.1});
-    }
-    function rs(){var r=c.getBoundingClientRect();if(!r.width)return;R.setSize(r.width,r.height,false);cam.aspect=r.width/r.height;cam.position.z=r.width<r.height*.9?13.5:10.5;cam.updateProjectionMatrix();}
-    addEventListener('resize',rs);rs();
-    var vis=false; new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(c);
-    (function f(t){
-      if(vis||!window.__aiDrawn){
-        var s=reduce?0:t/1000;
-        rings.forEach(function(o,i){
-          var a=o.phase+s*o.speed; o.sat.position.set(Math.cos(a)*o.rad,Math.sin(a)*o.rad,0);
-          var on=i===aiLayer; o.torus.material.opacity+=((on?.75:.18)-o.torus.material.opacity)*.08;
-          var sc=on?1.6:1; o.sat.scale.setScalar(o.sat.scale.x+(sc-o.sat.scale.x)*.1);
-          o.halo.material.opacity=on?.25+.15*Math.sin(s*4):.12;
-          o.g.children[2].rotation.z=s*o.speed*.6;
-        });
-        S.rotation.y+=((Math.sin(s*.23)*.22)-S.rotation.y)*.05; S.rotation.x+=((Math.sin(s*.17+.8)*.1)-S.rotation.x)*.05;
-        coreRing.rotation.x=.6+Math.sin(s*.7)*.3; coreRing.rotation.y=s*.4;
-        R.render(S,cam); window.__aiDrawn=true;
-      }
-      requestAnimationFrame(f);
-    })(0);
+    var O=document.getElementById('orbS'),Ol=document.getElementById('orbL'); if(!O) return;
+    var Ly=[['جمع البيانات الذكي','يسحب المحتوى من الأخبار والمنصات لحظة نشره.'],['معالجة اللغة العربية','يفهم الفصحى واللهجات، لا الكلمات المفتاحية فقط.'],['تصنيف المحتوى','يجمع الأخبار المتشابهة في قصة ويصنّفها حسب الموضوع.'],['تحليل المشاعر','يقيس اتجاه الحديث: إيجابي أو سلبي أو محايد.'],['اكتشاف الأنماط','يلاحظ الانتشار غير الطبيعي والحسابات المترابطة.'],['التنبؤ والتوصيات','ينبّه بالقضايا الصاعدة ويقترح الخطوة التالية.']];
+    var NS='http://www.w3.org/2000/svg';function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e}
+    O.appendChild(el('circle',{cx:200,cy:200,r:150,fill:'none',stroke:'rgba(255,255,255,.12)'}));
+    O.appendChild(el('circle',{cx:200,cy:200,r:100,fill:'none',stroke:'rgba(255,255,255,.08)','stroke-dasharray':'2 6'}));
+    var link=el('line',{x1:200,y1:200,x2:200,y2:50,stroke:'#D5AD25','stroke-width':1.5,'stroke-dasharray':'4 4'});O.appendChild(link);
+    O.appendChild(el('circle',{cx:200,cy:200,r:52,fill:'#168B92'}));
+    var ct=el('text',{x:200,y:208,'text-anchor':'middle',fill:'#fff','font-size':'24','font-weight':'800'});ct.textContent='رسين';O.appendChild(ct);
+    var cur=0,hold=0,vis=false;
+    var nodes=Ly.map(function(l,i){var g=el('g',{}),c=el('circle',{r:14,fill:'#0F2D3D',stroke:'#3CC8CF','stroke-width':1.5}),t=el('text',{'text-anchor':'middle',y:5,fill:'#fff','font-size':'12','font-weight':'700'});
+      t.textContent=i+1;g.appendChild(c);g.appendChild(t);O.appendChild(g);
+      var b=document.createElement('button');b.type='button';b.className='oit';b.innerHTML='<b>'+(i+1)+'. '+l[0]+'</b><p>'+l[1]+'</p>';b.addEventListener('click',function(){cur=i;hold=2;mark()});Ol.appendChild(b);return c});
+    function mark(){nodes.forEach(function(c,j){var on=j===cur;c.setAttribute('fill',on?'#D5AD25':'#0F2D3D');c.setAttribute('stroke',on?'#D5AD25':'#3CC8CF');c.setAttribute('r',on?20:14)});Ol.querySelectorAll('.oit').forEach(function(b,j){b.classList.toggle('on',j===cur)})}
+    mark();
+    new IntersectionObserver(function(e){vis=e[0].isIntersecting},{threshold:.3}).observe(O);
+    (function f(t){var rot=reduce?0:t/18000;nodes.forEach(function(c,i){var a=-Math.PI/2+i*Math.PI/3+rot,x=200+150*Math.cos(a),y=200+150*Math.sin(a);c.parentNode.setAttribute('transform','translate('+x.toFixed(1)+','+y.toFixed(1)+')');if(i===cur){link.setAttribute('x2',x.toFixed(1));link.setAttribute('y2',y.toFixed(1))}});requestAnimationFrame(f)})(0);
+    setInterval(function(){if(!vis||reduce)return;if(hold>0){hold--;return}cur=(cur+1)%6;mark()},2600);
   })();
-  var aiName=$('#aiName');
-  function setLayer(i){aiLayer=i;layerEls.forEach(function(l,j){l.classList.toggle('on',j===i)});aiName.textContent=names[i];}
-  var aiVis=false; new IntersectionObserver(function(e){aiVis=e[0].isIntersecting},{threshold:.3}).observe($('#ai'));
-  var hold=0; layerEls.forEach(function(l,i){l.addEventListener('click',function(){setLayer(i);hold=2});});
-  setInterval(function(){if(!aiVis||reduce) return; if(hold>0){hold--;return;} setLayer((aiLayer+1)%6);},2600);}
 
   // ---------- hero app: the live feed keeps receiving stories
   var feed=$('#feed'); if(feed){var extra=[
