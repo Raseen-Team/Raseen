@@ -504,6 +504,17 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 #problem .ring{transition:opacity .3s,transform .3s cubic-bezier(.2,.8,.2,1)}
 #problem .rings:has(.lit) .ring:not(.lit){opacity:.45}
 #problem .ring.lit{transform:translateY(-6px)}
+
+/* survey figures as waving water circles (option 1, Nov 21) */
+#problem .tanks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;background:var(--navy);border-radius:24px;padding:36px 28px}
+#problem .tk{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+#problem .tank{position:relative;width:min(200px,100%);aspect-ratio:1;border-radius:50%;overflow:hidden;background:var(--navy-2);box-shadow:inset 0 0 0 1px var(--line-d)}
+#problem .tank svg{position:absolute;inset:0;width:100%;height:100%}
+#problem .tank .n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:2px;direction:ltr;color:#fff;font-size:clamp(28px,3.4vw,42px);font-weight:700;font-variant-numeric:tabular-nums}
+#problem .tank .n i{font-style:normal;font-size:.5em;opacity:.85}
+#problem .tlab{font-size:18px;font-weight:600;color:#fff;line-height:1.6}
+#problem .tlab small{display:block;font-size:13px;font-weight:400;color:rgba(255,255,255,.55)}
+@media (max-width:700px){#problem .tanks{grid-template-columns:1fr;gap:28px}#problem .tank{width:170px}}
 </style>
 
 <div dir="rtl" lang="ar">
@@ -555,10 +566,10 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 <section class="band" id="problem"><div class="wrap prob">
   <h2 class="h2 rv">خبر واحد، عشرات النسخ.<br><em>ومن قاله أول؟</em></h2>
   <p class="plab rv">سألنا 13 إعلاميًا من زوار المنتدى السعودي للإعلام، وهذي إجاباتهم:</p>
-  <div class="rings rv">
-    <div class="ring"><b class="num"><span class="cnt" data-v="69.2">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يصعب عليهم معرفة المصدر الأول<small>9 من 13 إعلاميًا</small></span></div>
-    <div class="ring"><b class="num"><span class="cnt" data-v="61.5">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يتأخرون في اكتشاف تطور مهم<small>8 من 13 إعلاميًا</small></span></div>
-    <div class="ring"><b class="num"><span class="cnt" data-v="53.8">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يتكرر عليهم الخبر نفسه<small>7 من 13 إعلاميًا</small></span></div>
+  <div class="tanks rv" id="tanks">
+    <div class="tk" data-v="69.2"><div class="tank"><svg viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true"><path fill="#168B92" opacity=".45"/><path fill="#168B92"/></svg><b class="n"><span>69.2</span><i>%</i></b></div><div class="tlab">يصعب عليهم معرفة المصدر الأول<small>9 من 13 إعلاميًا</small></div></div>
+    <div class="tk" data-v="61.5"><div class="tank"><svg viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true"><path fill="#D5AD25" opacity=".45"/><path fill="#D5AD25"/></svg><b class="n"><span>61.5</span><i>%</i></b></div><div class="tlab">يتأخرون في اكتشاف تطور مهم<small>8 من 13 إعلاميًا</small></div></div>
+    <div class="tk" data-v="53.8"><div class="tank"><svg viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true"><path fill="#168B92" opacity=".45"/><path fill="#168B92"/></svg><b class="n"><span>53.8</span><i>%</i></b></div><div class="tlab">يتكرر عليهم الخبر نفسه<small>7 من 13 إعلاميًا</small></div></div>
   </div>
   <p class="src rv" style="grid-column:1 / -1;margin:0">المصدر: استبيان رسين، والنسب من الإجابات الصالحة لكل سؤال.</p>
 </div></section>
@@ -850,6 +861,17 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
   })();
 
   (function(){var w=document.getElementById('wroad');if(w)new IntersectionObserver(function(e){if(e[0].isIntersecting)w.classList.add('in')},{threshold:.4}).observe(w)})();
+  // survey figures: each one is a circle of water that waves; its level is the share (option 1, Nov 21; Liquid Glass style)
+  (function(){
+    var host=document.getElementById('tanks'); if(!host) return;
+    var T=[].slice.call(host.querySelectorAll('.tk')).map(function(el,k){var ps=el.querySelectorAll('path');return {a:ps[0],b:ps[1],v:parseFloat(el.dataset.v),n:el.querySelector('.n span'),ph:k*1.7}});
+    function wp(l,t,amp,len){var y0=200-200*l,s='M0 200 L0 '+y0.toFixed(1);for(var x=0;x<=400;x+=10){s+=' L'+x+' '+(y0+Math.sin(x/len*Math.PI*2+t)*amp).toFixed(1)}return s+' L400 200 Z'}
+    var vis=false,t0=0;
+    new IntersectionObserver(function(e){var v=e[0].isIntersecting;if(v&&!vis)t0=performance.now();vis=v},{threshold:.3}).observe(host);
+    (function f(t){if(vis){var e=Math.min(1,(t-t0)/1400),k=1-Math.pow(1-e,3);
+      T.forEach(function(o){var l=o.v/100*k,s=t/600+o.ph;o.a.setAttribute('d',wp(l+.02,s*1.3,7,180));o.b.setAttribute('d',wp(l,s,6,200));o.n.textContent=(o.v*k).toFixed(1)})}
+      requestAnimationFrame(f)})(0);
+  })();
   // ---------- AI engine: Raseen at the centre, six layers on one orbit (Orbit option, Nov 21; orbit motif from the team deck)
   (function(){
     var O=document.getElementById('orbS'),Ol=document.getElementById('orbL'); if(!O) return;
@@ -994,14 +1016,5 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
       gsap.set(els,{y:28,opacity:0}); ScrollTrigger.batch(els,{start:'top 88%',once:true,onEnter:function(b){gsap.to(b,{y:0,opacity:1,duration:1,ease:'expo.out',stagger:.08,clearProps:'transform,opacity'})}});
     });
   }
-  // survey figures: count up every time the panel comes into view, then take turns in the spotlight (Nov 21)
-  var rgs=$$('#problem .ring'), spot=-1, spotT=null;
-  function spotlight(){spot=(spot+1)%rgs.length;rgs.forEach(function(r,i){r.classList.toggle('lit',i===spot)});
-    var b=rgs[spot].querySelector('.cnt'),v=parseFloat(b.dataset.v),o={v:0};
-    gsap.to(o,{v:v,duration:.8,ease:'power3.out',onUpdate:function(){b.textContent=o.v.toFixed(1);fillBar(b,o.v)}});}
-  function playRings(){$$('.cnt').forEach(countUp);clearInterval(spotT);spot=-1;rgs.forEach(function(r){r.classList.remove('lit')});
-    spotT=setInterval(spotlight,1800);setTimeout(spotlight,1100);}
-  function stopRings(){clearInterval(spotT);spotT=null;}
-  ScrollTrigger.create({trigger:'.rings',start:'top 85%',end:'bottom 10%',onEnter:playRings,onEnterBack:playRings,onLeave:stopRings,onLeaveBack:function(){stopRings();$$('.cnt').forEach(function(b){b.textContent='0';fillBar(b,0)})}});
 })();
 </script>
