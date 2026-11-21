@@ -499,6 +499,11 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 #problem .ring>span{font-size:18px;font-weight:600;color:#fff;line-height:1.6}
 #problem .ring>span small{display:block;font-size:13px;font-weight:400;color:rgba(255,255,255,.55);margin-top:2px}
 #problem .src{margin-top:14px!important}
+
+/* survey figures: the lit one rises, the others dim (Nov 21) */
+#problem .ring{transition:opacity .5s,transform .5s cubic-bezier(.2,.8,.2,1)}
+#problem .rings:has(.lit) .ring:not(.lit){opacity:.45}
+#problem .ring.lit{transform:translateY(-6px)}
 </style>
 
 <div dir="rtl" lang="ar">
@@ -3211,6 +3216,14 @@ ready.then(function(){if(location.hash==='#story'&&L.on&&L.stories[0])openStory(
       gsap.set(els,{y:28,opacity:0}); ScrollTrigger.batch(els,{start:'top 88%',once:true,onEnter:function(b){gsap.to(b,{y:0,opacity:1,duration:1,ease:'expo.out',stagger:.08,clearProps:'transform,opacity'})}});
     });
   }
-  ScrollTrigger.create({trigger:'.rings',start:'top 85%',once:true,onEnter:function(){$$('.cnt').forEach(countUp)}});
+  // survey figures: count up every time the panel comes into view, then take turns in the spotlight (Nov 21)
+  var rgs=$$('#problem .ring'), spot=-1, spotT=null;
+  function spotlight(){spot=(spot+1)%rgs.length;rgs.forEach(function(r,i){r.classList.toggle('lit',i===spot)});
+    var b=rgs[spot].querySelector('.cnt'),v=parseFloat(b.dataset.v),o={v:0};
+    gsap.to(o,{v:v,duration:1.4,ease:'power3.out',onUpdate:function(){b.textContent=o.v.toFixed(1);fillBar(b,o.v)}});}
+  function playRings(){$$('.cnt').forEach(countUp);clearInterval(spotT);spot=-1;rgs.forEach(function(r){r.classList.remove('lit')});
+    spotT=setInterval(spotlight,3200);setTimeout(spotlight,2000);}
+  function stopRings(){clearInterval(spotT);spotT=null;}
+  ScrollTrigger.create({trigger:'.rings',start:'top 85%',end:'bottom 10%',onEnter:playRings,onEnterBack:playRings,onLeave:stopRings,onLeaveBack:function(){stopRings();$$('.cnt').forEach(function(b){b.textContent='0';fillBar(b,0)})}});
 })();
 </script>
