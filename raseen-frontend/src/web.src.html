@@ -492,6 +492,13 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 #ai .oit.on{background:var(--navy-2);box-shadow:inset 0 0 0 1px var(--line-d)}#ai .oit.on p{display:block}#ai .oit.on b{color:#3CC8CF}
 #ai .oit:focus-visible{outline:2px solid var(--mustard)}
 @media (max-width:760px){#ai .orb{grid-template-columns:1fr}}
+
+/* problem: one-column head, survey label right above the panel, bigger labels with counts (Nov 21) */
+#problem .prob{grid-template-columns:minmax(0,1fr);gap:0}
+#problem .plab{margin:40px 0 14px;font-size:16px;font-weight:600;color:var(--ink-2)}
+#problem .ring>span{font-size:18px;font-weight:600;color:#fff;line-height:1.6}
+#problem .ring>span small{display:block;font-size:13px;font-weight:400;color:rgba(255,255,255,.55);margin-top:2px}
+#problem .src{margin-top:14px!important}
 </style>
 
 <div dir="rtl" lang="ar">
@@ -542,13 +549,13 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 <!-- problem -->
 <section class="band" id="problem"><div class="wrap prob">
   <h2 class="h2 rv">خبر واحد، عشرات النسخ.<br><em>ومن قاله أول؟</em></h2>
-  <p class="lede rv" style="margin:0">هذا ما قاله الإعلاميون في استبيان رسين</p>
+  <p class="plab rv">سألنا 13 إعلاميًا من زوار المنتدى السعودي للإعلام، وهذي إجاباتهم:</p>
   <div class="rings rv">
-    <div class="ring"><b class="num"><span class="cnt" data-v="69.2">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يصعب عليهم معرفة المصدر الأول</span></div>
-    <div class="ring"><b class="num"><span class="cnt" data-v="61.5">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يتأخرون في اكتشاف تطور مهم</span></div>
-    <div class="ring"><b class="num"><span class="cnt" data-v="53.8">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يتكرر عليهم الخبر نفسه</span></div>
+    <div class="ring"><b class="num"><span class="cnt" data-v="69.2">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يصعب عليهم معرفة المصدر الأول<small>9 من 13 إعلاميًا</small></span></div>
+    <div class="ring"><b class="num"><span class="cnt" data-v="61.5">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يتأخرون في اكتشاف تطور مهم<small>8 من 13 إعلاميًا</small></span></div>
+    <div class="ring"><b class="num"><span class="cnt" data-v="53.8">0</span><i>%</i></b><div class="bar"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><span>يتكرر عليهم الخبر نفسه<small>7 من 13 إعلاميًا</small></span></div>
   </div>
-  <p class="src rv" style="grid-column:1 / -1;margin:0">المصدر: استبيان رسين لممارسين من زوار المنتدى السعودي للإعلام، والنسب من الإجابات الصالحة لكل سؤال.</p>
+  <p class="src rv" style="grid-column:1 / -1;margin:0">المصدر: استبيان رسين، والنسب من الإجابات الصالحة لكل سؤال.</p>
 </div></section>
 
 <!-- features -->
