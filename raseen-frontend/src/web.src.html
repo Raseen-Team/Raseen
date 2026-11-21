@@ -468,22 +468,22 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 
 #problem .h2 em{font-style:normal;color:var(--teal)}
 
-/* merged who + road on dark (Nov 21) */
-#who .ac{background:var(--navy-2);box-shadow:inset 0 0 0 1px var(--line-d);color:#fff}
-#who .ac p{color:var(--on-2)}
-#who .ac .ic{background:rgba(255,255,255,.06);color:var(--teal-2,#3CC8CF)}
-#who .rh{font-size:20px;font-weight:600;margin:56px 0 20px}
-
-/* AI engine: orbit panel (Nov 21) */
-#ai .orb{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:center;background:var(--navy);border-radius:24px;padding:clamp(20px,4vw,48px);color:#fff}
-#ai .orb svg{width:100%;max-width:440px;height:auto;display:block;margin:auto;font-family:inherit}
-#ai .olist{display:flex;flex-direction:column;gap:4px}
-#ai .oit{all:unset;cursor:pointer;padding:14px 18px;border-radius:14px;color:var(--on-2);transition:background .3s}
-#ai .oit b{display:block;color:#fff;font-size:17px;font-weight:600}
-#ai .oit p{margin:4px 0 0;font-size:14px;line-height:1.7;display:none}
-#ai .oit.on{background:var(--navy-2);box-shadow:inset 0 0 0 1px var(--line-d)}#ai .oit.on p{display:block}#ai .oit.on b{color:#3CC8CF}
-#ai .oit:focus-visible{outline:2px solid var(--mustard)}
-@media (max-width:760px){#ai .orb{grid-template-columns:1fr}}
+/* who + road: hairline columns and a roadmap line (Swiss, Nov 21) */
+.wcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.wc{padding:4px 24px}.wc+.wc{border-right:1px solid var(--line-d)}
+.wc svg{width:28px;height:28px;color:var(--teal-2)}
+.wc b{display:block;font-size:19px;font-weight:600;margin-top:14px}.wc p{margin:6px 0 0;color:var(--on-2);line-height:1.8}
+.wroad{margin-top:64px;position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.wroad:before{content:"";position:absolute;top:8px;inset-inline:0;height:2px;background:var(--line-d)}
+.wroad .fill{position:absolute;top:8px;right:0;height:2px;background:var(--mustard);width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1) .3s}
+.wroad.in .fill{width:12%}
+.wp{position:relative;padding-inline-end:16px}
+.wp i{display:block;width:18px;height:18px;border-radius:50%;background:var(--navy);border:2px solid rgba(255,255,255,.3);position:relative}
+.wp.now i{background:var(--mustard);border-color:var(--mustard);box-shadow:0 0 0 6px rgba(213,173,37,.18)}
+.wp small{display:block;margin-top:14px;color:var(--on-2);font-size:13px}.wp.now small{color:var(--mustard)}
+.wp b{display:block;margin-top:4px;font-size:16px;font-weight:600;line-height:1.6}
+@media (max-width:760px){.wcols{grid-template-columns:1fr}.wc{padding:0}.wc+.wc{border-right:0;border-top:1px solid var(--line-d);padding-top:20px;margin-top:20px}
+ .wroad{grid-template-columns:1fr;gap:20px}.wroad:before,.wroad .fill{display:none}}
 </style>
 
 <div dir="rtl" lang="ar">
@@ -637,21 +637,11 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
   </div>
 </div></section>
 
-<!-- audience + roadmap (merged) -->
+<!-- audience + roadmap (merged; Swiss lines, no cards, Nov 21) -->
 <section class="band dark" id="who"><div class="wrap">
   <div class="head"><h2 class="h2 rv">لمن رسين، وإلى أين يتجه</h2><p class="lede rv">مصمَّم لمن يتخذ القرار بسرعة، ويكبر من نموذج أولي اليوم إلى منصة إقليمية.</p></div>
-  <div class="aud">
-    <div class="ac rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7 9h7M7 12.5h7M7 16h4"/></svg></span><b>غرف الأخبار</b><p>تعرف أول مصدر للخبر قبل النشر، فلا تنقل إشاعة على أنها خبر.</p></div>
-    <div class="ac rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 10v4l11 5V5z"/><path d="M14 8a4 4 0 0 1 0 8M7 15v4h3"/></svg></span><b>العلاقات العامة والأزمات</b><p>تكتشف الأزمة عند أول ظهور، بدل انتظار تقرير اليوم التالي.</p></div>
-    <div class="ac rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l8 4H4z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span><b>الاتصال الحكومي</b><p>ترى ما يُقال عن الجهة في كل المنصات، في لوحة واحدة.</p></div>
-  </div>
-  <h3 class="rh rv">خارطة الطريق</h3>
-  <div class="road">
-    <div class="ph now rv"><span class="k">المرحلة 1 <span>الآن</span></span><b>النموذج الأولي والنسخة التجريبية</b></div>
-    <div class="ph rv"><span class="k">المرحلة 2</span><b>التطبيق مع شركاء استراتيجيين وتطوير القدرات الذكية</b></div>
-    <div class="ph rv"><span class="k">المرحلة 3</span><b>الإطلاق التجاري في السوق السعودي</b></div>
-    <div class="ph rv"><span class="k">المرحلة 4</span><b>التوسع إقليميًا وخدمات ذكاء إعلامي متقدمة</b></div>
-  </div>
+  <div class="wcols rv"><div class="wc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7 9h7M7 12.5h7M7 16h4"/></svg><b>غرف الأخبار</b><p>تعرف أول مصدر للخبر قبل النشر، فلا تنقل إشاعة على أنها خبر.</p></div><div class="wc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 10v4l11 5V5z"/><path d="M14 8a4 4 0 0 1 0 8M7 15v4h3"/></svg><b>العلاقات العامة والأزمات</b><p>تكتشف الأزمة عند أول ظهور، بدل انتظار تقرير اليوم التالي.</p></div><div class="wc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l8 4H4z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg><b>الاتصال الحكومي</b><p>ترى ما يُقال عن الجهة في كل المنصات، في لوحة واحدة.</p></div></div>
+  <div class="wroad rv" id="wroad"><div class="fill"></div><div class="wp now"><i></i><small>المرحلة 1 · الآن</small><b>النموذج الأولي والنسخة التجريبية</b></div><div class="wp"><i></i><small>المرحلة 2</small><b>التطبيق مع شركاء استراتيجيين وتطوير القدرات الذكية</b></div><div class="wp"><i></i><small>المرحلة 3</small><b>الإطلاق التجاري في السوق السعودي</b></div><div class="wp"><i></i><small>المرحلة 4</small><b>التوسع إقليميًا وخدمات ذكاء إعلامي متقدمة</b></div></div>
 </div></section>
 
 <!-- faq -->
@@ -839,6 +829,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
     requestAnimationFrame(frame);
   })();
 
+  (function(){var w=document.getElementById('wroad');if(w)new IntersectionObserver(function(e){if(e[0].isIntersecting)w.classList.add('in')},{threshold:.4}).observe(w)})();
   // ---------- AI engine: Raseen at the centre, six layers on one orbit (Orbit option, Nov 21; orbit motif from the team deck)
   (function(){
     var O=document.getElementById('orbS'),Ol=document.getElementById('orbL'); if(!O) return;
