@@ -681,7 +681,7 @@ a.card.kpi:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(11
   --paper:rgba(255,255,255,.05);--paper-2:rgba(255,255,255,.07);--teal-bg:rgba(60,200,207,.16);--mustard-bg:rgba(213,173,37,.16);--mustard-ink:#E9C755;--claim-bg:rgba(216,88,74,.2);--claim-ink:#FF9A8E;--pl:rgba(255,255,255,.06);
   color:#fff;border:0;
   background-color:#0B2432;
-  background-image:radial-gradient(38vw 38vw at 22% 18%,rgba(22,139,146,.75),transparent 70%),radial-gradient(30vw 30vw at 78% 70%,rgba(213,173,37,.32),transparent 70%),radial-gradient(34vw 34vw at 60% 30%,rgba(60,200,207,.35),transparent 70%);
+  background-image:radial-gradient(38vw 38vw at 22% 18%,rgba(22,139,146,.32),transparent 70%),radial-gradient(30vw 30vw at 78% 70%,rgba(213,173,37,.12),transparent 70%),radial-gradient(34vw 34vw at 60% 30%,rgba(60,200,207,.12),transparent 70%);
   background-attachment:fixed;background-repeat:no-repeat;background-size:100% 100%;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 0 1px rgba(255,255,255,.08),0 10px 30px -12px rgba(11,36,50,.35);
   animation:aurp 30s ease-in-out infinite alternate}
@@ -712,6 +712,21 @@ a.card.kpi:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(11
 /* top bar: no floating pill, just the controls on the page */
 .pro.aur .snav,.pro.aur .snav.solid{background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:0}
 .pro.aur .snav .livep{display:none}
+
+
+/* account: silhouette avatar, menu with profile + logout (Nov 21) */
+.acct{position:relative}
+.acb{all:unset;cursor:pointer;display:block;border-radius:50%}
+.acb:focus-visible{outline:2px solid var(--mustard);outline-offset:2px}
+.sil{width:36px;height:36px;border-radius:50%;background:var(--paper-2,#E9EEEC);color:var(--ink-3,#7B909A);display:grid;place-items:end center;overflow:hidden;flex:none}
+.sil svg{width:30px;height:30px;margin-bottom:-3px}
+.acm{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:230px;background:#fff;color:#0B2432;border-radius:14px;box-shadow:0 18px 40px -12px rgba(11,36,50,.35),0 0 0 1px rgba(11,36,50,.06);padding:8px;display:none;z-index:60}
+.acct.open .acm{display:block}
+.ach{display:flex;align-items:center;gap:10px;padding:8px 8px 12px;border-bottom:1px solid #E9EEEC;margin-bottom:6px}
+.ach b{display:block;font-size:14px}.ach small{font-size:12px;color:#7B909A}
+.acm a{display:block;padding:10px;border-radius:8px;font-size:14px;color:#0B2432;text-decoration:none}
+.acm a:hover{background:#F2F5F4}
+.acm a.out{color:#B8412F}
 
 /* toast + help */
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--navy);color:#fff;border-radius:12px;padding:12px 18px;font-size:14px;display:flex;gap:10px;align-items:center;z-index:80;transition:transform .5s var(--ease);box-shadow:0 20px 40px -10px rgba(0,0,0,.4)}
@@ -1088,8 +1103,14 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
     <div class="send">
       <span class="livep"><i class="dotl"></i>الرصد يعمل</span>
       <label class="search"><svg><use href="#i-search"/></svg><input id="q" placeholder="ابحث في القصص" aria-label="بحث"></label>
-      <a class="slogin" href="#login" id="logout">تسجيل الخروج</a>
-      <span class="av" title="فريق التحرير">ف</span>
+      <div class="acct">
+        <button class="acb" id="acB" aria-haspopup="true" aria-expanded="false" aria-label="الحساب"><span class="sil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4" fill="currentColor"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z" fill="currentColor"/></svg></span></button>
+        <div class="acm" id="acM" role="menu">
+          <div class="ach"><span class="sil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4" fill="currentColor"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z" fill="currentColor"/></svg></span><div><b>فريق التحرير</b><small>مدير الحساب</small></div></div>
+          <a role="menuitem" href="#settings">الملف الشخصي والإعدادات</a>
+          <a role="menuitem" class="out" href="#login" id="logout">تسجيل الخروج</a>
+        </div>
+      </div>
       <button class="menu-b" id="menuB" aria-label="القائمة" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div></header>
@@ -1677,6 +1698,12 @@ $('#menuB').addEventListener('click',function(){var o=$('#sheet').classList.togg
 $('#bbMore').addEventListener('click',function(){var o=$('#sheet').classList.toggle('open');$('#menuB').setAttribute('aria-expanded',o)});
 $$('#sheet a').forEach(function(a){a.addEventListener('click',function(){$('#sheet').classList.remove('open')})});
 
+/* ---- account menu */
+(function(){var a=document.querySelector('.acct'),b=document.getElementById('acB');if(!a||!b)return;
+ b.addEventListener('click',function(e){e.stopPropagation();var o=a.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+ document.addEventListener('click',function(e){if(!a.contains(e.target)){a.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+ a.querySelectorAll('.acm a').forEach(function(x){x.addEventListener('click',function(){a.classList.remove('open')})});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')a.classList.remove('open')});})();
 /* ---- inside the website: logo, logout and back link return to the site */
 var inSite=window.parent!==window;
 if(inSite){$$('.back-site').forEach(function(x){x.classList.add('in')});$('#logout').setAttribute('data-exit','');$('.sbrand').setAttribute('data-exit','');}
