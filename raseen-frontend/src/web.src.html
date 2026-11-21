@@ -468,22 +468,20 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 
 #problem .h2 em{font-style:normal;color:var(--teal)}
 
-/* who + road: hairline columns and a roadmap line (Swiss, Nov 21) */
-.wcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-.wc{padding:4px 24px}.wc+.wc{border-right:1px solid var(--line-d)}
-.wc svg{width:28px;height:28px;color:var(--teal-2)}
-.wc b{display:block;font-size:19px;font-weight:600;margin-top:14px}.wc p{margin:6px 0 0;color:var(--on-2);line-height:1.8}
-.wroad{margin-top:64px;position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
-.wroad:before{content:"";position:absolute;top:8px;inset-inline:0;height:2px;background:var(--line-d)}
-.wroad .fill{position:absolute;top:8px;right:0;height:2px;background:var(--mustard);width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1) .3s}
-.wroad.in .fill{width:12%}
-.wp{position:relative;padding-inline-end:16px}
-.wp i{display:block;width:18px;height:18px;border-radius:50%;background:var(--navy);border:2px solid rgba(255,255,255,.3);position:relative}
-.wp.now i{background:var(--mustard);border-color:var(--mustard);box-shadow:0 0 0 6px rgba(213,173,37,.18)}
-.wp small{display:block;margin-top:14px;color:var(--on-2);font-size:13px}.wp.now small{color:var(--mustard)}
-.wp b{display:block;margin-top:4px;font-size:16px;font-weight:600;line-height:1.6}
-@media (max-width:760px){.wcols{grid-template-columns:1fr}.wc{padding:0}.wc+.wc{border-right:0;border-top:1px solid var(--line-d);padding-top:20px;margin-top:20px}
- .wroad{grid-template-columns:1fr;gap:20px}.wroad:before,.wroad .fill{display:none}}
+/* who + road: two rows drifting in opposite directions (option 11, Nov 21) */
+#who .mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+#who .mq+.mq{margin-top:14px}
+#who .mrow,#who .mcp{display:flex;gap:14px;width:max-content}
+#who .mrow{animation:mqa 36s linear infinite}
+#who .mq.rev .mrow{animation-direction:reverse;animation-duration:44s}
+#who .mq:hover .mrow{animation-play-state:paused}
+@keyframes mqa{to{transform:translateX(50%)}}
+#who .mi{flex:none;width:340px;padding:22px 24px;border-radius:18px;background:var(--navy-2);box-shadow:inset 0 0 0 1px var(--line-d)}
+#who .mi b{display:block;font-size:19px;font-weight:600}#who .mi p{margin:6px 0 0;color:var(--on-2);line-height:1.7;font-size:15px}
+#who .mi small{color:var(--on-3);font-size:12px}
+#who .mi.r{width:280px;background:transparent}#who .mi.r.now{box-shadow:inset 0 0 0 1.5px var(--mustard)}#who .mi.r.now small{color:var(--mustard)}
+@media (max-width:640px){#who .mi{width:270px}#who .mi.r{width:230px}}
+@media (prefers-reduced-motion:reduce){#who .mrow{animation:none}#who .mq{overflow-x:auto}}
 </style>
 
 <div dir="rtl" lang="ar">
@@ -640,8 +638,8 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 <!-- audience + roadmap (merged; Swiss lines, no cards, Nov 21) -->
 <section class="band dark" id="who"><div class="wrap">
   <div class="head"><h2 class="h2 rv">لمن رسين، وإلى أين يتجه</h2><p class="lede rv">مصمَّم لمن يتخذ القرار بسرعة، ويكبر من نموذج أولي اليوم إلى منصة إقليمية.</p></div>
-  <div class="wcols rv"><div class="wc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7 9h7M7 12.5h7M7 16h4"/></svg><b>غرف الأخبار</b><p>تعرف أول مصدر للخبر قبل النشر، فلا تنقل إشاعة على أنها خبر.</p></div><div class="wc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 10v4l11 5V5z"/><path d="M14 8a4 4 0 0 1 0 8M7 15v4h3"/></svg><b>العلاقات العامة والأزمات</b><p>تكتشف الأزمة عند أول ظهور، بدل انتظار تقرير اليوم التالي.</p></div><div class="wc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l8 4H4z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg><b>الاتصال الحكومي</b><p>ترى ما يُقال عن الجهة في كل المنصات، في لوحة واحدة.</p></div></div>
-  <div class="wroad rv" id="wroad"><div class="fill"></div><div class="wp now"><i></i><small>المرحلة 1 · الآن</small><b>النموذج الأولي والنسخة التجريبية</b></div><div class="wp"><i></i><small>المرحلة 2</small><b>التطبيق مع شركاء استراتيجيين وتطوير القدرات الذكية</b></div><div class="wp"><i></i><small>المرحلة 3</small><b>الإطلاق التجاري في السوق السعودي</b></div><div class="wp"><i></i><small>المرحلة 4</small><b>التوسع إقليميًا وخدمات ذكاء إعلامي متقدمة</b></div></div>
+  <div class="mq"><div class="mrow"><div class="mi"><b>غرف الأخبار</b><p>تعرف أول مصدر للخبر قبل النشر، فلا تنقل إشاعة على أنها خبر.</p></div><div class="mi"><b>العلاقات العامة والأزمات</b><p>تكتشف الأزمة عند أول ظهور، بدل انتظار تقرير اليوم التالي.</p></div><div class="mi"><b>الاتصال الحكومي</b><p>ترى ما يُقال عن الجهة في كل المنصات، في لوحة واحدة.</p></div><div class="mcp" aria-hidden="true"><div class="mi"><b>غرف الأخبار</b><p>تعرف أول مصدر للخبر قبل النشر، فلا تنقل إشاعة على أنها خبر.</p></div><div class="mi"><b>العلاقات العامة والأزمات</b><p>تكتشف الأزمة عند أول ظهور، بدل انتظار تقرير اليوم التالي.</p></div><div class="mi"><b>الاتصال الحكومي</b><p>ترى ما يُقال عن الجهة في كل المنصات، في لوحة واحدة.</p></div><div class="mi"><b>غرف الأخبار</b><p>تعرف أول مصدر للخبر قبل النشر، فلا تنقل إشاعة على أنها خبر.</p></div><div class="mi"><b>العلاقات العامة والأزمات</b><p>تكتشف الأزمة عند أول ظهور، بدل انتظار تقرير اليوم التالي.</p></div><div class="mi"><b>الاتصال الحكومي</b><p>ترى ما يُقال عن الجهة في كل المنصات، في لوحة واحدة.</p></div><div class="mi"><b>غرف الأخبار</b><p>تعرف أول مصدر للخبر قبل النشر، فلا تنقل إشاعة على أنها خبر.</p></div><div class="mi"><b>العلاقات العامة والأزمات</b><p>تكتشف الأزمة عند أول ظهور، بدل انتظار تقرير اليوم التالي.</p></div><div class="mi"><b>الاتصال الحكومي</b><p>ترى ما يُقال عن الجهة في كل المنصات، في لوحة واحدة.</p></div></div></div></div>
+  <div class="mq rev"><div class="mrow"><div class="mi r now"><small>المرحلة 1 · الآن</small><b>النموذج الأولي والنسخة التجريبية</b></div><div class="mi r"><small>المرحلة 2</small><b>التطبيق مع شركاء استراتيجيين</b></div><div class="mi r"><small>المرحلة 3</small><b>الإطلاق التجاري في السوق السعودي</b></div><div class="mi r"><small>المرحلة 4</small><b>التوسع إقليميًا</b></div><div class="mcp" aria-hidden="true"><div class="mi r now"><small>المرحلة 1 · الآن</small><b>النموذج الأولي والنسخة التجريبية</b></div><div class="mi r"><small>المرحلة 2</small><b>التطبيق مع شركاء استراتيجيين</b></div><div class="mi r"><small>المرحلة 3</small><b>الإطلاق التجاري في السوق السعودي</b></div><div class="mi r"><small>المرحلة 4</small><b>التوسع إقليميًا</b></div><div class="mi r now"><small>المرحلة 1 · الآن</small><b>النموذج الأولي والنسخة التجريبية</b></div><div class="mi r"><small>المرحلة 2</small><b>التطبيق مع شركاء استراتيجيين</b></div><div class="mi r"><small>المرحلة 3</small><b>الإطلاق التجاري في السوق السعودي</b></div><div class="mi r"><small>المرحلة 4</small><b>التوسع إقليميًا</b></div><div class="mi r now"><small>المرحلة 1 · الآن</small><b>النموذج الأولي والنسخة التجريبية</b></div><div class="mi r"><small>المرحلة 2</small><b>التطبيق مع شركاء استراتيجيين</b></div><div class="mi r"><small>المرحلة 3</small><b>الإطلاق التجاري في السوق السعودي</b></div><div class="mi r"><small>المرحلة 4</small><b>التوسع إقليميًا</b></div></div></div></div>
 </div></section>
 
 <!-- faq -->
